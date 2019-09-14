@@ -1,0 +1,154 @@
+<div>
+    <div class="bor">
+        <div class="account-head">
+            <label class="mr">
+                 <el-input placeholder="请输入系统订单号" v-model="pay_order_id" clearable></el-input>
+            </label>
+            <label class="mr">
+                 <el-date-picker
+                  v-model="pay_apply_date"
+                  type="daterange"
+                  range-separator=""
+                  start-placeholder="创建日期"
+                  value-format="yyyy-MM-dd">
+                </el-date-picker>
+             
+            </label>
+            <label class="mr">
+                  <el-date-picker
+                  v-model="pay_success_date"
+                  type="daterange"
+                  range-separator=""
+                  start-placeholder="支付成功时间"
+                  value-format="yyyy-MM-dd"
+                  >
+                </el-date-picker>
+            </label>
+            <label>
+                <el-select v-model="pay_status" placeholder="请选择订单状态">
+                    <el-option v-for="(item,index) in statusOptions" :key="index" :label="item.label" :value="item.value">
+                    </el-option>
+                </el-select>
+            </label>
+           
+            <label>
+                <el-select v-model="pay_type_id" placeholder="请选择通道分类">
+                    <el-option v-for="(item,index) in chanelOptions" :key="index" :label="item.name" :value="item.id">
+                    </el-option>
+                </el-select>
+            </label>
+            <label>
+                <el-select v-model="channel_id" placeholder="请选择通道">
+                    <el-option v-for="(item,index) in typeOptions" :key="index" :label="item.title" :value="item.id">
+                    </el-option>
+                </el-select>
+            </label>
+            </div>
+          <div class="grid-content bg-purple el-main fl clearfix account-head">
+            <label>
+                <el-select v-model="order_type" placeholder="请选择订单类型">
+                    <el-option v-for="(item,index) in orderTypes" :key="index" :label="item.label" :value="item.value">
+                    </el-option>
+                </el-select>
+            </label>
+            <label>
+                <el-select v-model="order_status" placeholder="请选择冻结状态">
+                    <el-option v-for="(item,index) in selectSatus" :key="index" :label="item.label" :value="item.value">
+                    </el-option>
+                </el-select>
+            </label>
+            <el-button type="primary" class="mySearch_btn fr" @click="handleSearch">查询</el-button>
+        </div>
+        <!-- <div>
+            <el-button type="success" class="myAdd_btn fl" @click="addChanel">新增通道</el-button>
+        </div> -->
+        <!-- 通道管理列表 -->
+        <el-table :data="tableData" style="width: 100%;text-align: center" border>
+            <el-table-column prop="pay_order_id" label="系统订单号"></el-table-column>
+            <el-table-column prop="out_trade_id" label="下游订单号"></el-table-column>
+            <el-table-column prop="order_type" label="订单类型"></el-table-column>
+            <el-table-column prop="merchant.username" label="商户名称"></el-table-column>
+            <el-table-column prop="type.name" label="支付渠道分类"></el-table-column>
+            <el-table-column prop="channel.title" label="支付通道分类"></el-table-column>
+            <el-table-column prop="pay_amount" label="交易金额"></el-table-column>
+            <el-table-column prop="pay_poundage" label="手续费"></el-table-column>
+            <el-table-column prop="pay_actual_amount" label="实际金额"></el-table-column>
+            <el-table-column label="冻结状态" prop="lock_status">
+                <template slot-scope="scope">
+                     <i class="el-icon-check" v-if="scope.row.lock_status"></i>
+                     <i class="el-icon-close" v-else></i>
+                </template>
+            </el-table-column>
+            <el-table-column prop="search_status" label="订单状态"></el-table-column>
+            <el-table-column prop="pay_apply_date" label="订单创建日期"></el-table-column>
+            <el-table-column prop="pay_success_date" label="订单支付成功时间"></el-table-column>
+             
+            <el-table-column label="操作" width="300px">
+                <template slot-scope="scope">
+                    <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">查看</el-button>
+                    <el-button size="mini" @click="TransactionCharge(scope.$index, scope.row)" v-if="scope.row.lock_status==0">冻结订单</el-button>
+                    <el-button size="mini" @click="handleOrder(scope.$index, scope.row)" v-if="scope.row.callbackStatus==0">补发订单</el-button>
+                </template>
+            </el-table-column>
+        </el-table>
+        <!-- 分页 -->
+        <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="+currentPage" background :page-sizes="[20, 50, 100, 200]" :page-size="+pageSize" layout="total, sizes, prev, pager, next, jumper" :total="+total"></el-pagination>
+        <!-- 信息编辑 -->
+        <el-dialog title="查看信息" class="text-left addClass" width="30%"  :visible.sync="outerVisible">
+            <el-form ref="editForm" :model="editForm" :rules="rules">
+              <!-- 管理列表 -->
+                 <table class="table">
+                    <tr>
+                        <td>系统订单号：</td><td>{{editForm.pay_order_id }}</td>
+                     </tr>
+                     <tr>
+                        <td>下游订单号：</td><td>{{editForm.out_trade_id }}</td>
+                     </tr>
+                     <tr>
+                        <td>商户名称：</td><td>{{editForm.username }}</td>
+                     </tr>
+                     <tr>
+                        <td>交易金额：</td><td>{{editForm.pay_amount }}</td>
+                     </tr>
+                     <tr>
+                        <td>手续费：</td><td>{{editForm.pay_poundage }}</td>
+                     </tr>
+                     <tr>
+                        <td>实际金额：</td><td>{{editForm.pay_actual_amount }}</td>
+                     </tr>
+                     <tr>
+                        <td>订单创建时间：</td><td>{{editForm.pay_apply_date }}</td>
+                     </tr>
+                     <tr>
+                        <td>支付成功时间:</td><td>{{editForm.pay_success_date }}</td>
+                     </tr>
+                     <tr>
+                        <td>订单状态：</td><td>{{editForm.pay_status }}</td>
+                     </tr>
+               
+                 </table>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button class="mybtAdd" @click="outerVisible = false">取 消</el-button>
+                <!-- <el-button class="mybtAdd" type="primary" @click="isUpdate('editForm')">修 改</el-button> -->
+            </div>
+        </el-dialog>
+        <!-- 添加设置订单为已支付-->
+        <el-dialog title="设置订单为已支付" class="text-left addClass" width="30%" :visible.sync="  dialogFormTransaction">
+            <el-form ref="TransactionForm" :model="TransactionForm" :rules="TransactionRules">
+                <el-form-item class="my_form_inp" label="订单号: " :label-width="formLabelWidth" prop="pay_order_id">
+                    <el-input  v-model.trim="TransactionForm.pay_order_id" autocomplete="off" disabled></el-input>
+                </el-form-item>
+                <el-form-item class="my_form_inp" label="订单金额: " :label-width="formLabelWidth" prop=" pay_amount">
+                    <el-input   v-model.trim="TransactionForm.pay_amount" autocomplete="off" disabled></el-input>
+                </el-form-item>
+                
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button class="mybtAdd" @click="dialogFormTransaction = false">取 消</el-button>
+                <el-button class="mybtAdd" type="primary" @click="submitTransactionForm('TransactionForm')">保 存</el-button>
+            </div>
+        </el-dialog>
+  
+    </div>
+</div>

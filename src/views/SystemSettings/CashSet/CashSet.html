@@ -1,0 +1,129 @@
+<div>
+    <div class="bor">
+        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" >
+            <el-row :gutter="20">
+                <el-col :span="8">
+                    <el-form-item label="单笔提款比例：" prop="fee_proportion" :label-width="labelWidth">
+                        <el-input v-model="ruleForm.fee_proportion"></el-input>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                    <el-form-item label="单笔提款手续费：" prop="fee" :label-width="labelWidth">
+                        <el-input v-model="ruleForm.fee"></el-input>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+            <el-row :gutter="20">
+                <el-col :span="8">
+                    <el-form-item label="单笔最小金额：" prop="unit_min_money" :label-width="labelWidth">
+                        <el-input v-model="ruleForm.unit_min_money"></el-input>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                    <el-form-item label="单笔最大金额" prop="unit_max_money" :label-width="labelWidth">
+                        <el-input v-model="ruleForm.unit_max_money"></el-input>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+             
+            <el-row :gutter="20">
+                <el-col :span="8">
+                    <el-form-item label="当日最大金额：" prop="day_max_money" :label-width="labelWidth">
+                        <el-input v-model="ruleForm.day_max_money"></el-input>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                    <el-form-item label="当日最大次数" prop="day_max_count" :label-width="labelWidth">
+                        <el-input v-model="ruleForm.day_max_count"></el-input>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+            <el-row :gutter="20">
+                <el-col :span="8">
+                    <el-form-item label="提款手续费类型：" prop="fee_type" :label-width="labelWidth">
+                        <el-select v-model="ruleForm.fee_type" placeholder="请选择">
+                            <el-option v-for="(item,index) in fee_typeOptions" :key="index" :label="item.label" :value="item.value">
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                    <el-form-item label="扣除手续费方式：" prop="charge_type" :label-width="labelWidth">
+                        <el-select v-model="ruleForm.charge_type" placeholder="请选择">
+                            <el-option v-for="(item,index) in charge_typeOptions" :key="index" :label="item.label":value="item.value">
+                    </el-option>
+                        </el-select>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+             <el-row :gutter="20">
+                <el-col :span="10">
+                    <el-form-item label="单人单卡单日最高提现额：" prop="day_card_money" :label-width="labelWidth">
+                        <el-input v-model="ruleForm.day_card_money"></el-input>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+            <el-row :gutter="20">
+                <el-col :span="12">
+                    <el-form-item label="提款时间：" prop="smtp_host" :label-width="labelWidth">
+                        <!-- <el-row :gutter="20" class="p0"> -->
+                        <el-col :span="9" style="margin-left:-1.5%">
+                            <div class="grid-content bg-purple">
+                                <el-time-select placeholder="起始时间" v-model="ruleForm.allow_start_time" :picker-options="{
+                          start: '00:00',
+                          step: '01:00',
+                          end: '23:00'
+                        }">
+                                </el-time-select>
+                            </div>
+                        </el-col>
+                        <el-col :span="1" style="margin-left: -1.2%">
+                            至
+                        </el-col>
+                        <el-col :span="9">
+                            <div class="grid-content bg-purple">
+                                <el-time-select placeholder="结束时间" v-model="ruleForm.allow_end_time" :picker-options="{
+                          start: '00:00',
+                          step: '01:00',
+                          end: '23:00',
+                          minTime: ruleForm.startTime
+                        }">
+                                </el-time-select>
+                            </div>
+                        </el-col>
+                        <!-- 
+                    </el-row> -->
+                    </el-form-item>
+                </el-col>
+            </el-row>
+             
+            <el-row :gutter="20">
+                <el-col :span="10">
+                    <el-form-item label="节假日排除日期："  :label-width="labelWidth" prop="day_expect">
+                    <el-date-picker
+                      v-model="ruleForm.day_expect"
+                      type="daterange"
+                      start-placeholder="开始日期"
+                      end-placeholder="结束日期"
+                      value-format="yyyy-MM-dd"
+                      >
+                    </el-date-picker>
+                </el-form-item>
+                </el-col>
+            </el-row>
+            <el-row :gutter="20">
+                <el-col :span="6">
+                    <el-form-item label="提款状态：" :label-width="labelWidth" prop="status">
+                        <el-switch v-model="ruleForm.status" active-color="#13ce66" inactive-color="#ff4949">
+                        </el-switch>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+
+            <el-form-item class="myTableForm" :label-width="labelWidth">
+                <el-button type="primary" class="submitBtn" @click="submitForm('ruleForm')">立即提交</el-button>
+                <el-button @click="resetForm('ruleForm')">重置</el-button>
+            </el-form-item>
+        </el-form>
+    </div>
+</div>

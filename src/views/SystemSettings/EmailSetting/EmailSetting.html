@@ -1,0 +1,54 @@
+<div>
+  <div class="bor">
+    <el-form
+      :model="ruleForm"
+      :rules="rules"
+      ref="ruleForm"
+      label-width="150px"
+      class="demo-ruleForm"
+    >
+      <el-form-item label="smtp服务器：" prop="smtp_host">
+        <el-input v-model="ruleForm.smtp_host"></el-input>
+      </el-form-item>
+      <el-form-item label="smpt端口：" prop="smtp_port">
+        <el-input v-model="ruleForm.smtp_port"></el-input>
+      </el-form-item>
+      <el-form-item label="smpt用户名：" prop="smtp_user">
+        <el-input v-model="ruleForm.smtp_user"></el-input>
+      </el-form-item>
+      <el-form-item label="smpt密码：" prop="smtp_pass">
+        <el-input v-model="ruleForm.smtp_pass" show-password></el-input>
+      </el-form-item>
+      <el-form-item label="发件人Email：" prop="smtp_email">
+        <el-input v-model="ruleForm.smtp_email"></el-input>
+      </el-form-item>
+      <el-form-item
+        label="发件人姓名："
+        prop="smtp_name"
+        class="senderNameClass"
+      >
+        <el-input v-model="ruleForm.smtp_name"></el-input>
+      </el-form-item>
+      <el-form-item class="myTableForm">
+        <el-button
+          type="primary"
+          class="submitBtn"
+          @click="submitForm('ruleForm')"
+          >立即提交</el-button
+        >
+        <el-button @click="resetForm('ruleForm')">重置</el-button>
+      </el-form-item>
+    </el-form>
+    <!-- <hr style="background:#ddd;height: 1px;border: none;" /> -->
+    <!-- <el-form
+    :model="ruleForm"
+    :rules="rules"
+    ref="ruleForm"
+    label-width="150px"
+    class="demo-ruleForm"
+  >
+    <el-form-item label="发件人Email：">
+      <el-input v-model="ruleForm.senderEmail"></el-input>
+  </el-form> -->
+  </div>
+</div>

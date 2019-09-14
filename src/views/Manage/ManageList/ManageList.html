@@ -1,0 +1,369 @@
+<div>
+  <div class="bor">
+    <div class="grid-content bg-purple el-main fl clearfix">
+      <label>
+        <el-input
+          placeholder="请输入姓名"
+          v-model="name"
+          clearable
+        ></el-input>
+      </label>
+      <label  style="margin:0px 10px">
+        <el-input
+          placeholder="请输入电话"
+          v-model="phone"
+          clearable
+          
+        ></el-input>
+      </label>
+      <label>
+        <el-input
+          placeholder="请输入邮箱"
+          v-model="email"
+          clearable
+        ></el-input>
+      </label>
+      <!-- <label>
+        <el-date-picker
+          v-model="value9"
+          type="daterange"
+          start-placeholder="开始日期"
+          end-placeholder="结束日期"
+          default-value="2010-10-01"
+        ></el-date-picker>
+      </label>
+      <label>
+        <el-select v-model="stateValue" style="width: 90px;margin-left:10px">
+          <el-option
+            v-for="item in stateOptions"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          ></el-option>
+        </el-select>
+      </label> -->
+      <el-button type="primary" class="mySearch_btn fr" @click="handleSearch">查询</el-button>
+    </div>
+    <div>
+      <el-button type="success" class="myAdd_btn fl" @click="addAdminUser"
+        >添加管理员</el-button
+      >
+    </div>
+
+    <!-- 管理员信息列表 -->
+    <el-table
+      :data="tableData"
+      style="width: 100%;text-align: center"
+      :default-sort="{prop: 'date', order: 'descending'}"
+      border
+    >
+      <!-- <el-table-column label="头像" width="100px">
+        <template slot-scope="scope">
+          <img :src="scope.row.imgSrc" width="50px" alt="" />
+        </template>
+      </el-table-column> -->
+
+      <el-table-column prop="id" label="ID"></el-table-column>
+      <el-table-column prop="name" label="姓名"></el-table-column>
+      <el-table-column prop="mobile" label="电话"></el-table-column>
+      <el-table-column prop="email" label="邮箱"></el-table-column>
+      <el-table-column label="状态">
+        <template slot-scope="scope">
+          <el-switch
+            v-model="scope.row.status"
+            active-color="#67c23a"
+            inactive-color="#dcdfe6"
+          @change="handleStatus(scope.$index, scope.row)"></el-switch>
+        </template>
+      </el-table-column>
+      <el-table-column prop="last_login_at" label="创建时间"></el-table-column>
+      <el-table-column prop="last_login_ip" label="IP"></el-table-column>
+      
+      <el-table-column label="操作" width="160px">
+        <template slot-scope="scope">
+            <el-button size="mini" class="" @click="editorPassword({type:'open',index:scope.$index,row:scope.row})"
+            >改密</el-button>
+          <el-button size="mini" @click="handleEdit(scope.$index, scope.row)"
+            >编辑</el-button
+          >
+          <!-- <el-button
+            size="mini"
+            type="danger"
+            class="myDeleteColor"
+            @click="handleDelete(scope.$index, scope.row)"
+            >删除</el-button
+          > -->
+        </template>
+      </el-table-column>
+    </el-table>
+    <!-- 分页 -->
+        <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="+currentPage" background :page-sizes="[20, 50, 100, 200]" :page-size="+pageSize" layout="total, sizes, prev, pager, next, jumper" :total="+total"></el-pagination>
+    <!-- 信息编辑 -->
+    <el-dialog
+      title="编辑信息"
+      class="text-left addClass"
+      :visible.sync="outerVisible"
+    >
+       <el-form ref="editForm" :model="editForm" :rules="rules">
+        <!-- 头像上传 -->
+        <!-- <el-form-item
+          class="my_form_inp"
+          label="头像: "
+          :label-width="formLabelWidth"
+        >
+          <el-upload
+            action="https://jsonplaceholder.typicode.com/posts/"
+            list-type="picture-card"
+            :on-preview="handlePictureCardPreview"
+            :on-remove="handleRemove"
+          >
+            <i class="el-icon-plus"></i>
+          </el-upload>
+          <el-dialog :visible.sync="dialogVisible">
+            <img width="100%" :src="dialogImageUrl" alt="" />
+          </el-dialog>
+        </el-form-item> -->
+        <el-form-item
+          class="my_form_inp"
+          label="姓名: "
+          :label-width="formLabelWidth"
+          prop="name">
+          <el-input
+            placeholder="请输入姓名:"
+            v-model="editForm.name"
+            autocomplete="off"
+          ></el-input>
+        </el-form-item>
+        <el-form-item
+          class="my_form_inp"
+          label="密码: "
+          :label-width="formLabelWidth"
+          prop="editPassword">
+          <el-input
+            placeholder="请输入密码"
+            v-model="editForm.editPassword"
+            autocomplete="off"
+           show-password></el-input>
+        </el-form-item>
+        <el-form-item
+          class="my_form_inp"
+          label="手机号码: "
+          :label-width="formLabelWidth"
+          prop="mobile">
+          <el-input
+            placeholder="请输入手机号"
+            v-model="editForm.mobile"
+            autocomplete="off"
+          ></el-input>
+        </el-form-item>
+        <el-form-item
+          class="my_form_inp"
+          label="邮箱: "
+          :label-width="formLabelWidth"
+          prop="email">
+          <el-input
+            placeholder="请输入邮箱"
+            v-model="editForm.email"
+            autocomplete="off"
+          ></el-input>
+        </el-form-item>
+        <el-form-item
+          class="my_form_inp"
+          label="地址: "
+          :label-width="formLabelWidth"
+          prop="introduction">
+          <el-input
+            placeholder="请输入地址"
+            v-model="editForm.introduction"
+            autocomplete="off"
+          ></el-input>
+        </el-form-item>
+        <el-form-item
+          class="my_form_inp"
+          label="角色: "
+          :label-width="formLabelWidth"
+          prop="role_id">
+        <el-select v-model="editForm.role_id" filterable>
+          <el-option
+            v-for="item in typeOptions"
+            :key="item.id"
+            :label="item.name"
+            :value="item.id"
+          ></el-option>
+        </el-select>
+       </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button class="mybtAdd" @click="outerVisible = false"
+          >取 消</el-button
+        >
+        <el-button class="mybtAdd" type="primary" @click="isUpdate('editForm')"
+          >修 改</el-button
+        >
+      </div>
+    </el-dialog>
+    <!-- 添加信息 -->
+    <el-dialog
+      title="添加信息"
+      class="text-left addClass"
+      width="490px"
+      :visible.sync="dialogFormVisible"
+    >
+      <el-form ref="addForm" :model="addForm" :rules="rules">
+        <!-- 头像上传 -->
+        <!-- <el-form-item
+          class="my_form_inp"
+          label="头像: "
+          :label-width="formLabelWidth"
+        >
+          <el-upload
+            action="https://jsonplaceholder.typicode.com/posts/"
+            list-type="picture-card"
+            :on-preview="handlePictureCardPreview"
+            :on-remove="handleRemove"
+          >
+            <i class="el-icon-plus"></i>
+          </el-upload>
+          <el-dialog :visible.sync="dialogVisible">
+            <img width="100%" :src="dialogImageUrl" alt="" />
+          </el-dialog>
+        </el-form-item> -->
+        <el-form-item
+          class="my_form_inp"
+          label="姓名: "
+          :label-width="formLabelWidth"
+          prop="name">
+          <el-input
+            placeholder="请输入姓名:"
+            v-model="addForm.name"
+            autocomplete="off"
+          ></el-input>
+        </el-form-item>
+        <el-form-item
+          class="my_form_inp"
+          label="密码: "
+          :label-width="formLabelWidth"
+          prop="password">
+          <el-input
+            placeholder="请输入密码"
+            v-model="addForm.password"
+            autocomplete="off"
+           show-password></el-input>
+        </el-form-item>
+        <el-form-item
+          class="my_form_inp"
+          label="手机号码: "
+          :label-width="formLabelWidth"
+          prop="mobile">
+          <el-input
+            placeholder="请输入手机号"
+            v-model="addForm.mobile"
+            autocomplete="off"
+          ></el-input>
+        </el-form-item>
+        <el-form-item
+          class="my_form_inp"
+          label="邮箱: "
+          :label-width="formLabelWidth"
+          prop="email">
+          <el-input
+            placeholder="请输入邮箱"
+            v-model="addForm.email"
+            autocomplete="off"
+          ></el-input>
+        </el-form-item>
+        <el-form-item
+          class="my_form_inp"
+          label="地址: "
+          :label-width="formLabelWidth"
+          prop="introduction">
+          <el-input
+            placeholder="请输入地址"
+            v-model="addForm.introduction"
+            autocomplete="off"
+          ></el-input>
+        </el-form-item>
+        <el-form-item
+          class="my_form_inp"
+          label="角色: "
+          :label-width="formLabelWidth"
+          prop="role_id">
+        <el-select v-model="addForm.role_id" filterable>
+          <el-option
+            v-for="item in typeOptions"
+            :key="item.id"
+            :label="item.name"
+            :value="item.id"
+          ></el-option>
+        </el-select>
+       </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button class="mybtAdd" @click="dialogFormVisible = false"
+          >取 消</el-button
+        >
+        <el-button class="mybtAdd" type="primary" @click="submitForm('addForm')"
+          >保 存</el-button
+        >
+      </div>
+    </el-dialog>
+    <!-- 改密 -->
+    <el-dialog
+      title="修改密码"
+      class="text-left addClass editor_password"
+      width="40%"
+      :visible.sync="dialogPassword"
+    >
+      <div v-if="secure_alert.state" class="secure_alert_warning el-alert">{{secure_alert.text}}</div>
+      <table class="table inquire_table">
+        <tbody class="box_inquire_table">
+            
+          <tr>
+            <td style="width:18%">
+              <div>新密码</div>
+            </td>
+            <td style="width:52%">
+              <el-input
+                :type="EditorPasswordData.newPasswordCheck?'text':'password'"
+                v-model="EditorPasswordData.newPassword"
+                placeholder="请输入新密码"
+              ></el-input>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div>确认密码</div>
+            </td>
+            <td>
+              <el-input
+                :type="EditorPasswordData.affirmPasswordCheck?'text':'password'"
+                v-model="EditorPasswordData.affirmPassword"
+                @blur="editorPassword({type:'save'})"
+                placeholder="请再次输入新密码"
+              ></el-input>
+              <!-- <img
+                                                    :src="passForm.show.check?'./image/show.png':'./image/hide.png'"
+                                                    slot="suffix"
+                                                    alt=""
+                                                    style="margin: 10px 0;"
+                                                    @click="passForm.show.check=!passForm.show.check"
+                                            > -->
+
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div slot="footer" class="dialog-footer">
+        <el-button class="mybtAdd" @click="dialogPassword = false"
+          >取 消</el-button
+        >
+        <el-button
+          class="mybtAdd"
+          type="primary"
+          @click="editorPassword({type:'save'})"
+          >保 存</el-button
+        >
+      </div>
+    </el-dialog>
+  </div>
+</div>

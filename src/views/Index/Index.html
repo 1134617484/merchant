@@ -1,0 +1,109 @@
+<div class="main-box">
+    <div class="main-head">用户名：{{userName}}</div>
+    <el-row :gutter="20">
+        <el-col :span="6">
+            <div class="grid-content bg-purple">
+                <div class="cont-head">总成功交易总额</div>
+                <div class="ibox-content">{{total_success_amount}}<span class="fr unit">元</span></div>
+            </div>
+        </el-col>
+        <el-col :span="6">
+            <div class="grid-content bg-purple">
+                <div class="cont-head">待支付总金额</div>
+                <div class="ibox-content">{{total_pending_amount}}<span class="fr unit">元</span></div>
+            </div>
+        </el-col>
+        <el-col :span="6">
+            <div class="grid-content bg-purple">
+                <div class="cont-head">成功总笔数</div>
+                <div class="ibox-content">{{total_success_count}}<span class="fr unit">笔</span></div>
+            </div>
+        </el-col>
+        <el-col :span="6">
+            <div class="grid-content bg-purple">
+                <div class="cont-head">待支付总笔数</div>
+                <div class="ibox-content">{{total_pending_count}}<span class="fr unit">笔</span></div>
+            </div>
+        </el-col>
+        <!-- <el-col :span="6">
+            <div class="grid-content bg-purple">
+                <div class="cont-head">异常总笔数</div>
+                <div class="ibox-content">{{total_fail_count}}<span class="fr unit">笔</span></div>
+            </div>
+        </el-col> -->
+    </el-row>
+    <el-row :gutter="20">
+         
+        <el-col :span="8">
+            <div class="grid-content bg-purple">
+                <div class="cont-head">平台利润总收入</div>
+                <div class="ibox-content">{{total_platform_amount}}<span class="fr unit">元</span></div>
+            </div>
+        </el-col>
+        <el-col :span="8">
+            <div class="grid-content bg-purple">
+                <div class="cont-head">今日成功交易总额</div>
+                <div class="ibox-content">{{today_success_amount}}<span class="fr unit">元</span></div>
+            </div>
+        </el-col>
+        <el-col :span="8">
+            <div class="grid-content bg-purple">
+                <div class="cont-head">今日待支付金额</div>
+                <div class="ibox-content">{{today_pending_amount}}<span class="fr unit">元</span></div>
+            </div>
+        </el-col>
+    </el-row>
+    <el-row :gutter="20">
+        <el-col :span="8">
+            <div class="grid-content bg-purple">
+                <div class="cont-head">今日成功笔数</div>
+                <div class="ibox-content">{{today_success_count}}<span class="fr unit">笔</span></div>
+            </div>
+        </el-col>
+        <!-- <el-col :span="6">
+            <div class="grid-content bg-purple">
+                <div class="cont-head">今日异常笔数</div>
+                <div class="ibox-content">{{today_fail_count}}<span class="fr unit">笔</span></div>
+            </div>
+        </el-col> -->
+        <el-col :span="8">
+            <div class="grid-content bg-purple">
+                <div class="cont-head">今日待支付笔数</div>
+                <div class="ibox-content">{{today_pending_count}}<span class="fr unit">笔</span></div>
+            </div>
+        </el-col>
+        <el-col :span="8">
+            <div class="grid-content bg-purple">
+                <div class="cont-head">今日平台利润收入</div>
+                <div class="ibox-content">{{today_platform_amount}}<span class="fr unit">元</span></div>
+            </div>
+        </el-col>
+    </el-row>
+    <el-row :gutter="20">
+        <el-col :span="24">
+            <div class="grid-content bg-purple">
+                <div class="cont-head">订单数目统计</div>
+                <div class="ibox-content">
+                    <div class="chart" id="myChart">
+                    </div>
+                </div>
+            </div>
+        </el-col>
+    </el-row>
+    <el-row :gutter="20">
+        <el-col :span="24">
+            <div class="grid-content bg-purple">
+                <div class="cont-head" style="margin-bottom: 10px">订单金额统计
+                    <el-select v-model="time" placeholder="请选择" class="fr" @change="handelTime">
+                        <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                        </el-option>
+                    </el-select>
+                </div>
+                <div class="ibox-content">
+                    <div class="chart" id="myChart3">
+                    </div>
+                </div>
+            </div>
+        </el-col>
+    </el-row>
+</div>

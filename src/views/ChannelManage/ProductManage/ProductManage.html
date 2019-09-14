@@ -1,0 +1,168 @@
+<div>
+    <div class="bor">
+        <div>
+            <el-button type="success" class="myAdd_btn fl" @click="addAdminUser">新增通道产品</el-button>
+        </div>
+        <!-- 权限管理列表 -->
+        <el-table :data="tableData" style="width: 100%;text-align: center" border>
+            <el-table-column prop="id" label="编号"></el-table-column>
+            <el-table-column prop="name" label="产品名称" :width="155" class="product_name" :show-overflow-tooltip="true"></el-table-column>
+            <el-table-column prop="code" label="产品编码" class="product_code"  :show-overflow-tooltip="true"></el-table-column>
+            <el-table-column prop="polling" label="通道模式"></el-table-column>
+            <el-table-column prop="typeName" label="类型" :show-overflow-tooltip="true">
+                <!-- <el-select v-model="index" placeholder="请选择">
+                    <el-option
+                        v-for="item in classifyData"
+                        :key="item.index"
+                        :value="item.index"
+                        :label="item.name">
+                    </el-option>
+                </el-select> -->
+            </el-table-column>
+            <el-table-column prop="channels" label="通道" width="100px" :show-overflow-tooltip="true">
+                <template slot-scope="scope" >
+                    <p v-for="(index,item) in scope.row.channels" style="text-align:left">
+                        <span> {{item + 1}}.</span>
+                        <span>{{index.title}}</span>
+                    </p>
+                </template>
+            </el-table-column>
+            <el-table-column prop="status" label="状态" >
+                <template slot-scope="scope">
+                    <el-switch v-model="scope.row.status" active-color="#67c23a" inactive-color="#dcdfe6" @change="handleStatus(scope.$index, scope.row)"></el-switch>
+                </template>
+            </el-table-column>
+            <el-table-column prop="is_display" label="商户端" >
+                <template slot-scope="scope">
+                    <el-switch v-model="scope.row.is_display" active-color="#67c23a" inactive-color="#dcdfe6" @change="handleDisplayStatus(scope.$index, scope.row)"></el-switch>
+                </template>
+            </el-table-column>
+            <el-table-column label="操作" width="400px">
+                <template slot-scope="scope">
+                    <el-button size="mini" @click="handleAllot(scope.$index, scope.row)">分配通道</el-button>
+                    <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+                    <el-button size="mini" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+                    <!-- <el-button size="mini" @click="TransactionCharge(scope.$index, scope.row)">风控</el-button>
+                    <el-button size="mini" @click="chanelCharge(scope.$index, scope.row)">通道</el-button>
+                    <el-button size="mini" @click="RateCharge(scope.$index, scope.row)">费率</el-button> -->
+                </template>
+            </el-table-column>
+        </el-table>
+        <!-- 分页 -->
+        <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="+currentPage" background :page-sizes="[20, 50, 100, 200]" :page-size="+pageSize" layout="total, sizes, prev, pager, next, jumper" :total="+total"></el-pagination>
+        <!-- 分配通道 -->
+        <el-dialog title="分配通道" class="text-left addClass" width="550px" :visible.sync="allotVisible">
+        <el-form  label-width="120px" >
+            <el-form-item label="支付分类:">
+                <el-select v-model="selectName"  @change="handleTypeOption">
+                    <el-option v-for="(item,index) in typeClassifyData" :key="index" :label="item.name" :value="item.id" :dataId="item.dataId"></el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item class="modelClass" label="通道模式:" v-model="selectIndex">
+                <el-radio v-model="selectIndex" label="0" @change="handleRadio('0')">单独</el-radio>
+                <el-radio v-model="selectIndex" label="1" @change="handleRadio('1')">轮询</el-radio>
+            </el-form-item>
+            <el-form-item label="通道:">
+                <!-- <selectItem @selectId='getSelectValue' :selectValue="selectValue" :tableData='channelData' ref="mychild" :selectData='typesData' :isTrue='selectRadio' :selectIndex='selectIndex'/> -->
+                <!-- 判断数据显示类型为选择框 -->
+                <el-select v-if="selectIndex==='0'" v-model='selectValue' @change='selectTypes'>
+                    <el-option v-for="(item,index) in typesData" :key="item.id" :label="item.name" :value="item.id" :disabled="item.disabled"></el-option>
+                </el-select>
+                <!-- 判断数据显示类型为列表 -->
+                <el-table ref="multipleTable" :data="channelData" tooltip-effect="dark" style="width: 100%" @selection-change="handleSelectionChange" border v-else>
+                    <el-table-column type="selection" width="55"></el-table-column>
+                    <el-table-column label="通道代码" width="120" :show-overflow-tooltip="true">
+                        <template slot-scope="scope">{{ scope.row.code }}</template>
+                    </el-table-column>
+                    <el-table-column prop="title" label="通道名称" width="120" :show-overflow-tooltip="true"></el-table-column>
+                    <el-table-column prop="weight" label="权重(1-9)" show-overflow-tooltip>
+                        <template slot-scope="scope">
+                        <el-input v-model="scope.row.weight" type="number" oninput="if(value.length>1)value=value.slice(1)" @change="getInputWeight(scope.row)"></el-input>
+                        </template>
+                    </el-table-column>
+                </el-table>
+            </el-form-item>
+        </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button class="mybtAdd" @click="allotVisible = false;selectValue = '';selectName= '';this.multipleSelection = [];"">取 消</el-button>
+                <el-button class="mybtAdd" type="primary" @click="submitChanelForm">保 存</el-button>
+            </div>
+        </el-dialog>
+        </el-dialog>
+        <!-- 编辑产品通道信息 -->
+        <el-dialog title="编辑产品通道信息" class="text-left addClass" width="490px" :before-close="handleClose" :visible.sync="outerVisible">
+            <el-form ref="editForm" :model="editForm" :rules="rules">
+                <el-form-item class="my_form_inp" label="产品名称: " :label-width="formLabelWidth" prop="name">
+                    <el-input placeholder="请输入产品名称" v-model.trim="editForm.name" autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item class="my_form_inp" label="产品编码: " :label-width="formLabelWidth" prop="code">
+                    <el-input placeholder="请输入产品编码" v-model.trim="editForm.code" autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item class="my_form_inp" label="状态: " :label-width="formLabelWidth" prop="status">
+                    <el-switch v-model="editForm.status" active-color="#67c23a" inactive-color="#dcdfe6"></el-switch>
+                </el-form-item>
+                <el-form-item class="my_form_inp" label="商户端: " :label-width="formLabelWidth" prop="is_display">
+                    <el-radio v-model="editForm.is_display" label="1">显示</el-radio>
+                    <el-radio v-model="editForm.is_display" label="0">不显示</el-radio>
+                </el-form-item>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button class="mybtAdd" @click="outerVisible = false">取 消</el-button>
+                <el-button class="mybtAdd" type="primary" @click="isUpdate('editForm')">修 改</el-button>
+            </div>
+        </el-dialog>
+        <!-- 添加信息 -->
+        <el-dialog title="新增通道产品信息" class="text-left addClass" width="550px" :visible.sync="dialogFormVisible">
+            <el-form ref="addForm" :model="addForm" :rules="rules">
+                <el-form-item class="my_form_inp" label="产品名称: " style="width:97.2%;margin-left:0;margin-right:0" :label-width="formLabelWidth" prop="name">
+                    <el-input placeholder="请输入产品名称" style="width: 100%" v-model.trim="addForm.name" @change="inputName" autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item class="my_form_inp" label="产品编码: " style="width:97.2%;margin-left:0;margin-right:0" :label-width="formLabelWidth" prop="code">
+                    <el-input placeholder="请输入产品编码" style="width: 100%" v-model.trim="addForm.code" @change="inputCode" autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item class="my_form_inp" label="状态: " style="width:97.2%;margin-left:0;margin-right:0" :label-width="formLabelWidth" prop="status">
+                    <el-switch v-model="addForm.status" active-color="#67c23a" inactive-color="#dcdfe6" @change="changeStatus"></el-switch>
+                </el-form-item>
+                <el-form-item class="my_form_inp" label="商户端: " style="width:97.2%;margin-left:0;margin-right:0" :label-width="formLabelWidth" prop="polling">
+                    <el-radio v-model="addForm.is_display" label="1" @change="changeDisplay">显示</el-radio>
+                    <el-radio v-model="addForm.is_display" label="0" @change="changeDisplay">不显示</el-radio>
+                </el-form-item>
+                <el-form-item class="my_form_inp" label="支付分类: " style="width:97.2%;margin-left:0;margin-right:0" :label-width="formLabelWidth">
+                    <el-select v-model.trim="addForm.pay_type_id" filterable placeholder="请选择" @change="handleTypeOption">
+                        <!-- <el-select v-model.trim="addForm.pay_type_id" filterable placeholder="请选择" @change="handleType"> -->
+                        <el-option v-for="(item,index) in typeOptions" :key="index" :label="item.name" :value="item.id">
+                        </el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item class="my_form_inp" label="通道模式: " style="width:97.2%;margin-left:0;margin-right:0" :label-width="formLabelWidth" prop="polling">
+                    <el-radio v-model="this.addForm.polling" label="0" @change="handleRadio('0')">单独</el-radio>
+                    <el-radio v-model="this.addForm.polling" label="1" @change="handleRadio('1')">轮询</el-radio>
+                </el-form-item>
+                <el-form-item class="my_form_inp" label="通道: " style="width:97.2%;margin-left:0;margin-right:0" :label-width="formLabelWidth">
+                    <!-- <selectItem @selectId='getSelectValue' :selectValue="selectValue" :tableData='channelData' ref="mychild" :selectData='typesData' :isTrue='selectRadio' :selectIndex='selectIndex'/> -->
+                    <!-- 判断数据显示类型为选择框 -->
+                    <el-select v-if="this.addForm.polling==='0'" v-model='selectValue' @change='selectTypes'>
+                        <el-option v-for="item in channelData" :key="item.id" :label="item.title" :value="item.id" :disabled="item.disabled"></el-option>
+                    </el-select>
+                    <!-- 判断数据显示类型为列表 (newlyChannelData)-->
+                    <el-table ref="multipleTable" :data="channelData" tooltip-effect="dark" width="100%" @selection-change="handleSelectionChange" border v-else>
+                        <el-table-column type="selection" width="55"></el-table-column>
+                        <el-table-column label="通道代码" width="120" :show-overflow-tooltip="true">
+                            <template slot-scope="scope">{{ scope.row.code }}</template>
+                        </el-table-column>
+                        <el-table-column prop="title" label="通道名称" width="120" :show-overflow-tooltip="true"></el-table-column>
+                        <el-table-column prop="weight" label="权重(1-9)" show-overflow-tooltip>
+                            <template slot-scope="scope">
+                            <el-input v-model="scope.row.weight" type="number" oninput="if(value.length>1)value=value.slice(1)" @change="getInputWeight(scope.row)"></el-input>
+                            </template>
+                        </el-table-column>
+                    </el-table>
+                </el-form-item>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button class="mybtAdd" @click="dialogFormVisible = false;selectValue = '';">取 消</el-button>
+                <el-button class="mybtAdd" type="primary" @click="submitForm('addForm')">保 存</el-button>
+            </div>
+        </el-dialog>
+    </div>
+</div>

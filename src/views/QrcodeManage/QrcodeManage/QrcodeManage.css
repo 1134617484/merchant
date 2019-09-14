@@ -1,0 +1,25 @@
+  .account-head .el-select{
+  width: auto;
+  margin-left: 0px;
+  margin-right: 10px;
+ }
+ .el-date-editor.el-input, .el-date-editor.el-input__inner{
+  width: 100%;
+ }
+ .el-radio {
+    vertical-align: text-bottom;
+    float: none!important;
+}
+.cont-box .upload-demo .el-upload-dragger{
+	width: 100%;
+}
+.el-upload-dragger .el-upload__text{
+	width: 100%;
+}
+.cont-box .qrcode_url>.el-tag--medium{
+  background: none;
+  border: none;
+  color: #606266;
+  font-size: initial;
+
+}

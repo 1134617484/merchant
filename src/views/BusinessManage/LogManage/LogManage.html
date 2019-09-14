@@ -1,0 +1,38 @@
+<div>
+    <div class="bor">
+        <div class="grid-content bg-purple el-main fl clearfix account-head">
+            <label>
+               <el-select v-model="merchant_id" placeholder="请选择商户名称" filterable>
+                    <el-option v-for="(item,index) in typeOptions" :key="index" :label="item.name" :value="item.id">
+                    </el-option>
+                </el-select>
+            </label>
+            <label>
+                <el-select v-model="optType" placeholder="请选择操作类型" filterable>
+                    <el-option v-for="(item,index) in optOptions" :key="index" :label="item.label" :value="item.value">
+                    </el-option>
+                </el-select>
+            </label>
+            <label>
+               <el-input placeholder="请输入IP" v-model="ip" clearable></el-input>
+            </label>
+            <label class="ml">
+                <el-date-picker v-model="date" type="daterange" start-placeholder="开始日期" end-placeholder="结束日期" default-value="2019-8-01" value-format="yyyy-MM-dd"  ></el-date-picker>
+            </label>
+            <el-button type="primary" class="mySearch_btn fr" @click="handleSearch">查询</el-button>
+        </div>
+         
+        <!-- 权限管理列表 -->
+        <el-table :data="tableData" style="width: 100%;text-align: center" border>
+            <el-table-column prop="id" label="ID"></el-table-column>
+            <el-table-column prop="merchant.username" label="商户名称"></el-table-column>
+            <el-table-column prop="type" label="操作类型"></el-table-column>
+            <el-table-column prop="comment" label="描述"></el-table-column>
+            <el-table-column prop="ip" label="IP"></el-table-column>
+            <el-table-column prop="updated_at" label="操作时间 "></el-table-column>
+        </el-table>
+        <!-- 分页 -->
+        <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="+currentPage" background :page-sizes="[20, 50, 100, 200]" :page-size="+pageSize" layout="total, sizes, prev, pager, next, jumper" :total="+total"></el-pagination>
+ 
+</div>  
+</div>

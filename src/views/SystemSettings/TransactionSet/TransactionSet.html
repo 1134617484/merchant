@@ -1,0 +1,112 @@
+<div>
+    <div class="bor">
+        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="150px">
+            <el-row :gutter="20">
+                <el-col :span="6">
+                    <el-form-item label="单笔最小金额：" prop="min_money">
+                        <el-input v-model="ruleForm.min_money"></el-input>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="6">
+                    <el-form-item label="单笔最大金额：" prop="max_money">
+                        <el-input v-model="ruleForm.max_money"></el-input>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+            <el-row :gutter="20">
+                <el-col :span="6">
+                    <el-form-item label="当日总金额：" prop="all_money">
+                        <el-input v-model="ruleForm.all_money"></el-input>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+             
+            <el-row :gutter="20">
+                <el-col :span="6">
+                    <el-form-item label="单位时间限制：" prop="unit_interval">
+                        <el-input v-model="ruleForm.unit_interval"></el-input>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="6">
+                    <el-form-item label="限制时间单位：" prop="time_unit">
+                        <el-select v-model="ruleForm.time_unit" placeholder="请选择">
+                            <el-option v-for="(item,index) in unitOptions" :key="index" :label="item.label" :value="item.value">
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+            <el-row :gutter="20">
+                <el-col :span="6">
+                    <el-form-item label="单位时间次数：" prop="unit_number">
+                        <el-input v-model="ruleForm.unit_number"></el-input>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="6">
+                    <el-form-item label="单位时间金额：" prop="unit_all_money">
+                        <el-input v-model="ruleForm.unit_all_money"></el-input>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+            <el-row :gutter="20">
+                <el-col :span="12">
+                    <el-form-item label="交易时间：" prop="smtp_host">
+                        <!-- <el-row :gutter="20" class="p0"> -->
+                        <el-col :span="8" style="margin-left:-10px">
+                            <div class="grid-content bg-purple">
+                                <el-time-select placeholder="起始时间" v-model="ruleForm.start_time" :picker-options="{
+                          start: '00:00',
+                          step: '01:00',
+                          end: '23:00'
+                        }">
+                                </el-time-select>
+                            </div>
+                        </el-col>
+                        <el-col :span="1" style="margin-left: -1%;width:28px">
+                            至
+                        </el-col>
+                        <el-col :span="8">
+                            <div class="grid-content bg-purple">
+                                <el-time-select placeholder="结束时间" v-model="ruleForm.end_time" :picker-options="{
+                          start: '00:00',
+                          step: '01:00',
+                          end: '23:00',
+                          minTime: ruleForm.startTime
+                        }">
+                                </el-time-select>
+                            </div>
+                        </el-col>
+                        <!-- 
+                    </el-row> -->
+                    </el-form-item>
+                </el-col>
+            </el-row>
+            <el-row :gutter="20">
+                    <el-col :span="6">
+                        <el-form-item label="防封域名：">
+                            <textarea  class="DNS_textarea" v-model.trim="ruleForm.domain" name="" id="" cols="30" rows="4" placeholder="请输入防封域名,多个域名请使用换行分割"></textarea>
+                                <!-- <el-input
+                                type="textarea"
+                                class="DNS_textarea"
+                                placeholder="请输入防封域名,多个域名请使用换行分割"
+                                v-model.trim="ruleForm.domain"
+                                autocomplete="off"
+                              ></el-input> -->
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+            <el-row :gutter="20">
+                <el-col :span="6">
+                    <el-form-item label="风控状态：">
+                        <el-switch v-model="status" active-color="#13ce66" inactive-color="#ff4949">
+                        </el-switch>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+            <el-form-item class="myTableForm">
+                <el-button type="primary" class="submitBtn" @click="submitForm('ruleForm')">立即提交</el-button>
+                <el-button @click="resetForm('ruleForm')">重置</el-button>
+            </el-form-item>
+        </el-form>
+    </div>
+</div>

@@ -1,0 +1,10 @@
+.leftNumber {
+  float: left;
+}
+.el-select {
+  margin: 0;
+  width: 120px;
+}
+.span {
+  margin: 0 10px;
+}

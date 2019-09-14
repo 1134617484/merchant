@@ -1,0 +1,31 @@
+.senderNameClass {
+  width: 340px;
+}
+.el-date-editor.el-input, .el-date-editor.el-input__inner{
+	width: auto;
+}
+.DNS_textarea{
+  min-width: 400px;
+  width: 34vw;
+  resize:vertical;
+  border: 1px solid #DCDFE6;
+  color: #606266;
+  box-sizing: border-box;
+  padding: 8px;
+  font-size: 16px;
+  color: #333;
+}
+textarea::-webkit-input-placeholder { /* WebKit browsers */
+  color: #999;
+  font-size: 14px;
+}
+
+textarea::-moz-placeholder { /* Mozilla Firefox 19+ */
+  color: #999;
+  font-size: 14px;
+}
+
+textarea:-ms-input-placeholder { /* Internet Explorer 10+ */
+  color: #999;
+  font-size: 14px;
+}

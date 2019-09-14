@@ -1,0 +1,116 @@
+
+.account-head .el-select{
+  width: auto;
+  margin-left: 0px;
+  margin-right: 10px;
+  margin-bottom: 5px;
+ }
+ .el-input--suffix .el-input__inner{
+  width: 100%;
+  margin-right: 10px;
+ }
+ .el-date-editor.el-input, .el-date-editor.el-input__inner{
+  width: 100%;
+ }
+ .tip_box{
+ 	padding-bottom: 30px;
+ }
+ .table{
+	border:1px solid #EBEEF5;
+	width: 100%;
+	margin-bottom: 20px;
+	line-height: 20px
+}
+.table thead th{
+	border-bottom: 1px solid #EBEEF5;
+	border-right:1px solid #EBEEF5;
+	height: 40px;
+	line-height: 40px;
+	width: 20%;
+	text-align: center;
+	color: #909399;
+}
+.table tr td{
+	border-bottom: 1px solid #EBEEF5;
+	border-right:1px solid #EBEEF5;
+	height: 40px;
+	line-height: 20px;
+	width: 20%;
+	text-align: center;
+	padding-left: 20px;
+	padding:20px;
+}
+.table tr:hover{
+   background-color: #F5F7FA;
+}
+.table tr td:last-child{
+	border-right:none;
+}
+.el-radio {
+    vertical-align: text-bottom;
+    float: none!important;
+}
+.grid-content{
+	text-align: left;
+}
+.inquireKey{
+	min-width: 32vw;
+    max-width: 40vw;
+    margin: 0 auto;
+    padding-left: 0vw;
+	border: 1px solid #ebeef5;
+	margin-bottom: 30px;
+}
+.inquireKey>div{
+	display: flex;
+	font-size: 18px;
+	border: 1px solid #ebeef5;
+}
+.inquireKey>div>div{
+	width:18vw;
+	height: 28px;
+	line-height: 28px;
+	padding: 8px;
+	font-size: 16px;
+	overflow: hidden;
+	padding-right: 0px;
+    margin-right: 12px;
+    border-right: 1px solid #ebeef5;
+}
+.inquireKey>div>span{
+	padding: 8px 16px;
+	min-width: 80px;
+	text-align: right;
+	height: 28px;
+	line-height: 28px;
+	border-right: 1px solid #ebeef5;
+}
+.inquireKey>div>button{
+	margin-bottom: 8px;
+	margin-top: 8px;
+}
+.secureKey{
+    margin-top: 44px;
+}
+.inquire_table td{
+    height: 24px !important;
+}
+.editor_merchant{
+	/* width:67%; */
+}
+.editor_merchant>.el-dialog {
+    width: 60%;
+}
+.editor_merchant .el-dialog__body>.el-form{
+display: flex;flex-wrap: wrap;
+}
+.editor_merchant .my_form_inp {
+	width: 36%;
+}
+.el-dialog {
+width:60% !important;
+}
+/* .el-input__inner */
+.editor_merchant .DNS_textarea {
+	width: 86%;
+}

@@ -1,0 +1,29 @@
+  .account-head .el-select{
+  width: auto;
+  margin-left: 0px;
+  margin-right: 10px;
+ }
+ .el-date-editor.el-input, .el-date-editor.el-input__inner{
+  width: 100%;
+ }
+ .el-radio {
+    vertical-align: text-bottom;
+    float: none!important;
+}
+.secret_template{
+display: flex;
+}
+
+span.el-tag.el-tag--medium.el-tag--light {
+  background: none;
+  border: none;
+  color: #606266;
+  font-size: initial;
+}
+.secret_template>span{
+  display: block;
+  width: 160px;
+}
+.secret_template>img:hover{
+  cursor:pointer;
+}

@@ -1,0 +1,203 @@
+<div>
+    <div class="bor">
+        <div class="grid-content bg-purple el-main fl clearfix account-head">
+            <label>
+                <el-select v-model="merchant_id" placeholder="请选择用户名" filterable>
+                    <el-option v-for="(item,index) in typeOptions" :key="index" :label="item.name" :value="item.id">
+                    </el-option>
+                </el-select>
+                <!-- <el-input placeholder="请输入用户名" v-model="name" clearable></el-input> -->
+            </label>
+            <label>
+                <el-select v-model="status" placeholder="请选择状态" filterable>
+                    <el-option v-for="(item,index) in statsuOptions" :key="index" :label="item.label" :value="item.value">
+                    </el-option>
+                </el-select>
+            </label>
+            <label>
+                <el-date-picker v-model="date" type="daterange" start-placeholder="开始日期" end-placeholder="结束日期"  value-format="yyyy-MM-dd"></el-date-picker>
+            </label>
+            <el-button type="primary" class="mySearch_btn fr" @click="handleSearch">查询</el-button>
+        </div>
+        <!-- <div>
+            <el-button type="success" class="myAdd_btn fl" @click="addAdminUser">添加商户</el-button>
+        </div> -->
+        <!-- 商户列表 -->
+        <el-table :data="tableData" style="width: 100%;text-align: center" border>
+            <el-table-column prop="id" label="商户号"></el-table-column> 
+            <el-table-column prop="username" label="用户名"></el-table-column>
+            <el-table-column prop="realname" label="姓名"></el-table-column>
+            <el-table-column prop="mobile" label="手机号"></el-table-column>
+            <el-table-column prop="updated_at" label="创建日期"></el-table-column>
+            <el-table-column label="状态" prop="status">
+                <template slot-scope="scope">
+                    <el-switch v-model="scope.row.status" active-color="#67c23a" inactive-color="#dcdfe6" @change="handleStatus(scope.$index, scope.row)"></el-switch>
+                </template>
+            </el-table-column>
+            <el-table-column prop="fund.balance" label="可用余额"></el-table-column>
+            <el-table-column prop="fund.balance_disabled" label="冻结余额"></el-table-column>
+            <el-table-column prop="updated_at" label="最后登录时间"></el-table-column>
+        </el-table>
+        <!-- 分页 -->
+        <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="+currentPage" background :page-sizes="[20, 50, 100, 200]" :page-size="+pageSize" layout="total, sizes, prev, pager, next, jumper" :total="+total"></el-pagination>
+        <!-- 信息编辑 -->
+        <el-dialog title="编辑信息" class="text-left addClass" width="490px" :visible.sync="outerVisible">
+            <el-form ref="editForm" :model="editForm" :rules="rules">
+                <el-form-item class="my_form_inp" label="用户名: " :label-width="formLabelWidth" prop="username">
+                    <el-input placeholder="请输入用户名" v-model.trim="editForm.username" autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item class="my_form_inp" label="姓名 : " :label-width="formLabelWidth" prop="realname">
+                    <el-input placeholder="请输入姓名" v-model.trim="editForm.realname" autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item class="my_form_inp" label="性别: " :label-width="formLabelWidth" prop="sex">
+                    <el-select v-model.trim="sex" filterable placeholder="请选择">
+                        <el-option v-for="(item,index) in sexOptions" :key="index" :label="item.label" :value="item.value">
+                        </el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item class="my_form_inp" label="身份证: " :label-width="formLabelWidth" prop="idcard">
+                    <el-input placeholder="请输入身份证" v-model.trim="editForm.idcard" autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item class="my_form_inp" label="生日: " :label-width="formLabelWidth" prop="birthday">
+                    <el-date-picker v-model="editForm.birthday" type="date" placeholder="选择日期" format="yyyy-MM-dd" value-format="yyyy-MM-dd">
+                    </el-date-picker>
+                </el-form-item>
+                <el-form-item class="my_form_inp" label="手机: " :label-width="formLabelWidth" prop="mobile">
+                    <el-input placeholder="请输入手机号码" v-model.trim="editForm.mobile" autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item class="my_form_inp" label="QQ: " :label-width="formLabelWidth" prop="qq">
+                    <el-input placeholder="请输入QQ号码" v-model.trim="editForm.qq" autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item class="my_form_inp" label="邮箱: " :label-width="formLabelWidth" prop="email">
+                    <el-input placeholder="请输入邮箱" v-model.trim="editForm.email" autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item class="my_form_inp" label="商户类型: " :label-width="formLabelWidth" prop="sort">
+                    <el-select v-model.trim="editForm.type" filterable placeholder="请选择">
+                        <el-option v-for="(item,index) in options" :key="index" :label="item.label" :value="item.value">
+                        </el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item class="my_form_inp" label="地址: " :label-width="formLabelWidth" prop="address">
+                    <el-input placeholder="请输入地址" v-model.trim="editForm.address" autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item class="my_form_inp" label="登录密码: " :label-width="formLabelWidth" prop="password">
+                    <el-input type="password" placeholder="请输入登录密码" v-model.trim="editForm.password" autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item class="my_form_inp" label="支付密码: " :label-width="formLabelWidth" prop="pay_password">
+                    <el-input type="password" placeholder="请输入支付密码" v-model.trim="editForm.pay_password" autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item class="my_form_inp" label="授权访问域名: " :label-width="formLabelWidth" prop="domain">
+                    <el-input placeholder="请输入授权访问域名" v-model.trim="editForm.domain" autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item class="my_form_inp" label="API秘钥: " :label-width="formLabelWidth" prop="apikey">
+                    <el-input placeholder="请输入API秘钥" v-model.trim="editForm.apikey" autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item class="my_form_inp" label="风控规则: " :label-width="formLabelWidth" prop="custom_risk">
+                    <el-radio v-model="editForm.custom_risk" label="0">系统默认</el-radio>
+                    <el-radio v-model="editForm.custom_risk" label="1">自定义</el-radio>
+                </el-form-item>
+                <el-form-item class="my_form_inp" label="提现规则: " :label-width="formLabelWidth" prop="custom_withdraw">
+                    <el-radio v-model="editForm.custom_withdraw" label="0">系统默认</el-radio>
+                    <el-radio v-model="editForm.custom_withdraw" label="1">自定义</el-radio>
+                </el-form-item>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button class="mybtAdd" @click="outerVisible = false">取 消</el-button>
+                <el-button class="mybtAdd" type="primary" @click="isUpdate('editForm')">修 改</el-button>
+            </div>
+        </el-dialog>
+        <!-- 添加信息 -->
+        <el-dialog title="添加信息" class="text-left addClass" width="490px" :visible.sync="dialogFormVisible">
+            <el-form ref="addForm" :model="addForm" :rules="rules">
+                <el-form-item class="my_form_inp" label="用户名: " :label-width="formLabelWidth" prop="username">
+                    <el-input placeholder="请输入用户名" v-model.trim="addForm.username" autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item class="my_form_inp" label="姓名 : " :label-width="formLabelWidth" prop="realname">
+                    <el-input placeholder="请输入姓名" v-model.trim="addForm.realname" autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item class="my_form_inp" label="性别: " :label-width="formLabelWidth" prop="sex">
+                    <el-select v-model.trim="sex" filterable placeholder="请选择">
+                        <el-option v-for="(item,index) in sexOptions" :key="index" :label="item.label" :value="item.value">
+                        </el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item class="my_form_inp" label="身份证: " :label-width="formLabelWidth" prop="idcard">
+                    <el-input placeholder="请输入身份证" v-model.trim="addForm.idcard" autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item class="my_form_inp" label="生日: " :label-width="formLabelWidth" prop="birthday">
+                    <el-date-picker v-model="addForm.birthday" type="date" placeholder="选择日期" format="yyyy-MM-dd" value-format="yyyy-MM-dd">
+                    </el-date-picker>
+                </el-form-item>
+                <el-form-item class="my_form_inp" label="手机: " :label-width="formLabelWidth" prop="mobile">
+                    <el-input placeholder="请输入手机号码" v-model.trim="addForm.mobile" autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item class="my_form_inp" label="QQ: " :label-width="formLabelWidth" prop="qq">
+                    <el-input placeholder="请输入QQ号码" v-model.trim="addForm.qq" autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item class="my_form_inp" label="邮箱: " :label-width="formLabelWidth" prop="email">
+                    <el-input placeholder="请输入邮箱" v-model.trim="addForm.email" autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item class="my_form_inp" label="商户类型: " :label-width="formLabelWidth" prop="sort">
+                    <el-select v-model.trim="addForm.type" filterable placeholder="请选择">
+                        <el-option v-for="(item,index) in options" :key="index" :label="item.label" :value="item.value">
+                        </el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item class="my_form_inp" label="地址: " :label-width="formLabelWidth" prop="address">
+                    <el-input placeholder="请输入地址" v-model.trim="addForm.address" autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item class="my_form_inp" label="登录密码: " :label-width="formLabelWidth" prop="password">
+                    <el-input type="password" placeholder="请输入登录密码" v-model.trim="addForm.password" autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item class="my_form_inp" label="支付密码: " :label-width="formLabelWidth" prop="pay_password">
+                    <el-input type="password" placeholder="请输入支付密码" v-model.trim="addForm.pay_password" autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item class="my_form_inp" label="授权访问域名: " :label-width="formLabelWidth" prop="domain">
+                    <el-input placeholder="请输入授权访问域名" v-model.trim="addForm.domain" autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item class="my_form_inp" label="API秘钥: " :label-width="formLabelWidth" prop="apikey">
+                    <el-input placeholder="请输入API秘钥" v-model.trim="addForm.apikey" autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item class="my_form_inp" label="风控规则: " :label-width="formLabelWidth" prop="custom_risk">
+                    <el-radio v-model="addForm.custom_risk" label="0">系统默认</el-radio>
+                    <el-radio v-model="addForm.custom_risk" label="1">自定义</el-radio>
+                </el-form-item>
+                <el-form-item class="my_form_inp" label="提现规则: " :label-width="formLabelWidth" prop="custom_withdraw">
+                    <el-radio v-model="addForm.custom_withdraw" label="0">系统默认</el-radio>
+                    <el-radio v-model="addForm.custom_withdraw" label="1">自定义</el-radio>
+                </el-form-item>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button class="mybtAdd" @click="dialogFormVisible = false">取 消</el-button>
+                <el-button class="mybtAdd" type="primary" @click="submitForm('addForm')">保 存</el-button>
+            </div>
+        </el-dialog>
+        <!-- 添加商户商户加款，扣款 -->
+        <el-dialog title="添加商户加款/扣款" class="text-left addClass" width="490px" :visible.sync="  dialogFormCharge">
+            <el-form ref="chargeForm" :model="chargeForm">
+                <el-form-item class="my_form_inp" label="入款类型: " :label-width="formLabelWidth" prop="type">
+                    <el-select v-model.trim="chargeForm.type" filterable placeholder="请选择" @change="handleType">
+                        <el-option v-for="(item,index) in payOptions" :key="index" :label="item.label" :value="item.id">
+                        </el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item class="my_form_inp" label="资金变动: " :label-width="formLabelWidth" prop="pay_type_id">
+                    <!-- <el-select v-model.trim="chargeForm.pay_type_id" filterable placeholder="请选择">
+                        <el-option v-for="(item,index) in changeOptions" :key="index" :label="item.name" :value="item.id">
+                        </el-option>
+                    </el-select> -->
+                </el-form-item>
+                <el-form-item class="my_form_inp" label="金额: " :label-width="formLabelWidth" prop="change_money">
+                    <el-input placeholder="请输入变动金额" v-model.trim="chargeForm.change_money" autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item class="my_form_inp" label="描述: " :label-width="formLabelWidth" prop="content">
+                    <el-input placeholder="请输入内容" v-model.trim="chargeForm.content" autocomplete="off"></el-input>
+                </el-form-item>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button class="mybtAdd" @click="dialogFormCharge = false">取 消</el-button>
+                <el-button class="mybtAdd" type="primary" @click="submitChargeForm('chargeForm')">保 存</el-button>
+            </div>
+        </el-dialog>
+    </div>
+</div>

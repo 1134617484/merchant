@@ -1,0 +1,493 @@
+<div>
+    <div class="bor">
+        <div class="grid-content bg-purple el-main fl clearfix account-head">
+            <label>
+                <el-select v-model="name" placeholder="请选择通道名称" filterable>
+                    <el-option v-for="(item,index) in chanelOptions" :key="index" :label="item.title" :value="item.title">
+                    </el-option>
+                </el-select>
+            </label>
+            <label>
+                <el-select v-model="status" placeholder="请选择状态" filterable>
+                    <el-option v-for="(item,index) in statsuOptions" :key="index" :label="item.label" :value="item.value">
+                    </el-option>
+                </el-select>
+            </label>
+            <el-button type="primary" class="mySearch_btn fr" @click="handleSearch">查询</el-button>
+        </div>
+        <div>
+            <el-button type="success" class="myAdd_btn fl" @click="addChanel">新增通道</el-button>
+        </div>
+        <!-- 通道管理列表 -->
+        <el-table :data="tableData" style="width: 100%;text-align: center" border>
+            <el-table-column prop="id" label="编号"></el-table-column>
+            <el-table-column prop="title" label="通道名称"></el-table-column>
+            <el-table-column prop="types.name" label="通道分类"></el-table-column>
+            <el-table-column prop="code" label="通道英文编码"></el-table-column>
+            <el-table-column label="通道状态" prop="status">
+                <template slot-scope="scope">
+                    <el-switch v-model="scope.row.status" active-color="#67c23a" inactive-color="#dcdfe6" @change="handleStatus(scope.$index, scope.row)"></el-switch>
+                </template>
+            </el-table-column>
+            <el-table-column label="通道风控状态" prop="control_status">
+                <template slot-scope="scope">
+                    <el-switch v-model="scope.row.control_status" active-color="#67c23a" inactive-color="#dcdfe6" @change="handleControlStatus(scope.$index, scope.row)"></el-switch>
+                </template>
+            </el-table-column>
+            <el-table-column label="通道上线状态" prop="offline_status">
+                <template slot-scope="scope">
+                    <el-switch v-model="scope.row.offline_status" active-color="#67c23a" inactive-color="#dcdfe6" @change="handleOfflineStatus(scope.$index, scope.row)"></el-switch>
+                </template>
+            </el-table-column>
+            <el-table-column label="操作" width="400px">
+                <template slot-scope="scope">
+                    <!-- <el-button size="mini" @click="handleKey(scope.$index, scope.row)">生成密钥</el-button> -->
+                    <el-button size="mini" @click="handleChild(scope.$index, scope.row)">子账户</el-button>
+                    <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+                    <el-button size="mini" @click="TransactionCharge(scope.$index, scope.row)">风控</el-button>
+                    <el-button size="mini" @click="RateCharge(scope.$index, scope.row)">费率</el-button>
+                    <el-button size="mini" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+                </template>
+            </el-table-column>
+        </el-table>
+        <!-- 分页 -->
+        <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="+currentPage" background :page-sizes="[20, 50, 100, 200]" :page-size="+pageSize" layout="total, sizes, prev, pager, next, jumper" :total="+total"></el-pagination>
+        <!-- 信息编辑 -->
+        <el-dialog title="编辑信息" class="text-left addClass" width="50%" :visible.sync="outerVisible">
+            <el-form ref="editForm" :model="editForm" :rules="rules">
+                <el-row :gutter="20">
+                    <el-col :span="12">
+                        <div class="grid-content bg-purple">
+                            <el-form-item class="my_form_inp" label="通道中文名称: " :label-width="formLabelWidth" prop="title">
+                                <el-input placeholder="请输入通道中文名称" v-model.trim="editForm.title" autocomplete="off"></el-input>
+                            </el-form-item>
+                        </div>
+                    </el-col>
+                    <el-col :span="12">
+                        <div class="grid-content bg-purple">
+                            <el-form-item class="my_form_inp" label="通道英文编码: " :label-width="formLabelWidth" prop="code">
+                                <el-input placeholder="请输入通道英文编码" v-model.trim="editForm.code" autocomplete="off"></el-input>
+                            </el-form-item>
+                        </div>
+                    </el-col>
+                </el-row>
+                <el-row :gutter="20">
+                    <el-col :span="12">
+                        <div class="grid-content bg-purple">
+                            <el-form-item class="my_form_inp" label="商户号 : " :label-width="formLabelWidth" prop="mch_id">
+                                <el-input placeholder="请输入商户号" v-model.trim="editForm.mch_id" autocomplete="off">
+                                </el-input>
+                            </el-form-item>
+                        </div>
+                    </el-col>
+                    <el-col :span="12">
+                        <div class="grid-content bg-purple">
+                            <el-form-item class="my_form_inp" label="支付分类: " :label-width="formLabelWidth" prop="pay_type_id">
+                                <el-select v-model.trim="editForm.pay_type_id" filterable placeholder="请选择">
+                                    <el-option v-for="(item,index) in typeOptions" :key="index" :label="item.name" :value="item.id">
+                                    </el-option>
+                                </el-select>
+                            </el-form-item>
+                        </div>
+                    </el-col>
+                </el-row>
+                <el-row :gutter="20">
+                    <el-col :span="12">
+                        <div class="grid-content bg-purple">
+                            <el-form-item class="my_form_inp" label="应用APPID: " :label-width="formLabelWidth" prop="app_id">
+                                <el-input placeholder="请输入应用APPID" v-model.trim="editForm.app_id" autocomplete="off" style="width: 325%"></el-input>
+                            </el-form-item>
+                        </div>
+                    </el-col>
+                </el-row>
+                <el-row :gutter="20">
+                    <el-col :span="12">
+                        <div class="grid-content bg-purple">
+                            <el-form-item class="my_form_inp" label="APP应用秘钥: " :label-width="formLabelWidth" prop="app_secret">
+                                <el-input placeholder="请输入APP应用秘钥" v-model.trim="editForm.app_secret" autocomplete="off" type="textarea" style="width: 325%"></el-input>
+                            </el-form-item>
+                        </div>
+                    </el-col>
+                </el-row>
+                <el-row :gutter="20">
+                    <el-col :span="12">
+                        <div class="grid-content bg-purple">
+                            <el-form-item class="my_form_inp" label="签名密钥: " :label-width="formLabelWidth" prop="sign_key">
+                                <el-input placeholder="请输入签名密钥" v-model.trim="editForm.sign_key" autocomplete="off" type="textarea" style="width: 325%"></el-input>
+                            </el-form-item>
+                        </div>
+                    </el-col>
+                </el-row>
+                <el-row :gutter="20">
+                    <el-col :span="12">
+                        <div class="grid-content bg-purple">
+                            <el-form-item class="my_form_inp" label="网关地址: " :label-width="formLabelWidth" prop="gateway">
+                                <el-input placeholder="网关地址" v-model.trim="editForm.gateway" autocomplete="off" style="width: 325%"></el-input>
+                            </el-form-item>
+                        </div>
+                    </el-col>
+                </el-row>
+                <el-row :gutter="20">
+                    <el-col :span="12">
+                        <div class="grid-content bg-purple">
+                            <el-form-item class="my_form_inp" label="同步通知地址: " :label-width="formLabelWidth" prop="page_return">
+                                <el-input placeholder="请输入同步通知地址" v-model.trim="editForm.page_return" autocomplete="off" style="width: 325%"></el-input>
+                            </el-form-item>
+                        </div>
+                    </el-col>
+                </el-row>
+                <el-row :gutter="20">
+                    <el-col :span="12">
+                        <div class="grid-content bg-purple">
+                            <el-form-item class="my_form_inp" label="异步通知地址: " :label-width="formLabelWidth" prop="server_return">
+                                <el-input placeholder="请输入异步通知地址" v-model.trim="editForm.server_return" autocomplete="off" style="width: 325%"></el-input>
+                            </el-form-item>
+                        </div>
+                    </el-col>
+                </el-row>
+                <el-row :gutter="20">
+                    <el-col :span="12">
+                        <div class="grid-content bg-purple">
+                            <el-form-item class="my_form_inp" label="防封域名: " :label-width="formLabelWidth" prop="unlock_domain">
+                                <el-input placeholder="请输入防封域名" v-model.trim="editForm.unlock_domain" autocomplete="off" style="width: 325%" type="textarea"></el-input>
+                            </el-form-item>
+                        </div>
+                    </el-col>
+                </el-row>
+                <el-row :gutter="20">
+                    <el-col :span="12">
+                        <div class="grid-content bg-purple">
+                            <el-form-item class="my_form_inp" label="状态: " :label-width="formLabelWidth" prop="status">
+                                <el-switch v-model="editForm.status" active-color="#67c23a" inactive-color="#dcdfe6"></el-switch>
+                            </el-form-item>
+                        </div>
+                    </el-col>
+                     
+                </el-row>
+                <el-row :gutter="20">
+                    <el-col :span="12">
+                        <div class="grid-content bg-purple">
+                            <el-form-item class="my_form_inp" label="通道风控状态: " :label-width="formLabelWidth" prop="control_status">
+                                <el-switch v-model="editForm.control_status" active-color="#67c23a" inactive-color="#dcdfe6"></el-switch>
+                            </el-form-item>
+                        </div>
+                    </el-col>
+                </el-row>
+                <el-row :gutter="20">
+                    <el-col :span="12">
+                        <div class="grid-content bg-purple">
+                            <el-form-item class="my_form_inp" label="通道上线状态: " :label-width="formLabelWidth" prop="offline_status">
+                                <el-switch v-model="editForm.offline_status" active-color="#67c23a" inactive-color="#dcdfe6"></el-switch>
+                            </el-form-item>
+                        </div>
+                    </el-col>
+                </el-row>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button class="mybtAdd" @click="outerVisible = false">取 消</el-button>
+                <el-button class="mybtAdd" type="primary" @click="isUpdate('editForm')">修 改</el-button>
+            </div>
+        </el-dialog>
+        <!-- 添加信息 -->
+        <el-dialog title="新增通道" class="text-left addClass" width="50%" :visible.sync="dialogFormVisible">
+            <el-form ref="addForm" :model="addForm" :rules="rules">
+                <el-row :gutter="20">
+                    <el-col :span="12">
+                        <div class="grid-content bg-purple">
+                            <el-form-item class="my_form_inp" label="通道中文名称: " :label-width="formLabelWidth" prop="title">
+                                <el-input placeholder="请输入通道中文名称" v-model.trim="addForm.title" autocomplete="off"></el-input>
+                            </el-form-item>
+                        </div>
+                    </el-col>
+                    <el-col :span="12">
+                        <div class="grid-content bg-purple">
+                            <el-form-item class="my_form_inp" label="通道英文编码: " :label-width="formLabelWidth" prop="code">
+                                <el-input placeholder="请输入通道英文编码" v-model.trim="addForm.code" autocomplete="off"></el-input>
+                            </el-form-item>
+                        </div>
+                    </el-col>
+                </el-row>
+                <el-row :gutter="20">
+                    <el-col :span="12">
+                        <div class="grid-content bg-purple">
+                            <el-form-item class="my_form_inp" label="商户号 : " :label-width="formLabelWidth" prop="mch_id">
+                                <el-input placeholder="请输入商户号" v-model.trim="addForm.mch_id" autocomplete="off">
+                                </el-input>
+                            </el-form-item>
+                        </div>
+                    </el-col>
+                    <el-col :span="12">
+                        <div class="grid-content bg-purple">
+                            <el-form-item class="my_form_inp" label="支付分类: " :label-width="formLabelWidth" prop="pay_type_id">
+                                <el-select v-model.trim="addForm.pay_type_id" filterable placeholder="请选择">
+                                    <el-option v-for="(item,index) in typeOptions" :key="index" :label="item.name" :value="item.id">
+                                    </el-option>
+                                </el-select>
+                            </el-form-item>
+                        </div>
+                    </el-col>
+                </el-row>
+                <el-row :gutter="20">
+                    <el-col :span="12">
+                        <div class="grid-content bg-purple">
+                            <el-form-item class="my_form_inp" label="应用APPID: " :label-width="formLabelWidth" prop="app_id">
+                                <el-input placeholder="请输入应用APPID" v-model.trim="addForm.app_id" autocomplete="off" style="width: 325%"></el-input>
+                            </el-form-item>
+                        </div>
+                    </el-col>
+                </el-row>
+                <el-row :gutter="20">
+                    <el-col :span="12">
+                        <div class="grid-content bg-purple">
+                            <el-form-item class="my_form_inp" label="APP应用秘钥: " :label-width="formLabelWidth" prop="app_secret">
+                                <el-input placeholder="请输入APP应用秘钥" v-model.trim="addForm.app_secret" autocomplete="off" type="textarea" style="width: 325%"></el-input>
+                            </el-form-item>
+                        </div>
+                    </el-col>
+                </el-row>
+                <el-row :gutter="20">
+                    <el-col :span="12">
+                        <div class="grid-content bg-purple">
+                            <el-form-item class="my_form_inp" label="签名密钥: " :label-width="formLabelWidth" prop="sign_key">
+                                <el-input placeholder="请输入签名密钥" v-model.trim="addForm.sign_key" autocomplete="off" type="textarea" style="width: 325%"></el-input>
+                            </el-form-item>
+                        </div>
+                    </el-col>
+                </el-row>
+                <el-row :gutter="20">
+                    <el-col :span="12">
+                        <div class="grid-content bg-purple">
+                            <el-form-item class="my_form_inp" label="网关地址: " :label-width="formLabelWidth" prop="gateway">
+                                <el-input placeholder="网关地址" v-model.trim="addForm.gateway" autocomplete="off" style="width: 325%"></el-input>
+                            </el-form-item>
+                        </div>
+                    </el-col>
+                </el-row>
+                <el-row :gutter="20">
+                    <el-col :span="12">
+                        <div class="grid-content bg-purple">
+                            <el-form-item class="my_form_inp" label="同步通知地址: " :label-width="formLabelWidth" prop="page_return">
+                                <el-input placeholder="请输入同步通知地址" v-model.trim="addForm.page_return" autocomplete="off" style="width: 325%"></el-input>
+                            </el-form-item>
+                        </div>
+                    </el-col>
+                </el-row>
+                <el-row :gutter="20">
+                    <el-col :span="12">
+                        <div class="grid-content bg-purple">
+                            <el-form-item class="my_form_inp" label="异步通知地址: " :label-width="formLabelWidth" prop="server_return">
+                                <el-input placeholder="请输入异步通知地址" v-model.trim="addForm.server_return" autocomplete="off" style="width: 325%"></el-input>
+                            </el-form-item>
+                        </div>
+                    </el-col>
+                </el-row>
+                <el-row :gutter="20">
+                    <el-col :span="12">
+                        <div class="grid-content bg-purple">
+                            <el-form-item class="my_form_inp" label="防封域名: " :label-width="formLabelWidth" prop="unlock_domain">
+                                <el-input placeholder="请输入防封域名" v-model.trim="addForm.unlock_domain" autocomplete="off" style="width: 325%" type="textarea"></el-input>
+                            </el-form-item>
+                        </div>
+                    </el-col>
+                </el-row>
+                <el-row :gutter="20">
+                    <el-col :span="12">
+                        <div class="grid-content bg-purple">
+                            <el-form-item class="my_form_inp" label="状态: " :label-width="formLabelWidth" prop="status">
+                                <el-switch v-model="addForm.status" active-color="#67c23a" inactive-color="#dcdfe6"></el-switch>
+                            </el-form-item>
+                        </div>
+                    </el-col>
+                     
+                </el-row>
+                <el-row :gutter="20">
+                    <el-col :span="12">
+                        <div class="grid-content bg-purple">
+                            <el-form-item class="my_form_inp" label="通道风控状态: " :label-width="formLabelWidth" prop="control_status">
+                                <el-switch v-model="addForm.control_status" active-color="#67c23a" inactive-color="#dcdfe6"></el-switch>
+                            </el-form-item>
+                        </div>
+                    </el-col>
+                </el-row>
+                <el-row :gutter="20">
+                    <el-col :span="12">
+                        <div class="grid-content bg-purple">
+                            <el-form-item class="my_form_inp" label="通道上线状态: " :label-width="formLabelWidth" prop="offline_status">
+                                <el-switch v-model="addForm.offline_status" active-color="#67c23a" inactive-color="#dcdfe6"></el-switch>
+                            </el-form-item>
+                        </div>
+                    </el-col>
+                </el-row>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button class="mybtAdd" @click="dialogFormVisible = false">取 消</el-button>
+                <el-button class="mybtAdd" type="primary" @click="submitForm('addForm')">保 存</el-button>
+            </div>
+        </el-dialog>
+        <!-- 添加风控-->
+        <el-dialog title="风控设置" class="text-left addClass" width="33%" :visible.sync="  dialogFormTransaction">
+            <el-form ref="TransactionForm" :model="TransactionForm" :rules="TransactionRules">
+                <el-form-item class="my_form_inp" label="当天交易金额: " :label-width="formLabelWidth" prop="paying_money">
+                    <el-input placeholder="请输入当天交易金额" v-model.trim="TransactionForm.paying_money" autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item class="my_form_inp" label="单笔最小金额: " :label-width="formLabelWidth" prop="min_money">
+                    <el-input placeholder="请输入单笔最小金额" v-model.trim="TransactionForm.min_money" autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item class="my_form_inp" label="单笔最大金额: " :label-width="formLabelWidth" prop="max_money">
+                    <el-input placeholder="请输入单笔最小金额" v-model.trim="TransactionForm.max_money" autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item class="my_form_inp" label="交易时间: " :label-width="formLabelWidth" prop="time">
+                    <!-- <el-time-picker is-range v-model="TransactionForm.time" range-separator="至" start-placeholder="开始时间" end-placeholder="结束时间" placeholder="选择时间范围" style="width: 100%">
+                    </el-time-picker> -->
+                    <el-row :gutter="20">
+                        <el-col :span="11">
+                            <div class="grid-content bg-purple p0">
+                                <el-time-select placeholder="起始时间" v-model="TransactionForm.startTime" :picker-options="{
+                          start: '00:00',
+                          step: '01:00',
+                          end: '23:00'
+                        }">
+                                </el-time-select>
+                            </div>
+                        </el-col>
+                        <el-col :span="11">
+                            <div class="grid-content bg-purple">
+                                <el-time-select placeholder="结束时间" v-model="TransactionForm.endTime" :picker-options="{
+                          start: '00:00',
+                          step: '01:00',
+                          end: '23:00',
+                          minTime: TransactionForm.startTime
+                        }">
+                                </el-time-select>
+                            </div>
+                        </el-col>
+                    </el-row>
+                    <!-- <el-time-select
+                        placeholder="起始时间"
+                        v-model="startTime"
+                        :picker-options="{
+                          start: '00:00',
+                          step: '00:15',
+                          end: '23:00'
+                        }">
+                      </el-time-select>
+                      <el-time-select
+                        placeholder="结束时间"
+                        v-model="endTime"
+                        :picker-options="{
+                          start: '00:00',
+                          step: '00:15',
+                          end: '23:00',
+                          minTime: startTime
+                        }">
+                      </el-time-select> -->
+                </el-form-item>
+                <!-- <el-form-item class="my_form_inp" label="上线状态: " :label-width="formLabelWidth" prop="offline_status">
+                    <el-switch v-model="TransactionForm.offline_status" active-color="#13ce66" inactive-color="#ff4949">
+                    </el-switch>
+                </el-form-item>
+                <el-form-item class="my_form_inp" label="风控状态: " :label-width="formLabelWidth" prop="control_status">
+                    <el-switch v-model="TransactionForm.control_status" active-color="#13ce66" inactive-color="#ff4949">
+                    </el-switch>
+                </el-form-item> -->
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button class="mybtAdd" @click="dialogFormTransaction = false">取 消</el-button>
+                <el-button class="mybtAdd" type="primary" @click="submitTransactionForm('TransactionForm')">保 存</el-button>
+            </div>
+        </el-dialog>
+        <!-- 编辑费率-->
+        <el-dialog title="编辑T1费率" class="text-left addClass" width="50%" :visible.sync="  dialogFormRate">
+            <el-form ref="RateForm" :model="RateForm" :rules="RateRules">
+                 <el-alert
+                    title="单位：‰，例如：千分之三填 0.003"
+                    type="warning"
+                    :closable="false">
+                  </el-alert>
+                <table class="table">
+                    <thead>
+                        <th>银行费率</th>
+                        <th>封顶手续费</th>
+                        <th>T+1封顶手续费</th>
+                        <th>T+1运营费率</th>
+                        <th>T+1成本费率</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <el-input v-model.trim="RateForm.rate" autocomplete="off"></el-input>
+                            </td>
+                            <td>
+                                <el-input v-model.trim="RateForm.capping_fee" autocomplete="off"></el-input>
+                            </td>
+                            <td>
+                                <el-input v-model.trim="RateForm.t1_capping_fee" autocomplete="off"> </el-input>
+                            </td>
+                            <td>
+                                <el-input v-model.trim="RateForm.t1_default_rate" autocomplete="off"> </el-input>
+                            </td>
+                            <td>
+                                <el-input v-model.trim="RateForm.t1_rate" autocomplete="off"> </el-input>
+                            </td>
+                        </tr>
+                        
+                             
+                       
+                    </tbody>
+                </table>
+
+                <!-- <el-row :gutter="20">
+                    <el-col :span="12">
+                        <div class="grid-content bg-purple">
+                            <el-form-item class="my_form_inp" label="封顶手续费: " :label-width="formLabelWidth" prop="capping_fee">
+                                <el-input placeholder="请输入封顶手续费" v-model.trim="RateForm.capping_fee" autocomplete="off"></el-input>
+                                <div class="tip_row">单位：‰，例如：千分之三填 0.003</div>
+                            </el-form-item>
+                        </div>
+                    </el-col>
+                    <el-col :span="12">
+                        <div class="grid-content bg-purple">
+                            <el-form-item class="my_form_inp" label="银行费率: " :label-width="formLabelWidth" prop="rate">
+                                <el-input placeholder="请输入银行费率" v-model.trim="RateForm.rate" autocomplete="off"></el-input>
+                                <div class="tip_row">单位：‰，例如：千分之三填 0.003</div>
+                            </el-form-item>
+                        </div>
+                    </el-col>
+                </el-row>
+                <el-row :gutter="20">
+                    <el-col :span="12">
+                        <div class="grid-content bg-purple">
+                            <el-form-item class="my_form_inp" label="T1运营费率: " :label-width="formLabelWidth" prop="t1_default_rate">
+                            <el-input placeholder="请输入成本费率" v-model.trim="RateForm.t1_default_rate" autocomplete="off"></el-input>
+                            <div class="tip_row">单位：‰，例如：千分之三填 0.003</div>
+                        </el-form-item>
+                        </div>
+                    </el-col>
+                    <el-col :span="12">
+                        <div class="grid-content bg-purple">
+                            <el-form-item class="my_form_inp" label="T1封顶手续费: " :label-width="formLabelWidth" prop="t1_capping_fee">
+                    <el-input placeholder="请输入T0封顶手续费" v-model.trim="RateForm.t1_capping_fee" autocomplete="off"></el-input>
+                    <div class="tip_row">单位：‰，例如：千分之三填 0.003</div>
+                </el-form-item>
+                        </div>
+                    </el-col>
+                </el-row>
+                 <el-row :gutter="20">
+                    <el-col :span="12">
+                        <div class="grid-content bg-purple">
+                             <el-form-item class="my_form_inp" label="T1成本费率: " :label-width="formLabelWidth" prop="t1_rate">
+                            <el-input placeholder="请输入成本费率" v-model.trim="RateForm.t1_rate" autocomplete="off"></el-input>
+                            <div class="tip_row">单位：‰，例如：千分之三填 0.003</div>
+                        </el-form-item>
+                        </div>
+                    </el-col>
+                   
+                </el-row> -->
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button class="mybtAdd" @click="dialogFormRate = false">取 消</el-button>
+                <el-button class="mybtAdd" type="primary" @click="submitRateForm('RateForm')">保 存</el-button>
+            </div>
+        </el-dialog>
+    </div>
+</div>
