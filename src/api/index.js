@@ -31,7 +31,8 @@ axios.defaults.baseURL = "http://www.xsyvisa.com/";
 //   }
 // } else {
 //   //dev 开发环境
-//   axios.defaults.baseURL = "http://192.168.2.200";
+//   // axios.defaults.baseURL = "http://192.168.2.200";
+//     axios.defaults.baseURL = "https://api.emide.cn";
 // }
 
 //拦截器

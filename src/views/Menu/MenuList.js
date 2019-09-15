@@ -32,7 +32,7 @@
        breadListLast: [{
            name: "订单管理",
            path: "first1"
-         },
+         }, 
          {
            name: "订单",
            path: "first"
@@ -47,13 +47,10 @@
 
    methods: {
      getMenuData() {
-       console.log(ephemeral)
-       this.menulist=ephemeral.menu.menu;
-       console.log(this.menulist)
       //  _get("api/permission/menu").then(res => {
-      //    let data = res.data.data;
-      //    this.menuList = res.data.data;
-      //    //console.log(data);
+         let data = ephemeral.menu.menulist.data;
+         this.menuList = data;
+         console.log(data);
       //  })
      },
      activeMenu(el) {

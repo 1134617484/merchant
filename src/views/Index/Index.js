@@ -1,5 +1,5 @@
 import store from "../../store/store.js";
-import { _get, _post, _put, _delete } from "../../api/index.js"
+import { _get, _post, _put, _delete,ephemeral } from "../../api/index.js"
 import { log } from "util";
 export default {
   data() {
@@ -44,8 +44,8 @@ export default {
     getIndexData() {
       let userInfo = JSON.parse(window.localStorage.getItem("userInfo") || "{}");
       this.userName = userInfo.name;
-      _get("api/index").then(res => {
-        let data = res.data.data;
+      // _get("api/index").then(res => {
+        let data = ephemeral.menu.index.data;
         this.total_success_amount = data.total_success_amount;
         this.total_pending_amount = data.total_pending_amount;
         this.total_success_count = data.total_success_count;
@@ -65,7 +65,7 @@ export default {
         this.week_fail_count = data.week_fail_count;
         this.month_fail_count = data.month_fail_count;
         this.getEchart();
-      })
+      // })
     },
     handelTime(){
       if(this.time==0){
@@ -78,11 +78,12 @@ export default {
       this.getEchartData(this.url);
     },
     getEchartData(url) {
-      _get("api/index/"+url).then(res => {
-        let xdata=res.data.data.time;
-        let ydata=res.data.data.result;
+      // _get("api/index/"+url).then(res => {
+        let data=ephemeral.menu.day.data;
+        let xdata=data.time;
+        let ydata=data.result;
         this.showEcharts(xdata,ydata);
-      })
+      // })
     },
     showEcharts(xdata, ydata) {
       let myChart3 = this.$echarts.init(document.getElementById('myChart3'));

@@ -37,7 +37,7 @@
                         <template v-if="item.children.length == 0">
                             <el-menu-item :index="item.menu_uri" @click="getNavData(item.menu_uri,item.label)">
                                 <i class="el-icon-menu"></i>
-                                {{item.label}}
+                                {{item.label}}+{{index}}
                             </el-menu-item>
                         </template>
                         <el-submenu v-else :index="''+item.index">
