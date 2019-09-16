@@ -1,5 +1,5 @@
 import { log } from "util";
-import { _get, _post, _put, _delete } from "../../../api/index.js"
+import { _get, _post, _put, _delete ,ephemeral} from "../../../api/index.js"
 import selectItem from '../../../components/ChanelSelect.vue'
 export default {
   name: "AccountChange",
@@ -26,16 +26,15 @@ export default {
   components: { selectItem },
   methods: {
     getSelectMenuData() {
-      _get("api/change-type/select").then(res => {
+      // _get("api/change-type/select").then(res => {
         let params={"id":"a",name:"全部"};
-        this.classifyOptions = res.data.data;
+        this.classifyOptions = [...ephemeral.financeM.accpunt_change_type_select.data];
         this.classifyOptions.unshift(params);
-      })
-      _get("api/merchant/select").then(res => {
-        let params={"id":"a",name:"全部"};
-        this.typeOptions = res.data.data;
+      // })
+      // _get("api/merchant/select").then(res => {
+        this.typeOptions = [...ephemeral.financeM.merchant_select.data];
         this.typeOptions.unshift(params);
-      })
+      // })
     },
     switchTime(time) {
       let date = new Date(time * 1000);
@@ -50,9 +49,11 @@ export default {
     },
     // 资金变动信息
     getTableData(params) {
-      _get("api/account-change", params).then(res => {
-        let data = res.data.data.data;
-        let paramsData = res.data.data;
+      // _get("api/account-change", params).then(res => {
+        let paramsData = ephemeral.financeM.account_change.data;
+        let data = paramsData.data;
+        console.log(paramsData)
+        console.log(data)
         this.currentPage = paramsData.current_page;
         this.last_page_url = paramsData.last_page_url;
         this.total = paramsData.total;
@@ -77,7 +78,7 @@ export default {
         } else {
           this.tableData = [];
         }
-      });
+      // });
     },
     // 导出
     handleExport(){

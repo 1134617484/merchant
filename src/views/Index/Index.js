@@ -64,7 +64,7 @@ export default {
         this.month_success_count = data.month_success_count;
         this.week_fail_count = data.week_fail_count;
         this.month_fail_count = data.month_fail_count;
-        this.getEchart();
+        // this.getEchart();
       // })
     },
     handelTime(){
@@ -82,7 +82,7 @@ export default {
         let data=ephemeral.menu.day.data;
         let xdata=data.time;
         let ydata=data.result;
-        this.showEcharts(xdata,ydata);
+        // this.showEcharts(xdata,ydata);
       // })
     },
     showEcharts(xdata, ydata) {

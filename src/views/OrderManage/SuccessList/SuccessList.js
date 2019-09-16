@@ -1,5 +1,5 @@
 import { log } from "util";
-import { _get, _post, _put, _delete } from "../../../api/index.js"
+import { _get, _post, _put, _delete, ephemeral } from "../../../api/index.js"
 export default {
   name: "AccessConfig",
   data() {
@@ -232,18 +232,21 @@ export default {
       return updated_at;
     },
     getSelectData() {
-      _get("api/channel/select").then(res => {
-        let params = { "id": 'a', title: '全部' };
-        this.typeOptions = res.data.data;
+      // _get("api/channel/select").then(res => {
+        let params={"id":"a",name:"全部"};
+        this.typeOptions = [...ephemeral.financeM.merchant_select.data];
         this.typeOptions.unshift(params);
-      })
+      // })
     },
     getChanelData() {
-      _get("api/paytype/select").then(res => {
+      // _get("api/paytype/select").then(res => {
         let params = { "id": 'a', name: '全部' };
-        this.chanelOptions = res.data.data;
+        this.chanelOptions = [...ephemeral.order.paytype_select.data];
         this.chanelOptions.unshift(params);
-      })
+      //   let params = { "id": 'a', name: '全部' };
+      //   this.chanelOptions = res.data.data;
+      //   this.chanelOptions.unshift(params);
+      // })
     },
     handleType() {
       let params = {
@@ -259,9 +262,10 @@ export default {
       })
     },
     getTableData(params) {
-      _get("api/order/success", params).then(res => {
-        let data = res.data.data.data;
-        let paramsData = res.data.data;
+      // _get("api/order/success", params).then(res => {
+
+        let paramsData = ephemeral.order.success.data;
+        let data = paramsData.data;
         this.currentPage = paramsData.current_page;
         this.total = paramsData.total;
         this.pageSize = paramsData.per_page;
@@ -310,7 +314,7 @@ export default {
         }else{
           this.tableData=[];
         }
-      });
+      // });
     },
     formatter(row, column) {
       return row.address;

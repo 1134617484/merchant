@@ -1,5 +1,5 @@
 import { log } from "util";
-import { _get, _post, _put, _delete } from "../../../api/index.js"
+import { _get, _post, _put, _delete,ephemeral } from "../../../api/index.js"
 export default {
   // 邮件设置
   name: "emailSetting",
@@ -81,8 +81,8 @@ export default {
   },
   methods: {
     getFormData() {
-      _get("api/transaction").then(res => {
-        let data = res.data.data;
+      // _get("api/transaction").then(res => {
+        let data = ephemeral.menu.transaction.data;
         this.ruleForm.min_money = data.min_money;
         this.ruleForm.max_money = data.max_money;
         this.ruleForm.all_money = data.all_money;
@@ -96,7 +96,7 @@ export default {
         this.ruleForm.domain = data.domain;
         this.status = data.status=='0'?false:true;
         console.log(this.ruleForm.time_unit);
-      })
+      // })
     },
     submitForm(formName) {
       console.log(this.ruleForm.domain)

@@ -1,6 +1,6 @@
 import { log } from "util";
 import screenfull from "screenfull";
-import { _get, _post, _put, _delete } from "../../../api/index.js";
+import { _get, _post, _put, _delete,ephemeral } from "../../../api/index.js";
 export default {
   name: "AdminUser",
   data() {
@@ -120,14 +120,16 @@ export default {
   },
   methods: {
     getSelectData() {
-      _get("api/role/select").then(res => {
-        this.typeOptions = res.data.data;
-      });
+      // _get("api/role/select").then(res => {
+        this.typeOptions = ephemeral.menu.admin_select.data;
+      // });
     },
     getTableData(params) {
-      _get("api/admin", params).then(res => {
-        let data = res.data.data.data;
-        let paramsData = res.data.data;
+      // _get("api/admin", params).then(res => {
+        let data = ephemeral.menu.admin.data.data;
+        console.log(ephemeral.menu)
+        console.log(data)
+        let paramsData = ephemeral.menu.admin.data;
         this.currentPage = paramsData.current_page;
         this.total = paramsData.total;
         this.pageSize = paramsData.per_page;
@@ -149,7 +151,7 @@ export default {
         } else {
           this.tableData = [];
         }
-      });
+      // });
     },
     handleSearch() {
       let params = {

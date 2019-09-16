@@ -1,5 +1,5 @@
 import { log } from "util";
-import {_get,_post,_put,_delete} from "../../../api/index.js"
+import {_get,_post,_put,_delete,ephemeral} from "../../../api/index.js"
 export default {
   // 邮件设置
   name: "emailSetting",
@@ -49,15 +49,16 @@ export default {
   },
   methods: {
     getFormData(){
-      _get("api/email").then(res => {
-        let data=res.data.data;
+      // _get("api/email").then(res => {
+
+        let data=ephemeral.finance.email.data;
         this.ruleForm.smtp_host=data.smtp_host;
         this.ruleForm.smtp_port=data.smtp_port;
         this.ruleForm.smtp_user=data.smtp_user;
         this.ruleForm.smtp_pass=data.smtp_pass;
         this.ruleForm.smtp_email=data.smtp_email;
         this.ruleForm.smtp_name=data.smtp_name;
-      })
+      // })
     },
     submitForm(formName) {
       this.$refs[formName].validate(valid => {

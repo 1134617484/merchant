@@ -1,5 +1,5 @@
 import { log } from "util";
-import { _get, _post, _put, _delete } from "../../../api/index.js"
+import { _get, _post, _put, _delete,ephemeral } from "../../../api/index.js"
 export default {
   name: "AccessConfig",
   data() {
@@ -40,13 +40,12 @@ export default {
   },
   methods: {
     getSelectMenuData() {
-      _get("api/admin/select").then(res => {
-
-        // this.typeOptions = res.data.data;
+      // _get("api/admin/select").then(res => {
         let params = { "id": 'a', name: '全部' };
-        this.typeOptions = res.data.data;
+        this.typeOptions =[...ephemeral.menu.admin_log_select.data];
+        console.log(this.typeOptions);
         this.typeOptions.unshift(params);
-      })
+      // })
     },
     switchTime(time) {
       let date = new Date(time * 1000);
@@ -57,9 +56,9 @@ export default {
       return updated_at;
     },
     getTableData(params) {
-      _get("api/admin-log",params).then(res => {
-        let data = res.data.data.data;
-        let paramsData = res.data.data;
+      // _get("api/admin-log",params).then(res => {
+        let paramsData = ephemeral.menu.admin_log.data;
+        let data = paramsData.data;
         this.currentPage = paramsData.current_page;
         this.total = paramsData.total;
         this.pageSize = paramsData.per_page;
@@ -88,7 +87,7 @@ export default {
         }else{
           this.tableData=[];
         }
-      });
+      // });
     },
     // 选择页容量
     handleSizeChange(val) {

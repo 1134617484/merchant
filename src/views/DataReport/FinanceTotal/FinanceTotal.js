@@ -1,5 +1,5 @@
 import { log } from "util";
-import { _get, _post, _put, _delete } from "../../../api/index.js"
+import { _get, _post, _put, _delete,ephemeral } from "../../../api/index.js"
 export default {
   name: "AccessConfig",
   data() {
@@ -41,11 +41,13 @@ export default {
   },
   methods: {
     getSelectMenuData() {
-      _get("api/merchant/select").then(res => {
+      // _get("api/merchant/select").then(res => {
         let params={"id":"a",name:"全部"};
-        this.typeOptions = res.data.data;
+        // this.typeOptions = res.data.data;
+        // this.typeOptions.unshift(params);
+        this.typeOptions = [...ephemeral.financeM.merchant_select.data];
         this.typeOptions.unshift(params);
-      })
+      // })
     },
     switchTime(time) {
       let date = new Date(time * 1000);
@@ -59,15 +61,18 @@ export default {
       return updated_at
     },
     getTableData(params) {
-      _get("api/finance/user-trade",params).then(res => {
-        let data = res.data.data.merchants.data;
+      // _get("api/finance/user-trade",params).then(res => {
+        let paramsData =ephemeral.finance.trade.data.merchants;
+        let data = paramsData.data;
+
         this.tableData=[];
         this.tableData=data;
-        let paramsData =res.data.data.merchants;
+        
         this.currentPage = paramsData.current_page;
         this.total = paramsData.total;
         this.pageSize = paramsData.per_page;
-        let statistics=res.data.data.statistics;
+        let statistics=ephemeral.finance.trade.data.statistics;
+        
         let lastData={id:'统计:',
         username:statistics.member_count+'个商户',
         all_order_count:statistics.all_order_count+'条订单',
@@ -105,7 +110,7 @@ export default {
         // }else{
         //   this.tableData=[];
         // }
-      });
+      // });
     },
     // 选择页容量
      handleSizeChange(val) {

@@ -1,5 +1,5 @@
 import { log } from "util";
-import { _get, _post, _put, _delete } from "../../../api/index.js"
+import { _get, _post, _put, _delete,ephemeral } from "../../../api/index.js"
 export default {
   name: "AccessConfig",
   data() {
@@ -71,10 +71,10 @@ export default {
   },
   methods: {
     getSelectMenuData() {
-      _get("api/permission/select").then(res => {
-        this.options = res.data.data;
+      // _get("api/permission/select").then(res => {
+        this.options = ephemeral.menu.permission_select.data;
         this.selectTitle = this.options[0].title;
-      })
+      // })
     },
     handleSearch() {
       let params = {
@@ -85,9 +85,9 @@ export default {
       this.getTableData(params);
     },
     getTableData(params) {
-      _get("api/permission", params).then(res => {
-        let data = res.data.data.data;
-        let paramsData = res.data.data;
+      // _get("api/permission", params).then(res => {
+        let paramsData = ephemeral.menu.permission.data;
+        let data = paramsData.data;
         this.currentPage = paramsData.current_page;
         this.total = paramsData.total;
         this.pageSize = paramsData.per_page;
@@ -109,7 +109,7 @@ export default {
         } else {
           this.tableData = [];
         }
-      });
+      // });
     },
     formatter(row, column) {
       return row.address;

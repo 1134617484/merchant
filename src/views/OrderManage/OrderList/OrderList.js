@@ -1,5 +1,5 @@
 import { log } from "util";
-import { _get, _post, _put, _delete } from "../../../api/index.js"
+import { _get, _post, _put, _delete,ephemeral } from "../../../api/index.js"
 export default {
   name: "AccessConfig",
   data() {
@@ -241,36 +241,41 @@ export default {
       return updated_at;
     },
     getSelectData() {
-      _get("api/channel/select").then(res => {
-        let params = { "id": 'a', title: '全部' };
-        this.typeOptions = res.data.data;
+      // _get("api/channel/select").then(res => {
+        let params={"id":"a",name:"全部"};
+        this.typeOptions = [...ephemeral.financeM.merchant_select.data];
         this.typeOptions.unshift(params);
-      })
+        
+      // })
     },
     getChanelData() {
-      _get("api/paytype/select").then(res => {
+      // _get("api/paytype/select").then(res => {
         let params = { "id": 'a', name: '全部' };
-        this.chanelOptions = res.data.data;
+        this.chanelOptions = [...ephemeral.order.paytype_select.data];
         this.chanelOptions.unshift(params);
-      })
+      // })
     },
     handleType() {
       let params = {
         type: this.chargeForm.type
       }
-      _get("api/change-type/select", params).then(res => {
-        this.changeOptions = res.data.data;
-      })
+      this.getChangeTypeData();
+      // _get("api/change-type/select", params).then(res => {
+        // this.changeOptions = res.data.data;
+        // this.changeOptions = ephemeral.financeM.accpunt_change_type_select.data;
+      // })
     },
     getChangeTypeData() {
-      _get("api/change-type/select").then(res => {
-        this.changeOptions = res.data.data;
-      })
+      // _get("api/change-type/select").then(res => {
+        this.changeOptions = ephemeral.financeM.accpunt_change_type_select.data;
+      // })
     },
     getTableData(params) {
-      _get("api/order", params).then(res => {
-        let data = res.data.data.data;
-        let paramsData = res.data.data;
+      // _get("api/order", params).then(res => {
+        let paramsData = ephemeral.order.order.data;
+        console.log(paramsData)
+        let data = paramsData.data;
+        console.log(data)
         this.currentPage = paramsData.current_page;
         this.total = paramsData.total;
         this.pageSize = paramsData.per_page;
@@ -329,7 +334,7 @@ export default {
         } else {
           this.tableData = [];
         }
-      });
+      // });
     },
     formatter(row, column) {
       return row.address;
