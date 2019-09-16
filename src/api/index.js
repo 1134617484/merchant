@@ -17,23 +17,22 @@ import qs from "qs";
 axios.defaults.headers = {
   "X-Requested-With": "XMLHttpRequest"
 };
-axios.defaults.baseURL = "http://www.xsyvisa.com/";
+// axios.defaults.baseURL = "http://www.xsyvisa.com/";
 
 /*第一层if判断生产环境和开发环境*/
-// if (process.env.NODE_ENV === "production") {
-//   /*第二层if，根据.env文件中的VUE_APP_FLAG判断是生产环境还是测试环境*/
-//   if (process.env.VUE_APP_FLAG === "pro") {
-//     //production 生产环境
-//     axios.defaults.baseURL = "http://api.xinggeyun.com";
-//   } else {
-//     //test 测试环境
-//     axios.defaults.baseURL = "https://api.emide.cn";
-//   }
-// } else {
-//   //dev 开发环境
-//   // axios.defaults.baseURL = "http://192.168.2.200";
-//     axios.defaults.baseURL = "https://api.emide.cn";
-// }
+if (process.env.NODE_ENV === "production") {
+  /*第二层if，根据.env文件中的VUE_APP_FLAG判断是生产环境还是测试环境*/
+  if (process.env.VUE_APP_FLAG === "pro") {
+    //production 生产环境
+    axios.defaults.baseURL = "http://api.xinggeyun.com";
+  } else {
+    //test 测试环境
+    axios.defaults.baseURL = "http://www.xsyvisa.com";
+  }
+} else {
+  //dev 开发环境
+  axios.defaults.baseURL = "http://192.168.2.200";
+}
 
 //拦截器
 let cancel,
@@ -202,7 +201,7 @@ export const userLogin = params => {
 };
 // 获取用户信息
 export const getUserMsg = () => {
-  return _get("/api/token/me");
+  return _get("merchant/user/profile");
 };
 // 添加角色信息
 export const addRoleMsg = params => {

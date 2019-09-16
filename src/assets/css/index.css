@@ -290,6 +290,7 @@ body > .el-container {
   height: 70px;
   font-size: 22px;
   color: #fff;
+  background-color: #1d9fff;
 }
 .el-header .logo {
   float: left;
@@ -298,9 +299,11 @@ body > .el-container {
   margin-left: 60px;
 }
 .header-right {
-  float: right;
   padding-right: 50px;
   line-height: 70px;
+  position: absolute;
+    right: 0;
+    top: 0px;
 }
 .header-user-con {
   display: -ms-flexbox;
@@ -327,7 +330,7 @@ body > .el-container {
 }
 .el-menu-vertical-demo:not(.el-menu--collapse) {
   width: 200px;
-  min-height: 100%;
+  /* min-height: 100%; */
   background: rgb(50, 65, 87);
 }
 .el-menu--collapse .el-submenu .el-icon-arrow-right{
@@ -352,10 +355,9 @@ body > .el-container {
   background-color: rgb(50, 65, 87);
 }
 .tags {
-  float: left;
   /* position: relative; */
-  height: 30px;
-  line-height: 30px;
+  height: 54px;
+  line-height: 54px;
   text-align: left;
   /* overflow: hidden; */
   background: #fff;
@@ -419,7 +421,7 @@ body > .el-container {
 }
 .container {
   margin: 20px;
-  margin-top: 50px;
+  margin-top: 0;
   height: 92%;
   /* overflow-y: auto; */
   overflow-y: scroll;
@@ -615,16 +617,8 @@ body > .el-container {
 .el-tree-node__content .el-checkbox:last-of-type {
     margin-right: 10px;
 }
-.account-head .el-select{
-  width: auto;
-  margin-left: 0px;
-  margin-right: 10px;
-  margin-bottom: 5px;
- }
- .el-input--suffix .el-input__inner{
-  width: 100%;
-  margin-right: 10px;
- }
+
  /*.el-date-editor.el-input, .el-date-editor.el-input__inner{
   width: 100%;
  }*/
+ .header_search_input .el-input--prefix .el-input__inner{border: 1px solid red;border-radius:20px; }

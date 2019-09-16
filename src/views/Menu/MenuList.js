@@ -41,7 +41,8 @@
        // 是否全屏
        isFullscreen: false,
        screenWidth: "",
-       screenHeight: ""
+       screenHeight: "",
+       header_search:"",//搜索
      };
    },
 

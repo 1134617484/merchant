@@ -17,7 +17,7 @@
   margin-bottom: 20px;
 }
 .inp{
-  margin-right: 10px;
+  margin-right: 20px;
 }
 .btn{
   position: absolute;
@@ -25,4 +25,11 @@
 }
 .grid-content{
   position: relative;
+}
+
+.explain{
+display: flex;
+}
+.explain h4{
+
 }

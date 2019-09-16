@@ -129,18 +129,18 @@ export const ephemeral_data = {
               index: "4-1"
             },
             {
-              menu_name: "account-change.index",
+              menu_name: "account-analysis.index",
               label: "通道分析",
               icon: "icon",
-              menu_uri: "/account-change",
+              menu_uri: "/account-analysis",
               children: [],
               index: "4-2"
             },
             {
-              menu_name: "account-change.index",
+              menu_name: "account-detailss.index",
               label: "保证金明细",
               icon: "icon",
-              menu_uri: "/account-change",
+              menu_uri: "/account-detailss",
               children: [],
               index: "4-3"
             },

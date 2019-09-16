@@ -8,8 +8,8 @@ export default {
       tableData: [],
       classifyOptions:[],
       typeOptions:[],
-      pay_type_id: '',
-      merchant_id: '',
+      pay_type_id: 'a',
+      merchant_id: 'a',
       out_trade_id: '',
       //分页参数
       currentPage: "",
@@ -17,6 +17,8 @@ export default {
       pageSize: 10,
       page:'',
       timeValue: '',
+      chanelOptions:[],//全部通道选项
+      chanelOptions_id:'a',
     };
   },
   created() {
@@ -34,6 +36,9 @@ export default {
       // _get("api/merchant/select").then(res => {
         this.typeOptions = [...ephemeral.financeM.merchant_select.data];
         this.typeOptions.unshift(params);
+
+        this.chanelOptions = [...ephemeral.order.paytype_select.data];
+        this.chanelOptions.unshift(params);
       // })
     },
     switchTime(time) {
@@ -49,11 +54,11 @@ export default {
     },
     // 资金变动信息
     getTableData(params) {
-      // _get("api/account-change", params).then(res => {
-        let paramsData = ephemeral.financeM.account_change.data;
+      _get("merchant/order", params).then(res => {
+        console.log(res)
+        // let paramsData = ephemeral.financeM.account_change.data;
+        let paramsData =res.data.data;
         let data = paramsData.data;
-        console.log(paramsData)
-        console.log(data)
         this.currentPage = paramsData.current_page;
         this.last_page_url = paramsData.last_page_url;
         this.total = paramsData.total;
@@ -78,7 +83,7 @@ export default {
         } else {
           this.tableData = [];
         }
-      // });
+      });
     },
     // 导出
     handleExport(){

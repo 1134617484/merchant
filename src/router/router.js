@@ -55,6 +55,28 @@ export default new Router({
             import("../views/FinanceManage/AccountChange/AccountChange.vue")
         },
         {
+          // 通道分析
+          path: "/account-analysis",
+          name: "analysis",
+          meta: {
+            isLoginToken: true
+          },
+          component: () =>
+            import("../views/FinanceManage/Analysis/Analysis.vue")
+            // import("../views/FinanceManage/Details/Details.vue")
+
+        },
+        {
+          // 保证金明细
+          path: "/account-detailss",
+          name: "detailss",
+          meta: {
+            isLoginToken: true
+          },
+          component: () =>
+            import("../views/FinanceManage/Details/Details.vue")
+        },
+        {
           // 提现记录
           path: "/cash-log",
           name: "cash-log",
@@ -155,26 +177,26 @@ export default new Router({
             import("../views/SystemSettings/TransactionSet/TransactionSet.vue")
         },
         
-        {
-          // 商户列表
-          path: "/merchant/authorized",
-          name: "accountManage",
-          meta: {
-            isLoginToken: true
-          },
-          component: () =>
-            import("../views/BusinessManage/AccountManage/AccountManage.vue")
-        },
-        {
-          // 商户日志
-          path: "/merchant-log",
-          name: "merchant-log",
-          meta: {
-            isLoginToken: true
-          },
-          component: () =>
-            import("../views/BusinessManage/LogManage/LogManage.vue")
-        },
+        // {
+        //   // 商户列表
+        //   path: "/merchant/authorized",
+        //   name: "accountManage",
+        //   meta: {
+        //     isLoginToken: true
+        //   },
+        //   component: () =>
+        //     import("../views/BusinessManage/AccountManage/AccountManage.vue")
+        // },
+        // {
+        //   // 商户日志
+        //   path: "/merchant-log",
+        //   name: "merchant-log",
+        //   meta: {
+        //     isLoginToken: true
+        //   },
+        //   component: () =>
+        //     import("../views/BusinessManage/LogManage/LogManage.vue")
+        // },
         
         {
           // 登录日志
