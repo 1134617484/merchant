@@ -91,23 +91,7 @@ export default new Router({
           component: () =>
             import("../views/OrderManage/FailList/FailList.vue")
         },
-        {
-          path: "/order/frozen",
-          name: "frozen",
-          meta: {
-            isLoginToken: true
-          },
-          component: () =>
-            import("../views/OrderManage/FrozenList/FrozenList.vue")
-        },
-        {
-          path: "/qrcode",
-          name: "qrcode",
-          meta: {
-            isLoginToken: true
-          },
-          component: () => import("../views/QrcodeManage/QrcodeManage/QrcodeManage.vue")
-        },
+      
         //管理员列表
         {
           path: "/admin",
@@ -117,25 +101,7 @@ export default new Router({
           },
           component: () => import("../views/Manage/ManageList/ManageList.vue")
         },
-        //角色管理
-        {
-          path: "/role",
-          name: "RoleList",
-          meta: {
-            isLoginToken: true
-          },
-          component: () => import("../views/Manage/RoleList/RoleList.vue")
-        },
-        {
-          path: "/assignRoleList",
-          name: "assignRoleList",
-          meta: {
-            isLoginToken: true
-          },
-          component: () =>
-            import("../views/Manage/AssignRoleList/AssignRoleList.vue")
-        },
-        //权限管理
+
         {
           path: "/permission",
           name: "accessConfig",
@@ -145,56 +111,7 @@ export default new Router({
           component: () =>
             import("../views/Manage/AccessConfig/AccessConfig.vue")
         },
-        {
-          // app管理
-          path: "/app",
-          name: "appManage",
-          meta: {
-            isLoginToken: true
-          },
-          component: () =>
-            import("../views/ChannelManage/AppManage/AppManage.vue")
-        },
-        {
-          // 通道管理
-          path: "/channel",
-          name: "channel",
-          meta: {
-            isLoginToken: true
-          },
-          component: () =>
-            import("../views/ChannelManage/ChanelManage/ChanelManage.vue")
-        },
-        {
-          // 通道产品
-          path: "/product",
-          name: "product",
-          meta: {
-            isLoginToken: true
-          },
-          component: () =>
-            import("../views/ChannelManage/ProductManage/ProductManage.vue")
-        },
-        {
-          // 子账户
-          path: "/childAcount",
-          name: "childAcount",
-          meta: {
-            isLoginToken: true
-          },
-          component: () =>
-            import("../views/ChannelManage/ChildManage/ChildManage.vue")
-        },
-        {
-          // 基本设置
-          path: "/basic",
-          name: "basicSetup",
-          meta: {
-            isLoginToken: true
-          },
-          component: () =>
-            import("../views/SystemSettings/BasicSetup/BasicSetup.vue")
-        },
+        
         {
           // 邮件设置
           path: "/email",
@@ -215,16 +132,7 @@ export default new Router({
           component: () =>
             import("../views/SystemSettings/ScheduleTask/ScheduleTask.vue")
         },
-        {
-          // 手机设置
-          path: "/sms",
-          name: "mobilePhoneSet",
-          meta: {
-            isLoginToken: true
-          },
-          component: () =>
-            import("../views/SystemSettings/MobilePhoneSet/MobilePhoneSet.vue")
-        },
+        
         {
           // 修改密码
           path: "/admin/reset",
@@ -235,16 +143,7 @@ export default new Router({
           component: () =>
             import("../views/SystemSettings/ChangePwd/ChangePwd.vue")
         },
-        {
-          // 短信设置
-          path: "/messageSet",
-          name: "messageSet",
-          meta: {
-            isLoginToken: true
-          },
-          component: () =>
-            import("../views/SystemSettings/MessageSet/MessageSet.vue")
-        },
+       
         {
           // 风控设置
           path: "/transaction",
@@ -255,16 +154,7 @@ export default new Router({
           component: () =>
             import("../views/SystemSettings/TransactionSet/TransactionSet.vue")
         },
-        {
-          // 风控设置
-          path: "/cash",
-          name: "cash",
-          meta: {
-            isLoginToken: true
-          },
-          component: () =>
-            import("../views/SystemSettings/CashSet/CashSet.vue")
-        },
+        
         {
           // 商户列表
           path: "/merchant/authorized",
@@ -285,26 +175,7 @@ export default new Router({
           component: () =>
             import("../views/BusinessManage/LogManage/LogManage.vue")
         },
-        {
-          // 商户待认证
-          path: "/merchant/wait",
-          name: "WaitManage",
-          meta: {
-            isLoginToken: true
-          },
-          component: () =>
-            import("../views/BusinessManage/WaitManage/WaitManage.vue")
-        },
-        {
-          // 商户未认证
-          path: "/merchant/unauthorized",
-          name: "unauthorizManage",
-          meta: {
-            isLoginToken: true
-          },
-          component: () =>
-            import("../views/BusinessManage/UnauthManage/UnauthManage.vue")
-        },
+        
         {
           // 登录日志
           path: "/admin-log",
@@ -315,17 +186,7 @@ export default new Router({
           component: () =>
             import("../views/Manage/LogManage/LogManage.vue")
         },
-        {
-          //交易统计
-          path: "/finance-trade",
-          name: "finance-trade",
-          meta: {
-            isLoginToken: true
-          },
-          component: () =>
-            import("../views/DataReport/UserTradeTotal/UserTradeTotal.vue")
-             
-        },
+        
         {
           //商户交易统计
           path: "/finance/user-trade",
@@ -336,26 +197,7 @@ export default new Router({
           component: () =>
           import("../views/DataReport/FinanceTotal/FinanceTotal.vue")   
         },
-        {
-          //商户报表
-          path: "/finance-merchant",
-          name: "finance-merchant",
-          meta: {
-            isLoginToken: true
-          },
-          component: () =>
-            import("../views/DataReport/MerchantReport/MerchantReport.vue")
-        },
-        {
-          //平台报表
-          path: "/finance/platform",
-          name: "/finance/platform",
-          meta: {
-            isLoginToken: true
-          },
-          component: () =>
-            import("../views/DataReport/PlatformReport/PlatformReport.vue")
-        },
+        
       ]
     }
   ]
