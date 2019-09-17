@@ -8,6 +8,7 @@
     border-top: 6px solid #1E9FFF;
     padding-left: 18px;
     font-family:Microsoft YaHei;
+    margin-right: 22px;
     p{
         margin: 0;
         width: 100%;
@@ -16,5 +17,9 @@
     }
     .analysis_text{
         width: 100%;
+        p{
+            height: 24px;
+            line-height: 24px;
+        }
     }
 }
