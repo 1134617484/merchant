@@ -2,6 +2,12 @@
     <div class="bor">
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="150px">
             <el-row :gutter="20">
+                <el-col :span="24">
+                    编辑个人资料<span>谨慎修改用户信息，胡乱填写一律封号处理</span>
+                </el-col>
+       
+            </el-row>
+            <el-row :gutter="20">
                 <el-col :span="6">
                     <el-form-item label="单笔最小金额：" prop="min_money">
                         <el-input v-model="ruleForm.min_money"></el-input>
