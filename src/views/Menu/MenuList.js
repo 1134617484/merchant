@@ -110,6 +110,9 @@
         
        
      },
+     handleQuit(){
+       this.$router.push("/login");
+     },
      handleCommand(command) {
        //this.$message('click on item ' + command);
        if (command == "b") {

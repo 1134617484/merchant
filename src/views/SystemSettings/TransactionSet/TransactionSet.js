@@ -27,7 +27,7 @@ export default {
       },
       rules: {
         mobile: [
-          { required: true, message:'请输入姓名', trigger: 'change' }
+          { required: true, validator: this.$rules.FormValidate.Form().validatePhone, trigger: 'change' }
         ],
         idcard: [
           { required: true, validator: this.$rules.FormValidate.Form().ID, trigger: 'change' }
@@ -36,7 +36,7 @@ export default {
           { required: true, validator: this.$rules.FormValidate.Form().validateQQ, trigger: 'change' }
         ],
         realname: [
-          { required: true, validator: this.$rules.FormValidate.Form().validateChinese, trigger: 'change' }
+          { required: true, message:'请输入姓名', trigger: 'change' }
         ],
         permit_login_ip: [
           { required: true, validator: this.$rules.FormValidate.Form().validateIp, trigger: 'change' }
