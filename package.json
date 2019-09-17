@@ -22,6 +22,7 @@
     "qs": "^6.7.0",
     "sass-loader": "^8.0.0",
     "screenfull": "^4.2.1",
+    "sock": "0.0.6",
     "vue": "^2.6.10",
     "vue-resource": "^1.5.1",
     "vue-router": "^3.0.3",
