@@ -219,7 +219,26 @@ export default new Router({
           component: () =>
           import("../views/DataReport/FinanceTotal/FinanceTotal.vue")   
         },
-        
+        {
+          //商户投诉
+          path: "/complain",
+          name: "complain",
+          meta: {
+            isLoginToken: true
+          },
+          component: () =>
+            import("../views/ComplainManage/ComplainList/ComplainList.vue")
+        },
+        {
+          //商户申诉
+          path: "/appeal",
+          name: "appeal",
+          meta: {
+            isLoginToken: true
+          },
+          component: () =>
+            import("../views/ComplainManage/AppealList/AppealList.vue")
+        },
       ]
     }
   ]

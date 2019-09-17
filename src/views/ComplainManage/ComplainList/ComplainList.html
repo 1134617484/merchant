@@ -1,0 +1,75 @@
+<div>
+    <div class="bor">
+        <div class="grid-content bg-purple el-main fl clearfix account-head">
+            <!-- <label>
+               <el-select v-model="merchant_id" placeholder="请选择投诉商户" filterable>
+                    <el-option v-for="(item,index) in typeOptions" :key="index" :label="item.name" :value="item.id">
+                    </el-option>
+                </el-select>
+            </label>
+            <label>
+               <el-select v-model="complain_merchant_id" placeholder="请选择被投诉商户" filterable>
+                    <el-option v-for="(item,index) in typeOptions" :key="index" :label="item.name" :value="item.id">
+                    </el-option>
+                </el-select>
+            </label> -->
+            <!-- <label>
+                <el-select v-model="optType" placeholder="请选择操作类型" filterable>
+                    <el-option v-for="(item,index) in optOptions" :key="index" :label="item.label" :value="item.value">
+                    </el-option>
+                </el-select>
+            </label> -->
+           <!--  <label>
+               <el-input placeholder="请输入被投诉订单" v-model="complain_order_id" clearable></el-input>
+            </label> -->
+            <label>
+                <el-date-picker v-model="date" type="daterange" start-placeholder="投诉开始日期"    value-format="yyyy-MM-dd" range-separator="至"  end-placeholder="投诉结束日期"></el-date-picker>
+            </label>
+            <el-button type="primary" class="mySearch_btn fr" @click="handleSearch">查询</el-button>
+        </div>
+        <div>
+            <el-button type="success" class="myAdd_btn fl" @click="handleAuthorized">投诉</el-button>
+        </div>
+         
+        <!-- 权限管理列表 -->
+        <el-table :data="tableData" style="width: 100%;text-align: center" border>
+            <el-table-column prop="id" label="ID"></el-table-column>
+            <el-table-column prop="complain_merchant.username" label="投诉商户"></el-table-column>
+            <el-table-column prop="complain_order.pay_order_id" label="投诉订单"></el-table-column>
+            <el-table-column prop="complain_type" label="投诉类型"></el-table-column>
+            <el-table-column prop="complain" label="投诉标识"></el-table-column>
+            <el-table-column prop="complain_remark" label="投诉内容"></el-table-column>
+            <el-table-column prop="status" label="状态"></el-table-column>
+            <el-table-column prop="created_at" label="创建时间 "></el-table-column>
+            <!-- <el-table-column label="操作">
+                <template slot-scope="scope">
+                    <el-button size="mini" @click="handleAuthorized(scope.$index, scope.row)">投诉</el-button>
+                </template>
+            </el-table-column> -->
+        </el-table>
+        <!-- 分页 -->
+        <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="+currentPage" background :page-sizes="[20, 50, 100, 200]" :page-size="+pageSize" layout="total, sizes, prev, pager, next, jumper" :total="+total"></el-pagination>
+         <!-- 商户投诉-->
+        <el-dialog title="商户投诉" class="text-left addClass" width="30%" :visible.sync="dialogFormComplain">
+            <el-form ref="Form" :model="Form" :rules="Rules">
+                <el-form-item class="my_form_inp" label="投诉标识: " :label-width="formLabelWidth" prop="complain">
+                    <el-input  v-model.trim="Form.complain" autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item class="my_form_inp" label="投诉类型: " :label-width="formLabelWidth" prop=" pay_amount">
+                    <el-select v-model="Form.complain_type" placeholder="请选择投诉类型" filterable>
+                    <el-option v-for="(item,index) in complainOptions" :key="index" :label="item.label" :value="item.value">
+                    </el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item class="my_form_inp" label="投诉内容: " :label-width="formLabelWidth" prop="complain_remark">
+                    <el-input type="textarea"  v-model.trim="Form.complain_remark" autocomplete="off"></el-input>
+                </el-form-item>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button class="mybtAdd" @click="dialogFormComplain = false">取 消</el-button>
+                <el-button class="mybtAdd" type="primary" @click="submitFormComplain('Form')">保 存</el-button>
+            </div>
+        </el-dialog>
+ 
+</div>  
+</div>

@@ -51,6 +51,7 @@ export const ephemeral_data = {
           ],
           index: 2
         },
+
         // 账户管理
         {
           menu_name: "admin.admin",
@@ -225,7 +226,50 @@ export const ephemeral_data = {
             }
           ],
           index: 6
-        }
+        },
+        // 投诉模块
+        {
+          menu_name: "system.system",
+          label: "投诉管理",
+          // "label":"系统设置",
+          icon: "icon",
+          menu_uri: "",
+          children: [
+            {
+              menu_name: "admin.reset",
+              label: "投诉记录",
+              icon: "icon",
+              menu_uri: "/complain",
+              children: [],
+              index: "7-1"
+            },
+            {
+              menu_name: "basic.index",
+              label: "申诉记录",
+              icon: "icon",
+              menu_uri: "/appeal",
+              children: [],
+              index: "7-2"
+            },
+            // {
+            //   menu_name: "basic.index",
+            //   label: "申请解冻",
+            //   icon: "icon",
+            //   menu_uri: "",
+            //   children: [],
+            //   index: "7-3"
+            // },
+            // {
+            //   menu_name: "basic.index",
+            //   label: "解冻记录",
+            //   icon: "icon",
+            //   menu_uri: "",
+            //   children: [],
+            //   index: "7-4"
+            // },
+          ],
+          index: 7
+        },
       ],
       code: 200,
       message: "成功"

@@ -5,73 +5,41 @@ export default {
   name: "emailSetting",
   data() {
     return {
-      value4: [new Date(2016, 9, 10, 8, 40), new Date(2016, 9, 10, 9, 40)],
-      status:false,
-      ruleForm: {
-        merchant_id: "",
-        // id
-        id: "",
-        // 当前交易金额
-        paying_money: "",
-        // 当日总金额
-        all_money: "",
-        // 单笔最小交易额
-        min_money: "",
-        //单笔最大交易额
-        max_money: "",
-        //单位时间限制
-        unit_interval: "",
-        //限制时间单位
-        time_unit: '',
-        //单位事件次数
-        unit_number: 0,
-        //单位时间金额
-        unit_all_money: 0,
-        // 状态
-        // status: '',
-        //交易时间
-        start_time: "",
-        end_time: "",
-        // 防封域名
-        domain:""
+      sex:'1',
+      date:'',
+      Form: {
+        //姓名
+        realname:"",
+        //身份证
+        idcard: "",
+        // 性别
+        sex: "",
+        // 生日
+        birthday: "",
+        // 手机
+        mobile: "",
+        //qq
+        qq: "",
+        //地址
+        address: "",
+        //ip
+        permit_login_ip: '',
       },
-      unitOptions: [{
-          value: 1,
-          label: '秒'
-        },
-        {
-          value: 60,
-          label: '分'
-        },
-        {
-          value: 3600,
-          label: '时'
-        },
-        {
-          value: 86400,
-          label: '天'
-        },
-      ],
-      value: '',
-      value2: true,
       rules: {
-        min_money: [
-          { required: true, validator: this.$rules.FormValidate.Form().validateNumber, trigger: 'change' }
+        mobile: [
+          { required: true, message:'请输入姓名', trigger: 'change' }
         ],
-        max_money: [
-          { required: true, validator: this.$rules.FormValidate.Form().validateNumber, trigger: 'change' }
+        idcard: [
+          { required: true, validator: this.$rules.FormValidate.Form().ID, trigger: 'change' }
         ],
-        all_money: [
-          { required: true, validator: this.$rules.FormValidate.Form().validateNumber, trigger: 'change' }
+        qq: [
+          { required: true, validator: this.$rules.FormValidate.Form().validateQQ, trigger: 'change' }
         ],
-        unit_interval: [
-          { required: true, validator: this.$rules.FormValidate.Form().validateNumber, trigger: 'change' }
+        realname: [
+          { required: true, validator: this.$rules.FormValidate.Form().validateChinese, trigger: 'change' }
         ],
-        unit_number: [
-          { required: true, validator: this.$rules.FormValidate.Form().validateNumber, trigger: 'change' }
-        ],
-        unit_all_money: [
-          { required: true, validator: this.$rules.FormValidate.Form().validateNumber, trigger: 'change' }
+        permit_login_ip: [
+          { required: true, validator: this.$rules.FormValidate.Form().validateIp, trigger: 'change' }
         ],
       }
     };
@@ -80,56 +48,57 @@ export default {
     this.getFormData();
   },
   methods: {
+    switchTime(time) {
+      let date = new Date(time * 1000);
+      let y = date.getFullYear() + "-";
+      let m =
+        (date.getMonth() + 1 < 10
+          ? "0" + (date.getMonth() + 1)
+          : date.getMonth() + 1) + "-";
+      let d =(date.getDate() < 10 ? "0" + date.getDate() : date.getDate()) + " ";
+      let updated_at = y + m + d;
+      return updated_at;
+    },
+    getTime(d){
+       let date = new Date(d);
+       let time = Date.parse(date);
+       return time/1000;
+    },
     getFormData() {
-      // _get("api/transaction").then(res => {
-        let data = ephemeral.menu.transaction.data;
-        this.ruleForm.min_money = data.min_money;
-        this.ruleForm.max_money = data.max_money;
-        this.ruleForm.all_money = data.all_money;
-        this.ruleForm.start_time = data.start_time;
-        this.ruleForm.end_time = data.end_time;
-        this.ruleForm.unit_interval = data.unit_interval;
-        this.ruleForm.time_unit = +data.time_unit;
-        this.ruleForm.unit_interval = data.unit_interval;
-        this.ruleForm.unit_number = data.unit_number;
-        this.ruleForm.unit_all_money = data.unit_all_money;
-        this.ruleForm.domain = data.domain;
-        this.status = data.status=='0'?false:true;
-        console.log(this.ruleForm.time_unit);
-      // })
+      _get("merchant/user/profile").then(res => {
+        let data = res.data.data;
+        this.Form.realname = data.realname;
+        this.Form.idcard = data.idcard;
+        this.sex = data.sex+'';
+        this.Form.birthday = this.switchTime(data.birthday);
+        this.Form.mobile = data.mobile;
+        this.Form.qq = data.qq;
+        this.Form.address = data.address;
+        this.Form.permit_login_ip = data.permit_login_ip;
+      })
     },
     submitForm(formName) {
-      console.log(this.ruleForm.domain)
+      // console.log(this.Form.domain)
       this.$refs[formName].validate(valid => {
         if (valid) {
-          if(+this.ruleForm.min_money<+this.ruleForm.max_money){
            let params = {
-            min_money: this.ruleForm.min_money,
-            max_money: this.ruleForm.max_money,
-            all_money: this.ruleForm.all_money,
-            start_time: this.ruleForm.start_time,
-            end_time: this.ruleForm.end_time,
-            unit_interval: this.ruleForm.unit_interval,
-            time_unit: this.ruleForm.time_unit,
-            unit_number: this.ruleForm.unit_number,
-            unit_all_money: this.ruleForm.unit_all_money,
-            status: this.status?1:0,
-            domain:this.ruleForm.domain
-          }
-          _post("api/transaction", params).then(res => {
+            realname: this.Form.realname,
+            idcard: this.Form.idcard,
+            sex: this.sex,
+            birthday: this.getTime(this.Form.birthday),
+            mobile: this.Form.mobile,
+            qq: this.Form.qq,
+            address: this.Form.address,
+            permit_login_ip: this.Form.permit_login_ip,
+            }
+          _post("merchant/user/profile-submit", params).then(res => {
             this.$message({
               message: "提交成功",
               type: "success"
             });
             this.getFormData();
           })
-        }else{
-          this.$message({
-              message: "单笔最小金额不能大于单笔最大金额",
-              type: "error"
-            });
-        }
-        } else {
+        }else {
           console.log("error submit!!");
           return false;
         }
