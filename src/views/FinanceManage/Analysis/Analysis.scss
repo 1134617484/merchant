@@ -1,0 +1,20 @@
+.analysis_classify{
+    display: flex;
+    width: 30%;
+    flex-wrap: wrap;
+    background:rgba(255,255,255,1);
+    box-shadow:0px 0px 17px 1px rgba(219,219,219,0.4);
+    border-radius:6px;
+    border-top: 6px solid #1E9FFF;
+    padding-left: 18px;
+    font-family:Microsoft YaHei;
+    p{
+        margin: 0;
+        width: 100%;
+        height: 51px;
+        line-height: 51px;
+    }
+    .analysis_text{
+        width: 100%;
+    }
+}
