@@ -111,47 +111,64 @@ export default {
       secure_alert: {
         state: false,
         text: ""
-      }
+      },
+      // 添加银行卡暂存数据模版
+      editor:{
+        account_name: "",//开户名
+        alias: "",
+         bank_name: "",//银行名
+        card_number: "",//卡号
+        city: "",//城市
+        default:"",//默认结算
+        province: "",//省
+        sub_branch: "",//支行名字
+      },
+      editor_tableData:{},
+      OpeningBankVal:'',//开户行id
+      OpeningBank:''//开户行选项
     };
   },
   created() {
+    this.editor_tableData={...this.editor};
     this.getTableData("");
     this.getSelectData();
   },
   methods: {
     getSelectData() {
-      // _get("api/role/select").then(res => {
+      _get("merchant/bank/select").then(res => {
+        this.OpeningBank=res.data.data;
         this.typeOptions = ephemeral.menu.admin_select.data;
-      // });
+      });
     },
     getTableData(params) {
-      // _get("api/admin", params).then(res => {
-        let data = ephemeral.menu.admin.data.data;
-        console.log(ephemeral.menu)
-        console.log(data)
-        let paramsData = ephemeral.menu.admin.data;
-        this.currentPage = paramsData.current_page;
-        this.total = paramsData.total;
-        this.pageSize = paramsData.per_page;
-        if (data.length > 0) {
-          let tableList = [];
-          for (let i = 0; i < data.length; i++) {
-            tableList.push({
-              id: data[i].id,
-              role_id: data[i].role_id,
-              name: data[i].name,
-              mobile: data[i].mobile,
-              email: data[i].email,
-              status: data[i].status ? true : false,
-              last_login_at: this.switchTime(data[i].last_login_at),
-              last_login_ip: data[i].last_login_ip
-            });
-          }
-          this.tableData = tableList;
-        } else {
-          this.tableData = [];
-        }
-      // });
+      _get("merchant/bankcard", params).then(res => {
+        this.tableData=res.data.data;
+        // let data = ephemeral.menu.admin.data.data;
+        // console.log(ephemeral.menu)
+        // console.log(data)
+        // let paramsData = ephemeral.menu.admin.data;
+        // this.currentPage = paramsData.current_page;
+        // this.total = paramsData.total;
+        // this.pageSize = paramsData.per_page;
+        // if (data.length > 0) {
+        //   let tableList = [];
+        //   for (let i = 0; i < data.length; i++) {
+        //     tableList.push({
+        //       id: data[i].id,
+        //       role_id: data[i].role_id,
+        //       name: data[i].name,
+        //       mobile: data[i].mobile,
+        //       email: data[i].email,
+        //       status: data[i].status ? true : false,
+        //       last_login_at: this.switchTime(data[i].last_login_at),
+        //       last_login_ip: data[i].last_login_ip
+        //     });
+        //   }
+        //   this.tableData = tableList;
+        // } else {
+        //   this.tableData = [];
+        // }
+      });
     },
     handleSearch() {
       let params = {
@@ -262,25 +279,25 @@ export default {
         type: "success"
       });
     },
-    submitForm(formName) {
-      this.$refs[formName].validate(valid => {
-        if (valid) {
-          //alert("submit!");
-          let params = {
-            name: this.addForm.name,
-            email: this.addForm.email,
-            mobile: this.addForm.mobile,
-            password: this.addForm.password,
-            introduction: this.addForm.introduction,
-            role_id: this.addForm.role_id
-          };
-          _post("api/admin", params)
+    submitForm() {
+      console.log(this.editor_tableData);
+      let params={
+        account_name:this.editor_tableData.account_name,
+        bank_id:this.OpeningBankVal,
+        card_number:this.editor_tableData.card_number,
+        sub_branch:this.editor_tableData.sub_branch,
+      };
+      params.bank_id=this.OpeningBankVal;
+console.log(params)
+          _post("merchant/bankcard", params)
             .then(res => {
               this.getTableData("");
               this.$message({
                 message: "添加成功",
                 type: "success"
               });
+              // 提交成功清空表单
+              this.editor_tableData={...this.editor};
               this.dialogFormVisible = false;
             })
             .catch(err => {
@@ -289,11 +306,11 @@ export default {
                 type: "error"
               });
             });
-        } else {
-          console.log("error submit!!");
-          return false;
-        }
-      });
+      //   } else {
+      //     console.log("error submit!!");
+      //     return false;
+      //   }
+      // });
     },
     // 头像上传
     handleRemove(file, fileList) {
@@ -359,6 +376,17 @@ export default {
         this.EditorPasswordData.affirmPassword = "";
         return false;
       }
-    }
+    },
+    // 删除银行卡
+    handleDelete(index,row){
+console.log(row)
+_delete("merchant/bankcard/"+row.bank_id).then(res => {
+console.log(res)
+this.getTableData();
+
+})
+}
+
+    
   }
 };

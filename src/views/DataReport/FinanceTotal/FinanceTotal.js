@@ -61,7 +61,8 @@ export default {
       return updated_at
     },
     getTableData(params) {
-      // _get("api/finance/user-trade",params).then(res => {
+      _get("merchant/cash-log",params).then(res => {
+        console.log(res)
         let paramsData =ephemeral.finance.trade.data.merchants;
         let data = paramsData.data;
 
@@ -110,7 +111,7 @@ export default {
         // }else{
         //   this.tableData=[];
         // }
-      // });
+      });
     },
     // 选择页容量
      handleSizeChange(val) {

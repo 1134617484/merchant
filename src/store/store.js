@@ -14,8 +14,11 @@ export default new Vuex.Store({
     //路由信息
     url:"",
     title:"",
+    // 用户登录信息
+  user_data:''
   },
   mutations: mutations,
   getters: getters,
-  actions: actions
+  actions: actions,
+  
 });

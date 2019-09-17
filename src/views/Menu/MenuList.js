@@ -10,7 +10,7 @@
      return {
        // 用户信息
        userMsg: {
-         userName: ""
+         
        },
        isCollapse: false,
        value8: "",
@@ -51,7 +51,6 @@
       //  _get("api/permission/menu").then(res => {
          let data = ephemeral.menu.menulist.data;
          this.menuList = data;
-         console.log(data);
       //  })
      },
      activeMenu(el) {
@@ -102,13 +101,7 @@
        }
      },
      quitLogin(command) {
-       if (command == "a") {
          this.$router.push("/login");
-       }else if(command == "b"){
-        this.$router.push("/admin/reset");
-       }
-        
-       
      },
      handleQuit(){
        this.$router.push("/login");
@@ -174,9 +167,7 @@
    },
    created() {
      // 设置用户信息
-     // console.log(store.state.userInfo);
-     let userInfo = JSON.parse(window.localStorage.getItem("userInfo") || "{}");
-     this.userMsg.userName = userInfo.name;
+     this.userMsg = JSON.parse(window.localStorage.getItem("userInfo") || "{}");
      this.getMenuData();
    }
  };

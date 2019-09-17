@@ -36,7 +36,7 @@ export default {
              password:this.ruleForm.newPWD,
              password_confirmation:this.ruleForm.newTowPWD,
            }
-          _post("api/admin/reset",params).then(res => {
+          _post("/merchant/user/reset-password",params).then(res => {
             this.$message({
               message: "修改密码成功",
               type: "success"

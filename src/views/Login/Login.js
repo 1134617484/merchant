@@ -45,15 +45,18 @@ export default {
           // 本地存储token
           localStorage.setItem("token", res.data.access_token);
           // localStorage.setItem("user", res.data.access_token);
+
           // 用户信息缓存本地
 
           getUserMsg().then(res => {
+            console.log(res)
             if (res.data.code == 200) {
               window.localStorage.setItem(
                 "userInfo",
                 JSON.stringify(res.data.data)
                );
                 store.state.isLodingLogin = false;
+                store.state.user_data=res.data.data;
                 this.$router.push("/index");
                 this.$message({
                   showClose: true,
