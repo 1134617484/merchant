@@ -1,0 +1,93 @@
+.account-head .el-select {
+    width: auto;
+    margin-left: 0px;
+    margin-right: 10px;
+}
+
+.el-date-editor.el-input,
+.el-date-editor.el-input__inner {
+    width: 100%;
+}
+
+.el-radio {
+    vertical-align: text-bottom;
+    float: none !important;
+}
+
+.cont-box .upload-demo .el-upload-dragger {
+    width: 100%;
+}
+
+.el-upload-dragger .el-upload__text {
+    width: 100%;
+}
+
+.cont-box .qrcode_url>.el-tag--medium {
+    background: none;
+    border: none;
+    color: #606266;
+    font-size: initial;
+
+}
+
+.row_head {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.grid-content {
+    padding: 20px;
+    /* border-right: 15px solid #e9eef3;
+  border-bottom: 15px solid #e9eef3;*/
+}
+
+.container .cont-box {
+    padding: 0px;
+    border: none;
+}
+
+.left-border {
+    border-left: 15px solid #e9eef3;
+    padding-bottom:50px;
+}
+
+.qrcodeCont {
+    width: 80%;
+    border-radius: 4px;
+    background: #15C786;
+    margin:0px auto;
+    min-height: 400px;
+}
+
+.qrcode_head {
+    padding: 30px;
+    font-size: 20px;
+    color: #FFF;
+}
+.pay_box{
+    background: #fff;
+    width: 67%;
+    margin: 0px auto;
+    min-height: 250px;
+    border-radius: 4px;
+    box-sizing: border-box;
+    padding: 20px;
+}
+.pay_title{
+  font-size:14px;
+}
+.footer{
+  margin:20px 0px;
+}
+.footer img{
+  margin-right:30px;
+}
+.upload-box{
+  border-top:15px solid #e9eef3;
+  width: 98%;
+  line-height:100px
+}
+.el-upload__tip{
+    line-height: 0px;
+    text-align: center;
+}

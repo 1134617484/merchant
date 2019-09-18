@@ -1,0 +1,67 @@
+<div class="content">
+  <div class="cont-box">
+    <el-row :gutter="20">
+      <el-col :span="14">
+        <div class="grid-content bg-purple">
+          <div class="row_head">收款信息设置</div>
+          <div class="row_cont">
+            <el-form :model="Form" :rules="rules" ref="Form">
+            <el-row :gutter="20">
+                <el-col :span="12">
+                    <el-form-item label="收款人姓名：" prop="realname" :label-width="formLabelWidth">
+                        <el-input v-model="Form.realname"></el-input>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="12">
+                    <el-button type="primary" class="submitBtn" @click="submitForm('Form')">立即提交</el-button>
+                   <el-button @click="resetForm('Form')">重置</el-button>
+                </el-col>
+            </el-row>
+         </el-form>
+          </div>
+      </div>
+       <div class="grid-content bg-purple upload-box">
+          <div class="row_head">二维码背景设置</div>
+          <div class="row_cont">
+              <el-upload
+            class="upload-demo"
+            action="https://jsonplaceholder.typicode.com/posts/"
+            :on-preview="handlePreview"
+            :on-remove="handleRemove"
+            :before-remove="beforeRemove"
+            multiple
+            :limit="3"
+            :on-exceed="handleExceed"
+            >
+            <el-button size="small" type="primary">点击上传</el-button>
+            <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+          </el-upload>
+          </div>
+      </div>
+    </el-col>
+      <el-col :span="10">
+        <div class="grid-content qrcode_box left-border">
+          <div class="row_head">商户收款二维码</div>
+          <div class="qrcodeCont" style="width:61%;">
+            <div class="qrcode_head">扫一扫付款</div>
+            <div class="pay_box">
+              <div class="pay_title">扫一扫付款向商家付款</div>
+              <div></div>
+            </div>
+             
+          </div>
+          <div class="footer">
+              <img src="../../../assets/images/payImg/weixin.png">
+              <img src="../../../assets/images/payImg/zfb.png">
+              <img src="../../../assets/images/payImg/ylian.png">
+              <img src="../../../assets/images/payImg/QQ.png">
+          </div>
+          <div>
+            <el-button type="primary" @click="onSubmit">保存二维码</el-button>
+          </div>
+        </div>
+    </el-col>
+    </el-row>
+ 
+  </div>
+</div>
