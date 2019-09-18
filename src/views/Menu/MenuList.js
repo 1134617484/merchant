@@ -14,7 +14,7 @@
        },
        isCollapse: false,
        oneTitle:'管理中心',
-       twoTitle:'',
+       twoTitle:'管理首页',
        tag: "",
        iconfont:'iconfont',
        dynamicTags: [],

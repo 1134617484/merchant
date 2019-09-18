@@ -47,7 +47,7 @@
 }
 
 .left-border {
-    border-left: 15px solid #e9eef3;
+    border-left: 15px solid #F6F6F6;
     padding-bottom:50px;
 }
 
@@ -83,9 +83,13 @@
   margin-right:30px;
 }
 .upload-box{
-  border-top:15px solid #e9eef3;
+  border-top:15px solid #F6F6F6;
   width: 98%;
   line-height:100px
+}
+.upload-box .row_head{
+  line-height: 20px;
+  margin-bottom: 50px
 }
 .el-upload__tip{
     line-height: 0px;
