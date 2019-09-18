@@ -96,10 +96,10 @@ export const ephemeral_data = {
           index: "3-4"
         },
         {
-          menu_name: "admin.reset",
+          menu_name: "admin.reset_pay",
           label: "支付密码",
           icon: "icon",
-          menu_uri: "/admin/reset",
+          menu_uri: "/admin/reset_pay",
           children: [],
           index: "3-5"
         },
@@ -458,5 +458,199 @@ export const ephemeral_data = {
     fail:{"data":{"current_page":1,"data":[{"id":7,"merchant_id":"10002","pay_order_id":"testid","out_trade_id":"testid2","pay_amount":"11.3300","pay_poundage":"8.0000","pay_actual_amount":"11.0000","pay_apply_date":1566870323,"pay_success_date":1568105612,"pay_channel_id":"10000","pay_channel_name":null,"pay_channel_code":null,"pay_notify_url":"test","pay_callback_url":"test2","pay_status":1,"pay_product":null,"pay_gateway":null,"num":0,"member_id":null,"key":null,"account":null,"order_type":1,"pay_channel_reissue":null,"pay_channel_pay_reissue":null,"info":0,"attach":null,"pay_channel_account":null,"cost":"0.0000","cost_rate":"0.0000","account_id":0,"channel_id":210,"t":1,"last_reissue_time":11,"pay_type_id":0,"is_callback":0,"lock_status":1,"search_status":1,"merchant":{"id":10002,"username":"mark"},"channel":null,"type":null},{"id":1,"merchant_id":"10001","pay_order_id":"test","out_trade_id":"aaaa","pay_amount":"12.0020","pay_poundage":"8.0000","pay_actual_amount":"11.0000","pay_apply_date":1568131201,"pay_success_date":1567411893,"pay_channel_id":"10000","pay_channel_name":null,"pay_channel_code":null,"pay_notify_url":"","pay_callback_url":"","pay_status":1,"pay_product":null,"pay_gateway":null,"num":0,"member_id":null,"key":null,"account":null,"order_type":0,"pay_channel_reissue":null,"pay_channel_pay_reissue":null,"info":0,"attach":null,"pay_channel_account":null,"cost":"0.0003","cost_rate":"0.0000","account_id":0,"channel_id":2,"t":1,"last_reissue_time":11,"pay_type_id":3,"is_callback":0,"lock_status":0,"search_status":1,"merchant":{"id":10001,"username":"acoll"},"channel":null,"type":{"id":3,"name":"\u5fae\u4fe1\u516c\u4f17\u53f7"}},{"id":4,"merchant_id":"10001","pay_order_id":"test23","out_trade_id":"aaaa","pay_amount":"12.0300","pay_poundage":"8.0000","pay_actual_amount":"11.0002","pay_apply_date":1568131201,"pay_success_date":1568167077,"pay_channel_id":"10000","pay_channel_name":null,"pay_channel_code":null,"pay_notify_url":"","pay_callback_url":"","pay_status":1,"pay_product":null,"pay_gateway":null,"num":0,"member_id":null,"key":null,"account":null,"order_type":1,"pay_channel_reissue":null,"pay_channel_pay_reissue":null,"info":0,"attach":null,"pay_channel_account":null,"cost":"0.0000","cost_rate":"0.0000","account_id":0,"channel_id":2,"t":1,"last_reissue_time":11,"pay_type_id":2,"is_callback":0,"lock_status":1,"search_status":1,"merchant":{"id":10001,"username":"acoll"},"channel":null,"type":{"id":2,"name":"\u5fae\u4fe1H5"}}],"first_page_url":"https:\/\/api.emide.cn\/api\/order\/fail?page=1","from":1,"last_page":1,"last_page_url":"https:\/\/api.emide.cn\/api\/order\/fail?page=1","next_page_url":null,"path":"https:\/\/api.emide.cn\/api\/order\/fail","per_page":20,"prev_page_url":null,"to":3,"total":3},"code":200,"message":"\u6210\u529f"},
     success:{"data":{"current_page":1,"data":[{"id":7,"merchant_id":"10002","pay_order_id":"testid","out_trade_id":"testid2","pay_amount":"11.3300","pay_poundage":"8.0000","pay_actual_amount":"11.0000","pay_apply_date":1566870323,"pay_success_date":1568105612,"pay_channel_id":"10000","pay_channel_name":null,"pay_channel_code":null,"pay_notify_url":"test","pay_callback_url":"test2","pay_status":1,"pay_product":null,"pay_gateway":null,"num":0,"member_id":null,"key":null,"account":null,"order_type":1,"pay_channel_reissue":null,"pay_channel_pay_reissue":null,"info":0,"attach":null,"pay_channel_account":null,"cost":"0.0000","cost_rate":"0.0000","account_id":0,"channel_id":210,"t":1,"last_reissue_time":11,"pay_type_id":0,"is_callback":0,"lock_status":1,"search_status":1,"merchant":{"id":10002,"username":"mark"},"channel":null,"type":null},{"id":6,"merchant_id":"10002","pay_order_id":"test25","out_trade_id":"aaaa","pay_amount":"12.0000","pay_poundage":"8.0000","pay_actual_amount":"11.0001","pay_apply_date":1566782661,"pay_success_date":1566782661,"pay_channel_id":"10000","pay_channel_name":null,"pay_channel_code":null,"pay_notify_url":"","pay_callback_url":"","pay_status":1,"pay_product":null,"pay_gateway":null,"num":0,"member_id":null,"key":null,"account":null,"order_type":1,"pay_channel_reissue":null,"pay_channel_pay_reissue":null,"info":0,"attach":null,"pay_channel_account":null,"cost":"0.0005","cost_rate":"0.0000","account_id":0,"channel_id":2,"t":1,"last_reissue_time":11,"pay_type_id":3,"is_callback":1,"lock_status":0,"search_status":2,"merchant":{"id":10002,"username":"mark"},"channel":null,"type":{"id":3,"name":"\u5fae\u4fe1\u516c\u4f17\u53f7"}},{"id":1,"merchant_id":"10001","pay_order_id":"test","out_trade_id":"aaaa","pay_amount":"12.0020","pay_poundage":"8.0000","pay_actual_amount":"11.0000","pay_apply_date":1568131201,"pay_success_date":1567411893,"pay_channel_id":"10000","pay_channel_name":null,"pay_channel_code":null,"pay_notify_url":"","pay_callback_url":"","pay_status":1,"pay_product":null,"pay_gateway":null,"num":0,"member_id":null,"key":null,"account":null,"order_type":0,"pay_channel_reissue":null,"pay_channel_pay_reissue":null,"info":0,"attach":null,"pay_channel_account":null,"cost":"0.0003","cost_rate":"0.0000","account_id":0,"channel_id":2,"t":1,"last_reissue_time":11,"pay_type_id":3,"is_callback":0,"lock_status":0,"search_status":1,"merchant":{"id":10001,"username":"acoll"},"channel":null,"type":{"id":3,"name":"\u5fae\u4fe1\u516c\u4f17\u53f7"}},{"id":4,"merchant_id":"10001","pay_order_id":"test23","out_trade_id":"aaaa","pay_amount":"12.0300","pay_poundage":"8.0000","pay_actual_amount":"11.0002","pay_apply_date":1568131201,"pay_success_date":1568167077,"pay_channel_id":"10000","pay_channel_name":null,"pay_channel_code":null,"pay_notify_url":"","pay_callback_url":"","pay_status":1,"pay_product":null,"pay_gateway":null,"num":0,"member_id":null,"key":null,"account":null,"order_type":1,"pay_channel_reissue":null,"pay_channel_pay_reissue":null,"info":0,"attach":null,"pay_channel_account":null,"cost":"0.0000","cost_rate":"0.0000","account_id":0,"channel_id":2,"t":1,"last_reissue_time":11,"pay_type_id":2,"is_callback":0,"lock_status":1,"search_status":1,"merchant":{"id":10001,"username":"acoll"},"channel":null,"type":{"id":2,"name":"\u5fae\u4fe1H5"}},{"id":3,"merchant_id":"10002","pay_order_id":"test233","out_trade_id":"aaaa2","pay_amount":"12.0320","pay_poundage":"8.0000","pay_actual_amount":"11.0000","pay_apply_date":1579131201,"pay_success_date":1568110532,"pay_channel_id":"10000","pay_channel_name":null,"pay_channel_code":null,"pay_notify_url":"http:\/\/localhost\/pay\/index.php","pay_callback_url":"","pay_status":1,"pay_product":null,"pay_gateway":null,"num":11,"member_id":null,"key":null,"account":null,"order_type":0,"pay_channel_reissue":null,"pay_channel_pay_reissue":null,"info":0,"attach":null,"pay_channel_account":null,"cost":"0.0000","cost_rate":"0.0000","account_id":0,"channel_id":210,"t":1,"last_reissue_time":11,"pay_type_id":5,"is_callback":1,"lock_status":0,"search_status":2,"merchant":{"id":10002,"username":"mark"},"channel":null,"type":{"id":5,"name":"\u652f\u4ed8\u5b9dH5"}}],"first_page_url":"https:\/\/api.emide.cn\/api\/order\/success?page=1","from":1,"last_page":1,"last_page_url":"https:\/\/api.emide.cn\/api\/order\/success?page=1","next_page_url":null,"path":"https:\/\/api.emide.cn\/api\/order\/success","per_page":20,"prev_page_url":null,"to":5,"total":5},"code":200,"message":"\u6210\u529f"},
     pending:{"data":{"current_page":1,"data":[],"first_page_url":"https:\/\/api.emide.cn\/api\/order\/pending?page=1","from":null,"last_page":1,"last_page_url":"https:\/\/api.emide.cn\/api\/order\/pending?page=1","next_page_url":null,"path":"https:\/\/api.emide.cn\/api\/order\/pending","per_page":20,"prev_page_url":null,"to":null,"total":0},"code":200,"message":"\u6210\u529f"},
-  }
+  },
+  capitol:{
+    "data": {
+        "current_page": 1,
+        "data": [
+            {
+                "id": 30,
+                "merchant_id": 10001,
+                "original_money": "555.0000",
+                "change_money": "11.0000",
+                "changed_money": "544.0000",
+                "charge_time": 1567411893,
+                "transaction_id": "0",
+                "pay_channel_id": 10000,
+                "pay_type_id": 6,
+                "order_id": "1",
+                "content": "设置订单test为已支付",
+                "merchant": {
+                    "id": 10001,
+                    "username": "acoll"
+                },
+                "order": {
+                    "id": 1,
+                    "merchant_id": "10001",
+                    "pay_order_id": "2019081810001123659823",
+                    "out_trade_id": "aaaa",
+                    "channel_id": 2,
+                    "channel": null
+                },
+                "type": {
+                    "id": 6,
+                    "name": "设置订单为已支付"
+                }
+            },
+            {
+                "id": 32,
+                "merchant_id": 10001,
+                "original_money": "544.0000",
+                "change_money": "3.3000",
+                "changed_money": "540.7000",
+                "charge_time": 1567412461,
+                "transaction_id": "0",
+                "pay_channel_id": 10000,
+                "pay_type_id": 7,
+                "order_id": "",
+                "content": "冻结订单",
+                "merchant": {
+                    "id": 10001,
+                    "username": "acoll"
+                },
+                "order": null,
+                "type": {
+                    "id": 7,
+                    "name": "冻结订单"
+                }
+            },
+            {
+                "id": 33,
+                "merchant_id": 10001,
+                "original_money": "540.7000",
+                "change_money": "11.0002",
+                "changed_money": "529.6998",
+                "charge_time": 1567412471,
+                "transaction_id": "0",
+                "pay_channel_id": 10002,
+                "pay_type_id": 6,
+                "order_id": "3",
+                "content": "设置订单test23为已支付",
+                "merchant": {
+                    "id": 10001,
+                    "username": "acoll"
+                },
+                "order": {
+                    "id": 3,
+                    "merchant_id": "10002",
+                    "pay_order_id": "2019081810001123659824",
+                    "out_trade_id": "aaaa2",
+                    "channel_id": 210,
+                    "channel": null
+                },
+                "type": {
+                    "id": 6,
+                    "name": "设置订单为已支付"
+                }
+            },
+            {
+                "id": 34,
+                "merchant_id": 10001,
+                "original_money": "529.6998",
+                "change_money": "3.3000",
+                "changed_money": "526.3998",
+                "charge_time": 1567418892,
+                "transaction_id": "0",
+                "pay_channel_id": 10002,
+                "pay_type_id": 7,
+                "order_id": "4",
+                "content": "冻结订单",
+                "merchant": {
+                    "id": 10001,
+                    "username": "acoll"
+                },
+                "order": {
+                    "id": 4,
+                    "merchant_id": "10001",
+                    "pay_order_id": "2019081810001123659825",
+                    "out_trade_id": "aaaa",
+                    "channel_id": 2,
+                    "channel": null
+                },
+                "type": {
+                    "id": 7,
+                    "name": "冻结订单"
+                }
+            },
+            {
+                "id": 46,
+                "merchant_id": 10001,
+                "original_money": "526.3998",
+                "change_money": "11.0002",
+                "changed_money": "515.3996",
+                "charge_time": 1568110606,
+                "transaction_id": "0",
+                "pay_channel_id": 10002,
+                "pay_type_id": 7,
+                "order_id": "",
+                "content": "冻结订单",
+                "merchant": {
+                    "id": 10001,
+                    "username": "acoll"
+                },
+                "order": null,
+                "type": {
+                    "id": 7,
+                    "name": "冻结订单"
+                }
+            },
+            {
+                "id": 49,
+                "merchant_id": 10001,
+                "original_money": "515.3996",
+                "change_money": "11.0002",
+                "changed_money": "504.3994",
+                "charge_time": 1568170787,
+                "transaction_id": "0",
+                "pay_channel_id": 10002,
+                "pay_type_id": 6,
+                "order_id": "",
+                "content": "设置订单test23为已支付",
+                "merchant": {
+                    "id": 10001,
+                    "username": "acoll"
+                },
+                "order": null,
+                "type": {
+                    "id": 6,
+                    "name": "设置订单为已支付"
+                }
+            },
+            {
+                "id": 50,
+                "merchant_id": 10001,
+                "original_money": "504.3994",
+                "change_money": "11.0000",
+                "changed_money": "493.3994",
+                "charge_time": 1568170860,
+                "transaction_id": "0",
+                "pay_channel_id": 10002,
+                "pay_type_id": 7,
+                "order_id": "",
+                "content": "冻结订单",
+                "merchant": {
+                    "id": 10001,
+                    "username": "acoll"
+                },
+                "order": null,
+                "type": {
+                    "id": 7,
+                    "name": "冻结订单"
+                }
+            }
+        ],
+        "first_page_url": "http://test.laravel.com/merchant/account-change?page=1",
+        "from": 1,
+        "last_page": 1,
+        "last_page_url": "http://test.laravel.com/merchant/account-change?page=1",
+        "next_page_url": null,
+        "path": "http://test.laravel.com/merchant/account-change",
+        "per_page": 20,
+        "prev_page_url": null,
+        "to": 7,
+        "total": 7
+    },
+    "code": 200,
+    "message": "成功"
+}
 };

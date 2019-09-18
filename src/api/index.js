@@ -224,4 +224,22 @@ export const switchRoleMsg = params => {
   return axios.get("api/role/select", params);
 };
 
-
+// 时间处理
+export const switchTime=time=> {
+  let date = new Date(time * 1000);
+  let y = date.getFullYear() + "-";
+  let m =
+    (date.getMonth() + 1 < 10
+      ? "0" + (date.getMonth() + 1)
+      : date.getMonth() + 1) + "-";
+  let d =
+    (date.getDate() < 10 ? "0" + date.getDate() : date.getDate()) + " ";
+  let h = date.getHours();
+   h=h<10?'0'+h:h;
+  let mm = date.getMinutes();
+  mm=mm<10?'0'+mm:mm;
+  let s = date.getSeconds();
+  s=s<10?'0'+s:s;
+  let updated_at = y + m + d + h + ":" + mm + ":" + s;
+  return updated_at;
+}

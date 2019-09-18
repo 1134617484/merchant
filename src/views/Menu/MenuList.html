@@ -20,8 +20,8 @@
                     </div> -->
                     <div class="user-avator">
                         <img src="../../assets/images/img.jpg" />
-                        <span class="avator_text">Demo</span>
-                        <span class="avator_exit" @click="handleQuit">退出</span>
+                        <span class="avator_text">{{userMsg.username}}</span>
+                        <span class="avator_exit" @click="quitLogin()">退出</span>
                     </div>
 
                     <!-- <el-dropdown @command="quitLogin" clas="login_down">
@@ -41,7 +41,7 @@
             <el-aside width="auto">
                 <!-- <el-scrollbar wrap-class="scrollbar-wrapper"> -->
                         <div class="user_title">
-                                <img src="../../assets/images/img.jpg" alt=""><p>ID:10018</p>
+                                <img src="../../assets/images/img.jpg" alt=""><p>ID:{{userMsg.id}}</p>
                             </div>
                 <el-menu router mode="vertical" unique-opened class="el-menu-vertical-demo" :collapse="isCollapse" default-active="defaultActive" background-color="#304156"  text-color="#bfcbd9"   active-text-color="#fff" @open="handleOpen">
                     <div v-for="(item,index) in menuList" :key="index">

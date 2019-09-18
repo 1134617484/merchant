@@ -85,31 +85,33 @@ export default {
       this.getTableData(params);
     },
     getTableData(params) {
-      // _get("api/permission", params).then(res => {
-        let paramsData = ephemeral.menu.permission.data;
-        let data = paramsData.data;
-        this.currentPage = paramsData.current_page;
-        this.total = paramsData.total;
-        this.pageSize = paramsData.per_page;
-        if (data.length > 0) {
-          let tableList = [];
-          for (let i = 0; i < data.length; i++) {
-            tableList.push({
-              id: data[i].id,
-              icon: data[i].icon,
-              menu_name: data[i].menu_name,
-              title: data[i].title,
-              status: data[i].status ? true : false,
-              is_menu: data[i].is_menu ? true : false,
-              pid: data[i].pid,
-              sort: data[i].sort,
-            })
-          }
-          this.tableData = tableList;
-        } else {
-          this.tableData = [];
-        }
-      // });
+      
+      _get("merchant/user/authorize", params).then(res => {
+        console.log(res)
+        // let paramsData = ephemeral.menu.permission.data;
+        // let data = paramsData.data;
+        // this.currentPage = paramsData.current_page;
+        // this.total = paramsData.total;
+        // this.pageSize = paramsData.per_page;
+        // if (data.length > 0) {
+        //   let tableList = [];
+        //   for (let i = 0; i < data.length; i++) {
+        //     tableList.push({
+        //       id: data[i].id,
+        //       icon: data[i].icon,
+        //       menu_name: data[i].menu_name,
+        //       title: data[i].title,
+        //       status: data[i].status ? true : false,
+        //       is_menu: data[i].is_menu ? true : false,
+        //       pid: data[i].pid,
+        //       sort: data[i].sort,
+        //     })
+        //   }
+        //   this.tableData = tableList;
+        // } else {
+        //   this.tableData = [];
+        // }
+      });
     },
     formatter(row, column) {
       return row.address;

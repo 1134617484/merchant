@@ -1,0 +1,11 @@
+.leftNumber{
+    width: 190px;
+    float: left;
+}
+.bor{
+    padding-left: 40% !important;
+}
+.el-form-item__content {
+    margin-left: 73px !important;
+    margin-right: 0px !important;
+}

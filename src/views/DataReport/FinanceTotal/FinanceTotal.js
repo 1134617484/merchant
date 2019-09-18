@@ -1,5 +1,5 @@
 import { log } from "util";
-import { _get, _post, _put, _delete,ephemeral } from "../../../api/index.js"
+import { _get, _post, _put, _delete,ephemeral,switchTime } from "../../../api/index.js"
 export default {
   name: "AccessConfig",
   data() {
@@ -61,29 +61,35 @@ export default {
       return updated_at
     },
     getTableData(params) {
-      // _get("api/finance/user-trade",params).then(res => {
-        let paramsData =ephemeral.finance.trade.data.merchants;
-        let data = paramsData.data;
-
-        this.tableData=[];
+      _get("merchant/cash-log",params).then(res => {
+        let data=[...res.data.data.data.data];
+        data.forEach(element => {
+          isNaN(element.created_at)?element.created_at=switchTime(element.created_at):element.created_at;
+          isNaN(element.created_at)?element.created_at=switchTime(element.verify_tim):element.verify_tim;
+        });
         this.tableData=data;
+      //   let paramsData =ephemeral.finance.trade.data.merchants;
+      //   let data = paramsData.data;
+
+      //   this.tableData=[];
+      //   this.tableData=data;
         
-        this.currentPage = paramsData.current_page;
-        this.total = paramsData.total;
-        this.pageSize = paramsData.per_page;
-        let statistics=ephemeral.finance.trade.data.statistics;
+      //   this.currentPage = paramsData.current_page;
+      //   this.total = paramsData.total;
+      //   this.pageSize = paramsData.per_page;
+      //   let statistics=ephemeral.finance.trade.data.statistics;
         
-        let lastData={id:'统计:',
-        username:statistics.member_count+'个商户',
-        all_order_count:statistics.all_order_count+'条订单',
-        all_order_amount:statistics.all_order_amount+'元',
-        paid_order_amount:statistics.paid_order_amount+'元',
-        all_order_poundage:statistics.all_order_poundage+'元',
-        balance:statistics.balance+'元',
-        balance_disabled:statistics.balance_disabled+'元',
-        pay_amount_total:statistics.pay_amount_total+'元',
-      };
-        this.tableData.push(lastData);
+      //   let lastData={id:'统计:',
+      //   username:statistics.member_count+'个商户',
+      //   all_order_count:statistics.all_order_count+'条订单',
+      //   all_order_amount:statistics.all_order_amount+'元',
+      //   paid_order_amount:statistics.paid_order_amount+'元',
+      //   all_order_poundage:statistics.all_order_poundage+'元',
+      //   balance:statistics.balance+'元',
+      //   balance_disabled:statistics.balance_disabled+'元',
+      //   pay_amount_total:statistics.pay_amount_total+'元',
+      // };
+      //   this.tableData.push(lastData);
         // if (data.length > 0) {
         //   let tableList = [];
         //   for (let i = 0; i < data.length; i++) {
@@ -110,7 +116,7 @@ export default {
         // }else{
         //   this.tableData=[];
         // }
-      // });
+      });
     },
     // 选择页容量
      handleSizeChange(val) {

@@ -1,0 +1,42 @@
+<div>
+  <div class="bor">
+    <el-form
+      :model="ruleForm"
+      :rules="rules"
+      ref="ruleForm"
+      label-width="120px"
+      class="demo-ruleForm"
+    >
+      <el-form-item label="原登录密码：" prop="oldPWD">
+        <el-input
+          v-model="ruleForm.oldPWD"
+          class="leftNumber btn"
+          placeholder="请输入原密码"
+        ></el-input>
+      </el-form-item>
+      <el-form-item label="新登录密码：" prop="newPWD">
+        <el-input
+          v-model="ruleForm.newPWD"
+          class="leftNumber btn"
+          placeholder="请输入新密码"
+        ></el-input>
+      </el-form-item>
+      <el-form-item label="重复新密码：" prop="newTowPWD">
+        <el-input
+          v-model="ruleForm.newTowPWD"
+          class="leftNumber btn"
+          placeholder="请输入重复新密码"
+        ></el-input>
+      </el-form-item>
+      <el-form-item class="myTableForm">
+        <el-button
+          type="primary"
+          class="submitBtn"
+          @click="submitForm('ruleForm')"
+          >立即提交</el-button
+        >
+        <el-button @click="resetForm('ruleForm')">重置</el-button>
+      </el-form-item>
+    </el-form>
+  </div>
+</div>

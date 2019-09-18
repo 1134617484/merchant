@@ -1,5 +1,5 @@
 import { log } from "util";
-import { _get, _post, _put, _delete,ephemeral } from "../../../api/index.js"
+import { _get, _post, _put, _delete,ephemeral,switchTime } from "../../../api/index.js"
 export default {
   name: "AccessConfig",
   data() {
@@ -40,7 +40,8 @@ export default {
   },
   methods: {
     getSelectMenuData() {
-      // _get("api/admin/select").then(res => {
+      // _get("/merchant/user/log").then(res => {
+        // console.log(res)
         let params = { "id": 'a', name: '全部' };
         this.typeOptions =[...ephemeral.menu.admin_log_select.data];
         console.log(this.typeOptions);
@@ -56,38 +57,44 @@ export default {
       return updated_at;
     },
     getTableData(params) {
-      // _get("api/admin-log",params).then(res => {
-        let paramsData = ephemeral.menu.admin_log.data;
-        let data = paramsData.data;
-        this.currentPage = paramsData.current_page;
-        this.total = paramsData.total;
-        this.pageSize = paramsData.per_page;
-        if (data.length > 0) {
-          let tableList = [];
-          for (let i = 0; i < data.length; i++) {
-            let time = data[i].created_at;
-            let type=data[i].type;
-            let mType;
-            if(type=='1'){
-               mType="商户登录"
-            }else if(type=='2'){
-              mType='商户短信验证'
-            }else{
-              mType='支付密码验证'
-            }
-            tableList.push({
-              id: data[i].id,
-              admin:data[i].admin,
-              type: mType,
-              comment: data[i].comment,
-              updated_at: this.switchTime(data[i].created_at),
-            })
-          }
-          this.tableData = tableList;
-        }else{
-          this.tableData=[];
-        }
-      // });
+      _get("merchant/user/log",params).then(res => {
+        this.tableData=res.data.data.data;
+        this.tableData.forEach(element => {
+          isNaN(element.created_at)?element.created_at=switchTime(element.created_at):element.created_at;
+          console.log(element.created_at)
+        });
+        console.log(this.tableData)
+      //   let paramsData = ephemeral.menu.admin_log.data;
+      //   let data = paramsData.data;
+      //   this.currentPage = paramsData.current_page;
+      //   this.total = paramsData.total;
+      //   this.pageSize = paramsData.per_page;
+      //   if (data.length > 0) {
+      //     let tableList = [];
+      //     for (let i = 0; i < data.length; i++) {
+      //       let time = data[i].created_at;
+      //       let type=data[i].type;
+      //       let mType;
+      //       if(type=='1'){
+      //          mType="商户登录"
+      //       }else if(type=='2'){
+      //         mType='商户短信验证'
+      //       }else{
+      //         mType='支付密码验证'
+      //       }
+      //       tableList.push({
+      //         id: data[i].id,
+      //         admin:data[i].admin,
+      //         type: mType,
+      //         comment: data[i].comment,
+      //         updated_at: this.switchTime(data[i].created_at),
+      //       })
+      //     }
+      //     this.tableData = tableList;
+      //   }else{
+      //     this.tableData=[];
+      //   }
+      });
     },
     // 选择页容量
     handleSizeChange(val) {

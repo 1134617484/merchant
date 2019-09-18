@@ -1,0 +1,75 @@
+.senderNameClass {
+  width: 340px;
+}
+
+.bor {
+  .header {
+    font-size: 18px;
+    color: #666;
+    text-align: left;
+    margin-bottom: 34px;
+  }
+
+  .bor_p {
+    display: flex;
+    margin-bottom: 40px;
+    width: 450px;
+    color:#666;
+    span {
+      height: 28px;
+      line-height: 28px;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+
+    .title {
+      margin-right: 15px;
+    }
+
+    .box {
+      display: block;
+      width: 60px;
+      color: #fff;
+
+    }
+
+    .bor_text {
+      width: 100%;
+      display: flex;
+    }
+
+    .success {
+      .box {
+        background-color: #09c47f;
+      }
+    }
+
+    .warning {
+      .box {
+        background-color: #fd8402;
+      }
+    }
+
+    .blue {
+      .box {
+        background-color: #1d9fff;
+      }
+    }
+  }
+  .demo-ruleForm{
+    .email_input{
+width: 182px;
+    }
+    .apply_money{
+      margin-right: 20px;
+    }
+    .apply_money_span{
+      font-size: 14px;
+      color: #999;
+    }
+    .el-form-item__label{
+      color: #666;
+    }
+  }
+
+}
