@@ -61,9 +61,7 @@ export default {
         this.tableData=res.data.data.data;
         this.tableData.forEach(element => {
           isNaN(element.created_at)?element.created_at=switchTime(element.created_at):element.created_at;
-          console.log(element.created_at)
         });
-        console.log(this.tableData)
       //   let paramsData = ephemeral.menu.admin_log.data;
       //   let data = paramsData.data;
       //   this.currentPage = paramsData.current_page;

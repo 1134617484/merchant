@@ -1,6 +1,5 @@
 import store from "../../store/store.js";
 import { userLogin, getUserMsg } from "../../api/index.js";
-import { log } from "util";
 export default {
   data() {
     return {
@@ -8,7 +7,9 @@ export default {
       password: "123456",
       auth_code:"",
       loading: store.state.isLodingLogin,
-      radio:"1"
+      radio:"0",
+      radio_on:require("@/assets/images/login/login_on.png"),
+      radio_off:require("@/assets/images/login/login_off.png")
     };
   },
   name: "login",
@@ -76,6 +77,9 @@ export default {
         message: "密码长度为6-16位数字或字母",
         type: "warning"
       });
+    },
+    changeRedio(){
+      this.radio=='0'?this.radio='1':this.radio='0';
     }
   },
   computed: {
