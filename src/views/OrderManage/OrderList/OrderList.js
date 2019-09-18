@@ -271,7 +271,8 @@ export default {
       // })
     },
     getTableData(params) {
-      // _get("api/order", params).then(res => {
+      _get("merchant/order", params).then(res => {
+        console.log(res)
         let paramsData = ephemeral.order.order.data;
         console.log(paramsData)
         let data = paramsData.data;
@@ -334,7 +335,7 @@ export default {
         } else {
           this.tableData = [];
         }
-      // });
+      });
     },
     formatter(row, column) {
       return row.address;

@@ -1,5 +1,5 @@
 import { log } from "util";
-import { _get, _post, _put, _delete,ephemeral } from "../../../api/index.js"
+import { _get, _post, _put, _delete,ephemeral,switchTime } from "../../../api/index.js"
 export default {
   name: "AccessConfig",
   data() {
@@ -59,6 +59,11 @@ export default {
     getTableData(params) {
       _get("merchant/user/log",params).then(res => {
         this.tableData=res.data.data.data;
+        this.tableData.forEach(element => {
+          isNaN(element.created_at)?element.created_at=switchTime(element.created_at):element.created_at;
+          console.log(element.created_at)
+        });
+        console.log(this.tableData)
       //   let paramsData = ephemeral.menu.admin_log.data;
       //   let data = paramsData.data;
       //   this.currentPage = paramsData.current_page;

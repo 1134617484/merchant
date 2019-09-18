@@ -262,8 +262,8 @@ export default {
       })
     },
     getTableData(params) {
-      // _get("api/order/success", params).then(res => {
-
+      _get("/merchant/order/success", params).then(res => {
+console.log(res)
         let paramsData = ephemeral.order.success.data;
         let data = paramsData.data;
         this.currentPage = paramsData.current_page;
@@ -314,7 +314,7 @@ export default {
         }else{
           this.tableData=[];
         }
-      // });
+      });
     },
     formatter(row, column) {
       return row.address;
