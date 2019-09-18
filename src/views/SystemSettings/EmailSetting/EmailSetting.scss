@@ -19,6 +19,7 @@
       height: 28px;
       line-height: 28px;
       border-radius: 4px;
+      font-size: 16px;
     }
 
     .title {
@@ -55,4 +56,20 @@
       }
     }
   }
+  .demo-ruleForm{
+    .email_input{
+width: 182px;
+    }
+    .apply_money{
+      margin-right: 20px;
+    }
+    .apply_money_span{
+      font-size: 14px;
+      color: #999;
+    }
+    .el-form-item__label{
+      color: #666;
+    }
+  }
+
 }

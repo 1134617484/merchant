@@ -6,42 +6,34 @@ export default {
   data() {
     return {
       ruleForm: {
-        // smtp服务器
-        smtp_host: "",
-        // smpt端口
-        smtp_port: "",
-        // smpt用户名
-        smtp_user: "",
-        // smpt密码
-        smtp_pass: "",
-        // 发件人Email
-        smtp_email: "",
-        // 发件人姓名
-        smtp_name:""
+        // 提现金额
+        apply_money: "",
+        // 实际到账金额
+        reality_money: "",
+        // 手续费
+        calc_money: "",
+        // 支付密码
+        payment_code: "",
+        bank_id:""
       },
       rules: {
-        smtp_host: [
-          { required: true, validator: this.$rules.FormValidate.Form().validateIp, trigger: 'change' }
+        apply_money: [
+          { required: true, validator: this.$rules.FormValidate.Form().validateNumber, trigger: 'change' }
         ],
-        smtp_user:[
-          { required: true, message: "请输入smpt用户名", trigger: 'change'}
-        ],
-        smtp_name:[
-          { required: true, message: "请输入发件人姓名", trigger: 'change'}
-        ],
-        smtp_email: [
-          { required: true, validator: this.$rules.FormValidate.Form().validateEmail, trigger: 'change' }
-        ],
-        senderName:[
-          { required: true, validator: this.$rules.FormValidate.Form().validateChinese, trigger: 'change' }
-        ],
-        smtp_pass: [
+        payment_code:[
           { required: true, validator: this.$rules.FormValidate.Form().validatePsdReg, trigger: 'change'}
         ],
-        smtp_port:[
-          { required: true, validator: this.$rules.FormValidate.Form().validateNumber, trigger: 'change'}
+        reality_money:[
+          { required: true,  trigger: 'change'}
+        ],
+        calc_money:[
+          { required: true,  trigger: 'change'}
+        ],
+        bank_id:[
+          { required: true,  message: "请选择提现银行卡", trigger: 'change'}
         ]
-      }
+      },
+      classifyOptions:[],//商户提现银行卡选择
     };
   },
   created(){
@@ -49,36 +41,39 @@ export default {
   },
   methods: {
     getFormData(){
-      // _get("api/email").then(res => {
-
-        let data=ephemeral.finance.email.data;
-        this.ruleForm.smtp_host=data.smtp_host;
-        this.ruleForm.smtp_port=data.smtp_port;
-        this.ruleForm.smtp_user=data.smtp_user;
-        this.ruleForm.smtp_pass=data.smtp_pass;
-        this.ruleForm.smtp_email=data.smtp_email;
-        this.ruleForm.smtp_name=data.smtp_name;
-      // })
+      // 银行卡列表
+      _get("/merchant/bank/select").then(res => {
+console.log(res)
+this.classifyOptions=res.data.data;
+this.bank_id=res.data.data[0].id;
+        // let data=ephemeral.finance.email.data;
+        // this.ruleForm.smtp_host=data.smtp_host;
+        // this.ruleForm.smtp_port=data.smtp_port;
+        // this.ruleForm.smtp_user=data.smtp_user;
+        // this.ruleForm.smtp_pass=data.smtp_pass;
+        // this.ruleForm.smtp_email=data.smtp_email;
+        // this.ruleForm.smtp_name=data.smtp_name;
+      })
+      
+      
     },
     submitForm(formName) {
+      console.log(formName)
       this.$refs[formName].validate(valid => {
+        console.log(valid)
         if (valid) {
           //alert("submit!");
            let params={
-             smtp_host:this.ruleForm.smtp_host,
-             smtp_port:this.ruleForm.smtp_port,
-             smtp_user:this.ruleForm.smtp_user,
-             smtp_pass:this.ruleForm.smtp_pass,
-             smtp_email:this.ruleForm.smtp_email,
-             smtp_host:this.ruleForm.smtp_host,
-             smtp_name:this.ruleForm.smtp_name,
+            bankcard_id:this.ruleForm.bank_id.id,
+            apply_money:this.ruleForm.apply_money,
+            pay_password:this.ruleForm.payment_code,
            }
-          _post("api/email",params).then(res => {
+          _post("/merchant/withdraw",params).then(res => {
             this.$message({
               message: "提交成功",
               type: "success"
             });
-            this.getFormData();
+            // this.getFormData();
           })
         } else {
           console.log("error submit!!");
@@ -88,6 +83,15 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
-    }
+    },
+    // 输入提现金额后
+    handleBlur(){
+      this.ruleForm.apply_money=parseInt(this.ruleForm.apply_money);
+      _get(`merchant/withdraw/calc?apply_money=${this.ruleForm.apply_money}`).then(res => {
+this.ruleForm.calc_money=res.data.data.calc;
+this.ruleForm.reality_money=Number(this.ruleForm.apply_money-this.ruleForm.calc_money);
+      })
+    },
+
   }
 };

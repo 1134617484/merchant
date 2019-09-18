@@ -13,28 +13,30 @@
       label-width="150px"
       class="demo-ruleForm"
     >
-      <el-form-item label="smtp服务器：" prop="smtp_host">
-        <el-input v-model="ruleForm.smtp_host"></el-input>
+      <el-form-item label="提现金额：" prop="apply_money" >
+          <el-input-number class="apply_money" v-model="ruleForm.apply_money"  :controls='false' @blur="handleBlur"></el-input-number>
+        <span class="apply_money_span">注:提现金额最小100.00元.含提现手续费,直接在金额中扣除</span>
       </el-form-item>
-      <el-form-item label="smpt端口：" prop="smtp_port">
-        <el-input v-model="ruleForm.smtp_port"></el-input>
+      <el-form-item label="到账金额：" prop="reality_money">
+        <el-input-number v-model="ruleForm.reality_money" :controls='false' :disabled='true'></el-input-number>
       </el-form-item>
-      <el-form-item label="smpt用户名：" prop="smtp_user">
-        <el-input v-model="ruleForm.smtp_user"></el-input>
+      <el-form-item label="手续费：" prop="calc_money">
+        <el-input-number v-model="ruleForm.calc_money" :controls='false' :disabled='true'></el-input-number>
       </el-form-item>
-      <el-form-item label="smpt密码：" prop="smtp_pass">
-        <el-input v-model="ruleForm.smtp_pass" show-password></el-input>
+      <el-form-item label="结算银行卡：" >
+        <el-select placeholder="请选择" class="email_input" v-model="ruleForm.bank_id=classifyOptions[0]" filterable>
+            <el-option
+              v-for="(item,index) in classifyOptions"
+              :key="index"
+              :label="item.bank_name"
+              :value="item.id"
+            ></el-option>
+          </el-select>
       </el-form-item>
-      <el-form-item label="发件人Email：" prop="smtp_email">
-        <el-input v-model="ruleForm.smtp_email"></el-input>
+      <el-form-item label="支付密码：" >
+        <el-input v-model="ruleForm.payment_code" show-password class="email_input"></el-input>
       </el-form-item>
-      <el-form-item
-        label="发件人姓名："
-        prop="smtp_name"
-        class="senderNameClass"
-      >
-        <el-input v-model="ruleForm.smtp_name"></el-input>
-      </el-form-item>
+      
       <el-form-item class="myTableForm">
         <el-button
           type="primary"

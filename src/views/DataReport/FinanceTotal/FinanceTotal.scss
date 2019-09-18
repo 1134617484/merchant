@@ -1,0 +1,69 @@
+.bor {
+    .header {
+      font-size: 18px;
+      color: #666;
+      text-align: left;
+      margin-bottom: 34px;
+    }
+    .bor_p {
+        display: flex;
+        margin-bottom: 40px;
+        width: 800px;
+        color:#666;
+        span {
+          height: 28px;
+          line-height: 28px;
+          border-radius: 4px;
+          font-size: 16px;
+        }
+    
+        .title {
+          margin-right: 15px;
+        }
+    
+        .box {
+          display: block;
+          width: 60px;
+          color: #fff;
+    
+        }
+    
+        .bor_text {
+          width: 100%;
+          display: flex;
+        }
+    
+        .success {
+          .box {
+            background-color: #09c47f;
+          }
+        }
+    
+        .warning {
+          .box {
+            background-color: #fd8402;
+          }
+        }
+    
+        .error {
+          .box {
+            background-color: #fe0130;
+          }
+        }
+        .bor_text_one{
+            .title{
+                display: block;
+                width: 140px;
+            }
+        }
+        .bor_text_tow{
+            
+        }
+        .bor_text_three{
+            
+        }
+        .bor_text_four{
+            
+        }
+      }
+}
