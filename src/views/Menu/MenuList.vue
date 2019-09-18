@@ -14,5 +14,9 @@
 .el-input__prefix {
   left: 15px;
 }
+.tags .location .right-arrow{
+   margin-top:0px;
+   margin:0px 5px;
+}
 </style>
  

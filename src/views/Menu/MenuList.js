@@ -13,10 +13,10 @@
          userName: ""
        },
        isCollapse: false,
-       value8: "",
-       value9: "",
-       input10: "",
+       oneTitle:'管理中心',
+       twoTitle:'',
        tag: "",
+       iconfont:'iconfont',
        dynamicTags: [],
        inputVisible: false,
        inputValue: "",
@@ -64,26 +64,29 @@
        }
      },
      getNavData(url, title) {
-       this.tag = url;
-       let obj = {};
-       this.dynamicTags.push({
-         name: title,
-         url: url,
-       });
-       this.dynamicTags = this.dynamicTags.reduce((cur, next) => {
-         obj[next.url] ? "" : (obj[next.url] = true && cur.push(next));
-         return cur;
-       }, []); //设置cur默认类型为数组，并且初始值为空的数组
+      this.twoTitle=title;
+       // this.tag = url;
+       // let obj = {};
+       // this.dynamicTags.push({
+       //   name: title,
+       //   url: url,
+       // });
+       // this.dynamicTags = this.dynamicTags.reduce((cur, next) => {
+       //   obj[next.url] ? "" : (obj[next.url] = true && cur.push(next));
+       //   return cur;
+       // }, []); //设置cur默认类型为数组，并且初始值为空的数组
        // 邮箱和密码要存储
      },
      handleOpen(key, keyPath) {
-       if (key == "first") {
-         this.navName = "订单管理";
-         this.navName2 = "";
-       } else if (key == "about") {
-         this.navName = "收款二维码";
-         this.navName2 = "";
-       }
+      this.twoTitle='';
+      this.oneTitle=key;
+       // if (key == "first") {
+       //   this.navName = "订单管理";
+       //   this.navName2 = "";
+       // } else if (key == "about") {
+       //   this.navName = "收款二维码";
+       //   this.navName2 = "";
+       // }
      },
      handleClose(key, keyPath) {},
      handleSelect(key, keyPath) {},

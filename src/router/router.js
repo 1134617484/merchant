@@ -239,6 +239,26 @@ export default new Router({
           component: () =>
             import("../views/ComplainManage/AppealList/AppealList.vue")
         },
+        {
+          //充值二维码
+          path: "/qrcode",
+          name: "qrcode",
+          meta: {
+            isLoginToken: true
+          },
+          component: () =>
+            import("../views/ChargeManage/QrcodeManage/QrcodeManage.vue")
+        },
+        {
+          //充值链接
+          path: "/link",
+          name: "link",
+          meta: {
+            isLoginToken: true
+          },
+          component: () =>
+            import("../views/ChargeManage/LinkManage/LinkManage.vue")
+        },
       ]
     }
   ]

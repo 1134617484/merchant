@@ -8,7 +8,7 @@ export const ephemeral_data = {
           menu_name: "index.index",
           // "label":"首页",
           label: "管理中心",
-          icon: "icon",
+          icon: "icon-shouye",
           menu_uri: "",
           children: [
             // 暂无
@@ -21,21 +21,21 @@ export const ephemeral_data = {
               index: "1-1"
             }
           ],
-          index: 1
+          index: '管理中心'
         },
         // 充值入口
         {
           menu_name: "system.system",
           label: "充值入口",
           // "label":"系统设置",
-          icon: "icon",
+          icon: "icon-chongzhi",
           menu_uri: "",
           children: [
             {
               menu_name: "admin.reset",
               label: "充值二维码",
               icon: "icon",
-              menu_uri: "",
+              menu_uri: "/qrcode",
               children: [],
               index: "2-1"
             },
@@ -43,13 +43,13 @@ export const ephemeral_data = {
               menu_name: "basic.index",
               label: "充值链接",
               icon: "icon",
-              menu_uri: "",
+              menu_uri: "/link",
               children: [],
               index: "2-2"
             },
             
           ],
-          index: 2
+          index:'充值入口'
         },
 
         // 账户管理
@@ -57,7 +57,7 @@ export const ephemeral_data = {
           menu_name: "admin.admin",
           // "label":"管理员管理",
           label: "账户管理",
-          icon: "icon",
+          icon: "icon-zhanghuguanli",
           menu_uri: "",
           children: [
             
@@ -112,13 +112,13 @@ export const ephemeral_data = {
               index: "3-6"
             }
           ],
-          index: 3
+          index: '账户管理'
         },
         // 财务管理
         {
           menu_name: "finace.finace",
           label: "财务管理",
-          icon: "icon",
+          icon: "icon-caiwuguanli1",
           menu_uri: "",
           children: [
             {
@@ -154,14 +154,14 @@ export const ephemeral_data = {
               index: "4-4"
             }
           ],
-          index: 4
+          index: '财务管理'
         },
         // 结算管理
         {
           menu_name: "statistics.statistics",
           // "label":"数据报表",
           label: "结算管理",
-          icon: "icon",
+          icon: "icon-caiwuguanli",
           menu_uri: "",
           children: [
             
@@ -183,13 +183,13 @@ export const ephemeral_data = {
             },
             
           ],
-          index: 5
+          index: '结算管理'
         },
         // 订单管理
         {
           menu_name: "order.order",
           label: "订单管理",
-          icon: "icon",
+          icon: "icon-dingdanguanli",
           menu_uri: "",
           children: [
             {
@@ -225,14 +225,14 @@ export const ephemeral_data = {
               index: "6-4"
             }
           ],
-          index: 6
+          index: '订单管理'
         },
         // 投诉模块
         {
           menu_name: "system.system",
           label: "投诉管理",
           // "label":"系统设置",
-          icon: "icon",
+          icon: "icon-tousuxingjiancha",
           menu_uri: "",
           children: [
             {
@@ -268,7 +268,7 @@ export const ephemeral_data = {
             //   index: "7-4"
             // },
           ],
-          index: 7
+          index: '投诉管理'
         },
       ],
       code: 200,

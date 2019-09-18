@@ -43,35 +43,35 @@
                         <div class="user_title">
                                 <img src="../../assets/images/img.jpg" alt=""><p>ID:10018</p>
                             </div>
-                <el-menu router mode="vertical" unique-opened class="el-menu-vertical-demo" :collapse="isCollapse" default-active="defaultActive" background-color="#304156" text-color="#bfcbd9" active-text-color="#409EFF">
+                <el-menu router mode="vertical" unique-opened class="el-menu-vertical-demo" :collapse="isCollapse" default-active="defaultActive" background-color="#304156"  text-color="#bfcbd9"   active-text-color="#fff" @open="handleOpen">
                     <div v-for="(item,index) in menuList" :key="index">
                         <template v-if="item.children.length == 0">
                             <el-menu-item :index="item.menu_uri" @click="getNavData(item.menu_uri,item.label)">
-                                <i class="el-icon-menu"></i>
+                                <i :class="[iconfont,item.icon]" ></i>
                                 {{item.label}}+{{index}}
                             </el-menu-item>
                         </template>
                         <el-submenu v-else :index="''+item.index">
                             <template slot="title">
-                                <i class="el-icon-menu"></i>
+                                <i :class="[iconfont,item.icon]" ></i>
                                 {{item.label}}
                             </template>
                             <template v-for="(child,index) in item.children">
                                 <el-submenu v-if="child.children&&child.children.length>0" :index="''+child.index">
                                     <template slot="title">
-                                        <i class="el-icon-menu"></i>
+                                        <i :class="[iconfont,item.icon]" ></i>
                                         {{child.label}}
                                     </template>
                                     <template v-for="(threeChild,index) in child.children">
                                         <sidebar-item v-if="threeChild.children&&threeChild.children.length>0" :item="child" :key="index" />
                                         <el-menu-item v-else :key="index" :index="threeChild.menu_uri" @click="getNavData(threeChild.menu_uri,threeChild.label)">
-                                            <i class="el-icon-location"></i>
+                                            <i :class="[iconfont,child.icon]" ></i>
                                             {{child.label}}
                                         </el-menu-item>
                                     </template>
                                 </el-submenu>
                                 <el-menu-item v-else :key="index" :index="child.menu_uri" @click="getNavData(child.menu_uri,child.label)">
-                                    <i class="el-icon-location"></i>
+                                    <i :class="[iconfont,child.icon]" ></i>
                                     {{child.label}}
                                 </el-menu-item>
                             </template>
@@ -84,9 +84,11 @@
                 <div class="tags">
                     <div class="location">
                         <span class="location_icon_map"></span>
-                        <h4>当前位置: 账户管理</h4>
-                        <span class="location_icon_right"></span>
-                        <span class="location_text">成功订单</span>
+                        <h4>当前位置: 
+                        {{oneTitle}}</h4>
+                        <!-- <span class="location_icon_right"></span> -->
+                        <span class="right-arrow"><i class="el-icon-arrow-right"></i></span>
+                        <span class="location_text">{{twoTitle}}</span>
                     </div>
                     <!-- <ul>
                         <li :key="tag.name" v-for="(tag ,index) in dynamicTags" class="tags-li">
