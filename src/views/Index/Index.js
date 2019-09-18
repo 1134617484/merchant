@@ -77,25 +77,46 @@ export default {
       }
       this.getEchartData(this.url);
     },
-    getEchartData(url) {
+    getEchartData() {
       // _get("api/index/"+url).then(res => {
-        let data=ephemeral.menu.day.data;
-        let xdata=data.time;
-        let ydata=data.result;
-        // this.showEcharts(xdata,ydata);
+        // let data=ephemeral.menu.day.data;
+        let xdata=["00:00","01:00","02:00","03:00"];
+        let ydata=[
+            {
+                "name":"成交",
+                "type":"line",
+                "stack":"总量",
+                "data":[10, 20,30,40,]
+            },
+            {
+                "name":"金额",
+                "type":"line",
+                "stack":"总量",
+                "data":[10,20,80, 50,]
+            }];
+         let legendData=[];
+         for(var i=0;i<ydata.length;i++){
+            legendData.push(ydata[i].name);
+         }
+         this.showEcharts(xdata,ydata,legendData);
       // })
     },
-    showEcharts(xdata, ydata) {
+    showEcharts(xdata, ydata,legendData) {
       let myChart3 = this.$echarts.init(document.getElementById('myChart3'));
-      let option = option = {
+      let option = {
+        color:['#FF0000','#019CFF'],
         title: {
-          text: ''
+          text: '交易订单概况',
+          subtext: '按天统计',
+          left: '40%',
+          textAlign: 'center',
         },
         tooltip: {
           trigger: 'axis'
         },
         legend: {
-          data: ['待支付订单', '成功订单','异常订单']
+          right:'60',
+          data:legendData,
         },
         grid: {
           left: '3%',
@@ -163,10 +184,10 @@ export default {
     }
   },
   mounted() {
-    //this.getEchart();
+    this.getEchartData();
   },
   created() {
-      this.getIndexData();
-    // this.getEchartData('day');
+    this.getIndexData();
+    //this.getEchartData();
   }
 };
