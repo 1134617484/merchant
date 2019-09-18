@@ -14,7 +14,7 @@
        },
        isCollapse: false,
        oneTitle:'管理中心',
-       twoTitle:'',
+       twoTitle:'管理首页',
        tag: "",
        iconfont:'iconfont',
        dynamicTags: [],
@@ -178,8 +178,8 @@
    created() {
      // 设置用户信息
      // console.log(store.state.userInfo);
-     let userInfo = JSON.parse(window.localStorage.getItem("userInfo") || "{}");
-     this.userMsg.userName = userInfo.name;
-     this.getMenuData();
+     // let userInfo = JSON.parse(window.localStorage.getItem("userInfo") || "{}");
+     // this.userMsg.userName = userInfo.name;
+      this.getMenuData();
    }
  };

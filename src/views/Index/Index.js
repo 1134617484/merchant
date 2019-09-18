@@ -163,10 +163,10 @@ export default {
     }
   },
   mounted() {
-    this.getEchart();
+    //this.getEchart();
   },
   created() {
-    this.getIndexData();
-    this.getEchartData('day');
+      this.getIndexData();
+    // this.getEchartData('day');
   }
 };
