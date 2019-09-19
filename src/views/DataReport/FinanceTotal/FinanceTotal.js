@@ -64,8 +64,10 @@ export default {
       _get("merchant/cash-log",params).then(res => {
         let data=[...res.data.data.data.data];
         data.forEach(element => {
-          isNaN(element.created_at)?element.created_at=switchTime(element.created_at):element.created_at;
-          isNaN(element.created_at)?element.created_at=switchTime(element.verify_tim):element.verify_tim;
+          isNaN(element.created_at)?element.created_at:element.created_at=switchTime(element.created_at);
+          isNaN(element.verify_tim)?element.verify_tim:element.verify_tim=switchTime(element.verify_tim);
+          // isNaN(element.created_at)?element.created_at=switchTime(element.created_at):element.created_at;
+          // isNaN(element.created_at)?element.created_at=switchTime(element.verify_tim):element.verify_tim;
         });
         this.tableData=data;
       //   let paramsData =ephemeral.finance.trade.data.merchants;

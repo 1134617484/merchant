@@ -14,7 +14,7 @@ export default {
         calc_money: "",
         // 支付密码
         payment_code: "",
-        bank_id:""
+        bank_id:"1"
       },
       rules: {
         apply_money: [
@@ -43,9 +43,8 @@ export default {
     getFormData(){
       // 银行卡列表
       _get("/merchant/bank/select").then(res => {
-console.log(res)
 this.classifyOptions=res.data.data;
-this.bank_id=res.data.data[0].id;
+this.ruleForm.bank_id=this.classifyOptions[0].id;
         // let data=ephemeral.finance.email.data;
         // this.ruleForm.smtp_host=data.smtp_host;
         // this.ruleForm.smtp_port=data.smtp_port;
@@ -64,10 +63,12 @@ this.bank_id=res.data.data[0].id;
         if (valid) {
           //alert("submit!");
            let params={
-            bankcard_id:this.ruleForm.bank_id.id,
+            bankcard_id:this.ruleForm.bank_id,
             apply_money:this.ruleForm.apply_money,
             pay_password:this.ruleForm.payment_code,
            }
+           console.log(params)
+           console.log(this.ruleForm)
           _post("/merchant/withdraw",params).then(res => {
             this.$message({
               message: "提交成功",
@@ -92,6 +93,10 @@ this.ruleForm.calc_money=res.data.data.calc;
 this.ruleForm.reality_money=Number(this.ruleForm.apply_money-this.ruleForm.calc_money);
       })
     },
-
+// 修改bank后
+change_bank(){
+  console.log(this.ruleForm.bank_id);
+  // this.ruleForm.bank_id!==''?ruleForm.bank_id:ruleForm.bank_id=classifyOptions[0]
+}
   }
 };

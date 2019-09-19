@@ -1,5 +1,5 @@
 import { log } from "util";
-import { _get, _post, _put, _delete ,ephemeral,switchTime} from "../../../api/index.js"
+import { _get, _post, _put, _delete ,ephemeral} from "../../../api/index.js"
 import selectItem from '../../../components/ChanelSelect.vue'
 export default {
   name: "AccountChange",
@@ -55,16 +55,12 @@ export default {
     // 资金变动信息
     getTableData(params) {
       let data='';
-      // _get("merchant/account-change", params).then(res => {
-        // console.log(res)
-        let paramsData = {...ephemeral.capitol};
-        data=[...ephemeral.capitol.data.data];
-        console.log(paramsData.data)
-        data.forEach(row => {
-          if(!isNaN(row.charge_time)){
-            console.log(row.charge_time)
-            row.charge_time=switchTime(row.charge_time);
-          }
+      _get("merchant/account-change", params).then(res => {
+        console.log(res)
+        // let paramsData = {...ephemeral.capitol};
+        data=[...res.data.data.data];
+        data.forEach(element => {
+          isNaN(element.charge_time)?element.charge_time:element.charge_time=switchTime(element.charge_time);
           
         });
         this.tableData=data;
@@ -95,7 +91,7 @@ export default {
         // } else {
         //   this.tableData = [];
         // }
-      // });
+      });
     },
     // 导出
     handleExport(){
