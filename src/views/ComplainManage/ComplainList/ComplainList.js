@@ -33,10 +33,6 @@ export default {
       dialogFormComplain:false,
       complainOptions:[
           {
-          value: 'a',
-          label: '全部'
-         },
-          {
           value: '1',
           label: '投诉商户'
          },

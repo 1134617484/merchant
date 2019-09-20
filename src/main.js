@@ -16,6 +16,7 @@ import axios from "axios";
 //使用公共样式
 import "./assets/css/index.css";
 import "./assets/font/iconfont.css";
+ 
 // import './assets/css/common.less'
 // 使用表单规则验证
 import rules from "./assets/js/rules.js";
