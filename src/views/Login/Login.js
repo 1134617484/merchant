@@ -48,7 +48,6 @@ export default {
           // localStorage.setItem("user", res.data.access_token);
 
           // 用户信息缓存本地
-
           getUserMsg().then(res => {
             console.log(res)
             if (res.data.code == 200) {
@@ -80,6 +79,10 @@ export default {
     },
     changeRedio(){
       this.radio=='0'?this.radio='1':this.radio='0';
+    },
+    // 注册
+    register(){
+      this.$router.push("/register");
     }
   },
   computed: {
@@ -90,5 +93,6 @@ export default {
   },
   created() {
     window.localStorage.removeItem("userInfo");
+    window.localStorage.removeItem("token");
   }
 };

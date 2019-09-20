@@ -223,6 +223,21 @@ export const editRoleMsg = params => {
 export const switchRoleMsg = params => {
   return axios.get("api/role/select", params);
 };
+// 获取类型下拉列表
+export const account_typeSelect=()=>{
+  return axios.get("merchant/account-type/select");
+}
+// 获取商户银行下拉列表
+export const bankSelect=()=>{
+  return axios.get("merchant/bank/select");
+}
+// 获取通道下拉列表
+export const channelSelect=()=>{
+  return axios.get("merchant/channel/select");
+}
+
+  
+
 
 // 时间处理
 export const switchTime=time=> {

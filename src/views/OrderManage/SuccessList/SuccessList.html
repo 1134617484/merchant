@@ -80,8 +80,8 @@
             <el-table-column label="操作" width="300px">
                 <template slot-scope="scope">
                     <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">查看</el-button>
-                    <el-button size="mini" @click="TransactionCharge(scope.$index, scope.row)" v-if="scope.row.lock_status==0">冻结订单</el-button>
-                    <el-button size="mini" @click="handleOrder(scope.$index, scope.row)" v-if="scope.row.callbackStatus==0">补发订单</el-button>
+                    <!-- <el-button size="mini" @click="TransactionCharge(scope.$index, scope.row)" v-if="scope.row.lock_status==0">冻结订单</el-button>
+                    <el-button size="mini" @click="handleOrder(scope.$index, scope.row)" v-if="scope.row.callbackStatus==0">补发订单</el-button> -->
                 </template>
             </el-table-column>
         </el-table>

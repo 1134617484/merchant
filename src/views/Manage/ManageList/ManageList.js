@@ -1,6 +1,6 @@
 import { log } from "util";
 import screenfull from "screenfull";
-import { _get, _post, _put, _delete,ephemeral } from "../../../api/index.js";
+import { _get, _post, _put, _delete, ephemeral } from "../../../api/index.js";
 export default {
   name: "AdminUser",
   data() {
@@ -35,27 +35,31 @@ export default {
       },
       // 校验规则
       rules: {
-        name: [{ required: true, message: "请输入姓名", trigger: "change" }],
-        password: [
-          { required: true, message: "请输入密码", trigger: "change" }
-        ],
-        role_id: [
-          { required: true, message: "请输入管理员", trigger: "change" }
-        ],
-        email: [
-          {
-            required: true,
-            validator: this.$rules.FormValidate.Form().validateEmail,
-            trigger: "change"
-          }
-        ],
-        mobile: [
-          {
-            required: true,
-            validator: this.$rules.FormValidate.Form().validatePhone,
-            trigger: "change"
-          }
-        ]
+
+        editor_tableData:{
+          card_number: [
+            {
+              required: true,
+              validator: this.$rules.FormValidate.Form().validateCardNum,
+              trigger: "change"
+            },
+          ],
+          sub_branch: [
+            {
+              required: true,
+              validator: this.$rules.FormValidate.Form().validateBranchkName,
+              trigger: "change"
+            },
+          ],
+          account_name: [
+            {
+              required: true,
+              validator: this.$rules.FormValidate.Form().validateAccountName,
+              trigger: "change"
+            },
+          ],
+        },
+
       },
       //新增管理员表单
       editForm: {
@@ -113,36 +117,36 @@ export default {
         text: ""
       },
       // 添加银行卡暂存数据模版
-      editor:{
-        account_name: "",//开户名
+      editor: {
+        account_name: "", //开户名
         alias: "",
-         bank_name: "",//银行名
-        card_number: "",//卡号
-        city: "",//城市
-        default:"",//默认结算
-        province: "",//省
-        sub_branch: "",//支行名字
+        bank_name: "", //银行名
+        card_number: "", //卡号
+        city: "", //城市
+        default: "", //默认结算
+        province: "", //省
+        sub_branch: "" //支行名字
       },
-      editor_tableData:{},
-      OpeningBankVal:'',//开户行id
-      OpeningBank:''//开户行选项
+      editor_tableData: {},
+      OpeningBankVal: "", //开户行id
+      OpeningBank: "" //开户行选项
     };
   },
   created() {
-    this.editor_tableData={...this.editor};
+    this.editor_tableData = { ...this.editor };
     this.getTableData("");
     this.getSelectData();
   },
   methods: {
     getSelectData() {
       _get("merchant/bank/select").then(res => {
-        this.OpeningBank=res.data.data;
+        this.OpeningBank = res.data.data;
         this.typeOptions = ephemeral.menu.admin_select.data;
       });
     },
     getTableData(params) {
       _get("merchant/bankcard", params).then(res => {
-        this.tableData=res.data.data;
+        this.tableData = res.data.data;
         // let data = ephemeral.menu.admin.data.data;
         // console.log(ephemeral.menu)
         // console.log(data)
@@ -281,31 +285,39 @@ export default {
     },
     submitForm() {
       console.log(this.editor_tableData);
-      let params={
-        account_name:this.editor_tableData.account_name,
-        bank_id:this.OpeningBankVal,
-        card_number:this.editor_tableData.card_number,
-        sub_branch:this.editor_tableData.sub_branch,
+//       let card_number_reg=/^(\d{16}|\d{19})$/;
+//       if(account_name){
+
+//       }else if(!card_number_reg.test(this.editor_tableDatacard_number)){
+// return false;
+//       }else if(sub_branch){
+
+//       }
+      let params = {
+        account_name: this.editor_tableData.account_name,
+        bank_id: this.OpeningBankVal,
+        card_number: this.editor_tableData.card_number,
+        sub_branch: this.editor_tableData.sub_branch
       };
-      params.bank_id=this.OpeningBankVal;
-console.log(params)
-          _post("merchant/bankcard", params)
-            .then(res => {
-              this.getTableData("");
-              this.$message({
-                message: "添加成功",
-                type: "success"
-              });
-              // 提交成功清空表单
-              this.editor_tableData={...this.editor};
-              this.dialogFormVisible = false;
-            })
-            .catch(err => {
-              this.$message({
-                message: "添加失败",
-                type: "error"
-              });
-            });
+      params.bank_id = this.OpeningBankVal;
+      console.log(params);
+      _post("merchant/bankcard", params)
+        .then(res => {
+          this.getTableData("");
+          this.$message({
+            message: "添加成功",
+            type: "success"
+          });
+          // 提交成功清空表单
+          this.editor_tableData = { ...this.editor };
+          this.dialogFormVisible = false;
+        })
+        .catch(err => {
+          this.$message({
+            message: "添加失败",
+            type: "error"
+          });
+        });
       //   } else {
       //     console.log("error submit!!");
       //     return false;
@@ -378,15 +390,12 @@ console.log(params)
       }
     },
     // 删除银行卡
-    handleDelete(index,row){
-console.log(row)
-_delete("merchant/bankcard/"+row.bank_id).then(res => {
-console.log(res)
-this.getTableData();
-
-})
-}
-
-    
+    handleDelete(index, row) {
+      console.log(row);
+      _delete("merchant/bankcard/" + row.bank_id).then(res => {
+        console.log(res);
+        this.getTableData();
+      });
+    }
   }
 };

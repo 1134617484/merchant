@@ -1,5 +1,5 @@
 import { log } from "util";
-import { _get, _post, _put, _delete ,ephemeral} from "../../../api/index.js"
+import { _get, _post, _put, _delete ,ephemeral,switchTime} from "../../../api/index.js"
 import selectItem from '../../../components/ChanelSelect.vue'
 export default {
   name: "AccountChange",
@@ -41,56 +41,17 @@ export default {
         this.chanelOptions.unshift(params);
       // })
     },
-    switchTime(time) {
-      let date = new Date(time * 1000);
-      let y = date.getFullYear() + '-';
-      let m = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
-      let d = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + ' ';
-      let h=date.getHours(); 
-      let mm=date.getMinutes(); 
-      let s=date.getSeconds(); 
-      let updated_at = y + m + d+''+h+":"+mm+":"+s;
-      return updated_at
-    },
     // 资金变动信息
     getTableData(params) {
       let data='';
       _get("merchant/account-change", params).then(res => {
         console.log(res)
-        // let paramsData = {...ephemeral.capitol};
         data=[...res.data.data.data];
         data.forEach(element => {
           isNaN(element.charge_time)?element.charge_time:element.charge_time=switchTime(element.charge_time);
-          
         });
         this.tableData=data;
         console.log(this.tableData)
-        // let paramsData =res.data.data;
-        // let data = paramsData.data;
-        // this.currentPage = paramsData.current_page;
-        // this.last_page_url = paramsData.last_page_url;
-        // this.total = paramsData.total;
-        // this.pageSize = paramsData.per_page;
-        // if (data.length > 0) {
-        //   let tableList = [];
-        //   for (let i = 0; i < data.length; i++) {
-        //     tableList.push({
-        //       id: data[i].id, // id
-        //       // order_id: data[i].order.out_trade_id, // 订单号
-        //       order: data[i].order,
-        //       username: data[i].merchant.username, // 商户名称
-        //       classify: data[i].type.name, // 类型
-        //       original_money: data[i].original_money, // 原始金额
-        //       change_money: data[i].change_money, // 变动金额
-        //       changed_money: data[i].changed_money, // 变动后金额
-        //       charge_time: this.switchTime(data[i].charge_time), // 变动时间
-        //       // channel_title: data[i].order.channel.title, // 通道
-        //     })
-        //   }
-        //   this.tableData=tableList;
-        // } else {
-        //   this.tableData = [];
-        // }
       });
     },
     // 导出
@@ -100,9 +61,8 @@ export default {
     //搜索
     handleSearch(){
       let params = {
-        out_trade_id:this.out_trade_id=='a'?'':this.out_trade_id,
-        timeValue:this.timeValue,
-        chanelOptions_id:this.chanelOptions_id,
+        merchant_id:this.out_trade_id=='a'?'':this.out_trade_id,
+        charge_time:this.timeValue,
         pay_type_id: this.pay_type_id=='a'?'':this.pay_type_id,
         per_page: this.pageSize,
         page:this.page 

@@ -58,14 +58,10 @@ export default {
     },
     getTableData(params) {
       _get("merchant/user/log",params).then(res => {
-        console.log(this.tableData)
         let data=[...res.data.data.data];
         data.forEach(element => {
-          console.log(isNaN(element.created_at))
           isNaN(element.created_at)?element.created_at:element.created_at=switchTime(element.created_at);
-          console.log(element.created_at)
         });
-        console.log(data)
         this.tableData=data;
       //   let paramsData = ephemeral.menu.admin_log.data;
       //   let data = paramsData.data;
