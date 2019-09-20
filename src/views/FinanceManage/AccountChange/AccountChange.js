@@ -1,24 +1,23 @@
 import { log } from "util";
-import { _get, _post, _put, _delete ,ephemeral,switchTime} from "../../../api/index.js"
+import { _get, _post, _put, _delete ,ephemeral,switchTime, account_typeSelect, channelSelect} from "../../../api/index.js"
 import selectItem from '../../../components/ChanelSelect.vue'
 export default {
   name: "AccountChange",
   data() {
     return {
       tableData: [],
-      classifyOptions:[],
-      typeOptions:[],
-      pay_type_id: 'a',
-      merchant_id: 'a',
-      out_trade_id: '',
+      
       //分页参数
       currentPage: "",
       total: "",
       pageSize: 10,
       page:'',
-      timeValue: '',
-      chanelOptions:[],//全部通道选项
-      chanelOptions_id:'a',
+      timeValue: '',//输入的时间
+      account_typeOptions:[],//类型下拉列表
+      channelOptions:[],//通道下拉列表
+      out_trade_id: '',//输入订单号
+      account_typeOptions_id:'a',//类型下拉列表选择
+      channelOptions_id:'a',//通道下拉列表选中
     };
   },
   created() {
@@ -28,30 +27,24 @@ export default {
   components: { selectItem },
   methods: {
     getSelectMenuData() {
-      // _get("api/change-type/select").then(res => {
-        let params={"id":"a",name:"全部"};
-        this.classifyOptions = [...ephemeral.financeM.accpunt_change_type_select.data];
-        this.classifyOptions.unshift(params);
-      // })
-      // _get("api/merchant/select").then(res => {
-        this.typeOptions = [...ephemeral.financeM.merchant_select.data];
-        this.typeOptions.unshift(params);
-
-        this.chanelOptions = [...ephemeral.order.paytype_select.data];
-        this.chanelOptions.unshift(params);
-      // })
+      account_typeSelect().then(res => {
+        this.account_typeOptions = [...res.data.data];
+        this.account_typeOptions.unshift({"id":"a",name:"全部类型"});
+      })
+      channelSelect().then(res=>{
+        this.channelOptions = [...res.data.data];
+        this.channelOptions.unshift({"id":"a",name:"全部通道"});
+      })
     },
-    // 资金变动信息
+    // 资金记录表单信息
     getTableData(params) {
       let data='';
       _get("merchant/account-change", params).then(res => {
-        console.log(res)
         data=[...res.data.data.data];
         data.forEach(element => {
           isNaN(element.charge_time)?element.charge_time:element.charge_time=switchTime(element.charge_time);
         });
         this.tableData=data;
-        console.log(this.tableData)
       });
     },
     // 导出
@@ -61,12 +54,14 @@ export default {
     //搜索
     handleSearch(){
       let params = {
-        merchant_id:this.out_trade_id=='a'?'':this.out_trade_id,
+        pay_order_id:this.out_trade_id,
+        channel_id:this.channelOptions_id=='a'?'':this.channelOptions_id,
         charge_time:this.timeValue,
-        pay_type_id: this.pay_type_id=='a'?'':this.pay_type_id,
+        pay_type_id: this.account_typeOptions_id=='a'?'':this.account_typeOptions_id,
         per_page: this.pageSize,
         page:this.page 
       };
+      console.log(params);
      this.getTableData(params);
     },
     // 选择页容量

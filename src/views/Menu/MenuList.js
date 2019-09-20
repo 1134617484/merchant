@@ -48,10 +48,9 @@
 
    methods: {
      getMenuData() {
-      //  _get("api/permission/menu").then(res => {
+       _get("merchant/channel/select").then(res => {})
          let data = ephemeral.menu.menulist.data;
          this.menuList = data;
-      //  })
      },
      activeMenu(el) {
        let reg = new RegExp("[\u4e00-\u9fa5]+$", "g");

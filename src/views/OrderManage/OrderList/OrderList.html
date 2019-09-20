@@ -1,25 +1,25 @@
 <div>
     <div class="bor">
         <div class="account-head">
-            <label class="mr">
+            <!-- <label class="mr">
                  <el-input placeholder="请输入系统订单号" v-model="pay_order_id" clearable></el-input>
             </label>
             <label class="mr">
+                <el-input placeholder="请输入订单描述" v-model="attach" clearable></el-input>
+           </label>
+            <label class="mr">
                  <el-date-picker
                   v-model="pay_apply_date"
-                  type="daterange"
-                  range-separator=""
-                  start-placeholder="创建日期"
+                  type="date"
+                  placeholder="创建起始日期"
                   value-format="yyyy-MM-dd">
                 </el-date-picker>
-             
             </label>
             <label class="mr">
                   <el-date-picker
                   v-model="pay_success_date"
-                  type="daterange"
-                  range-separator=""
-                  start-placeholder="支付成功时间"
+                  type="date"
+                  placeholder="完成起始时间"
                   value-format="yyyy-MM-dd"
                   >
                 </el-date-picker>
@@ -32,31 +32,60 @@
             </label>
            
             <label>
-                <el-select v-model="pay_type_id" placeholder="请选择通道分类">
-                    <el-option v-for="(item,index) in chanelOptions" :key="index" :label="item.name" :value="item.id">
-                    </el-option>
-                </el-select>
-            </label>
-            <label>
-                <el-select v-model="channel_id" placeholder="请选择通道">
-                    <el-option v-for="(item,index) in typeOptions" :key="index" :label="item.title" :value="item.id">
+                <el-select v-model="channelOptions_id" placeholder="请选择通道">
+                    <el-option v-for="(item,index) in channelOptions" :key="index" :label="item.title" :value="item.id">
                     </el-option>
                 </el-select>
             </label>
             </div>
           <div class="grid-content bg-purple el-main fl clearfix account-head">
             <label>
-                <el-select v-model="order_type" placeholder="请选择订单类型">
+                <el-select v-model="orderInquire.order_type" placeholder="请选择订单类型">
                     <el-option v-for="(item,index) in orderTypes" :key="index" :label="item.label" :value="item.value">
                     </el-option>
                 </el-select>
             </label>
             <label>
-                <el-select v-model="order_status" placeholder="请选择冻结状态">
+                <el-select v-model="orderInquire.pay_status" placeholder="请选择状态">
                     <el-option v-for="(item,index) in selectSatus" :key="index" :label="item.label" :value="item.value">
                     </el-option>
                 </el-select>
-            </label>
+            </label> -->
+            <label class="mr">
+                <el-input placeholder="请输入系统订单号" v-model="orderInquire.out_trade_id" clearable></el-input>
+           </label>
+            
+           <label>
+               <el-select v-model="orderInquire.pay_status" placeholder="请选择订单状态">
+                   <el-option v-for="(item,index) in statusOptions" :key="index" :label="item.label" :value="item.value">
+                   </el-option>
+               </el-select>
+           </label>
+          
+           <label>
+               <el-select v-model="orderInquire.pay_type_id" placeholder="支付分类">
+                   <el-option v-for="(item,index) in chanelOptions" :key="index" :label="item.title" :value="item.id">
+                   </el-option>
+               </el-select>
+           </label>
+           <label>
+               <el-select v-model="orderInquire.channel_id" placeholder="请选择通道">
+                   <el-option v-for="(item,index) in typeOptions" :key="index" :label="item.name" :value="item.id">
+                   </el-option>
+               </el-select>
+           </label>
+           <label>
+               <el-select v-model="orderInquire.order_type" placeholder="请选择订单类型">
+                   <el-option v-for="(item,index) in orderTypes" :key="index" :label="item.label" :value="item.value">
+                   </el-option>
+               </el-select>
+           </label>
+           <!-- <label>
+               <el-select v-model="orderInquire.order_status" placeholder="请选择冻结状态">
+                   <el-option v-for="(item,index) in selectSatus" :key="index" :label="item.label" :value="item.value">
+                   </el-option>
+               </el-select>
+           </label> -->
             <el-button type="primary" class="mySearch_btn fr" @click="handleSearch">查询</el-button>
         </div>
         <!-- <div>
@@ -69,11 +98,13 @@
             <el-table-column prop="pay_order_id" label="订单号"></el-table-column>
             <el-table-column prop="out_trade_id" label="商户编号"></el-table-column>
             <el-table-column prop="pay_amount" label="交易金额"></el-table-column>
+            <el-table-column prop="pay_actual_amount" label="实际交易金额"></el-table-column>
             <el-table-column prop="pay_poundage" label="手续费"></el-table-column>
             <el-table-column prop="pay_apply_date" label="提交时间"></el-table-column>
             <el-table-column prop="pay_success_date" label="成功时间"></el-table-column>
-            <el-table-column prop="pay_channel_pay_reissue" label="支付通道"></el-table-column>
-            <el-table-column prop="pay_code_name" label="支付银行"></el-table-column>
+            <el-table-column prop="pay_code_name" label="支付产品"></el-table-column>
+            <el-table-column prop="channel_name" label="支付通道"></el-table-column>
+            <el-table-column prop="type.name" label="支付分类"></el-table-column>
             <el-table-column prop="pay_success_date" label="来源地址"></el-table-column>
             <el-table-column prop="attach" label="订单描述"></el-table-column>
             <el-table-column prop="pay_status_text" label="状态"></el-table-column>
@@ -93,16 +124,11 @@
         <el-dialog title="查看信息" class="text-left addClass" width="30%"  :visible.sync="outerVisible">
             <el-form ref="editForm" :model="editForm" :rules="rules">
               <!-- 管理列表 -->
-                 <table class="table">
+                 <table class="table" >
                     <tr>
-                        <td>系统订单号：</td><td>{{editForm.pay_order_id }}</td>
+                        <td>订单号：</td><td>{{editForm.pay_order_id }}</td>
                      </tr>
-                     <tr>
-                        <td>下游订单号：</td><td>{{editForm.out_trade_id }}</td>
-                     </tr>
-                     <tr>
-                        <td>商户名称：</td><td>{{editForm.username }}</td>
-                     </tr>
+
                      <tr>
                         <td>交易金额：</td><td>{{editForm.pay_amount }}</td>
                      </tr>

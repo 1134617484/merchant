@@ -1,5 +1,5 @@
 import { log } from "util";
-import { _get, _post, _put, _delete,ephemeral, switchTime } from "../../../api/index.js"
+import { _get, _post, _put, _delete,ephemeral, switchTime,paytypeSelect,channelSelect } from "../../../api/index.js"
 export default {
   name: "AccessConfig",
   data() {
@@ -16,20 +16,6 @@ export default {
       pay_status: '',
       typeOptions: [],
       chanelOptions: [],
-      selectSatus: [{
-          value: 'a',
-          label: '全部'
-        },
-        {
-          value: '0',
-          label: '正常'
-        },
-        {
-          value: '1',
-          label: '冻结'
-        },
-      ],
-      //订单状态0未支付 1 已支付未返回 2 已支付已返回 3 订单冻结 4 订单解冻 
       statusOptions: [{
           value: 'a',
           label: '全部'
@@ -46,14 +32,7 @@ export default {
           value: '2',
           label: '已支付已通知'
         },
-        // {
-        //   value: '3',
-        //   label: '订单冻结'
-        // },
-        // {
-        //   value: '4',
-        //   label: '订单解冻'
-        // }
+
       ],
       orderTypes: [{
           value: 'a',
@@ -68,6 +47,19 @@ export default {
           label: '收款订单'
         },
       ],
+      selectSatus: [{
+        value: 'a',
+        label: '全部'
+      },
+      {
+        value: '0',
+        label: '待支付'
+      },
+      {
+        value: '1',
+        label: '已支付'
+      },
+    ],
 
       //新增权限信息
       selectTitle: '',
@@ -224,50 +216,48 @@ export default {
       dialogFormCharge: false,
       //商户id
       chargeId: "",
+      //通道列表
+      channelOptions:[],
+      // 查询需要的参数对象
+      orderInquire:{
+        'out_trade_id':'',//订单号
+        'pay_status':'',//订单状态 0 待支付 1 已支付
+        // 'pay_apply_date':'',//创建时间
+        // 'pay_success_date':'',//成功时间
+        'channel_id':'',//通道id
+        'pay_type_id':'',// 通道分类id
+        'order_type':''//订单类型 0 充值 1 收款
+      }
     };
   },
   created() {
     this.getTableData("");
     this.getSelectData();
-    this.getChanelData();
   },
   methods: {
-    switchTime(time) {
-      let date = new Date(time * 1000);
-      let y = date.getFullYear() + '-';
-      let m = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
-      let d = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + ' ';
-      let updated_at = y + m + d;
-      return updated_at;
-    },
+
     getSelectData() {
-      // _get("api/channel/select").then(res => {
-        let params={"id":"a",name:"全部"};
-        this.typeOptions = [...ephemeral.financeM.merchant_select.data];
-        this.typeOptions.unshift(params);
-        
-      // })
+      paytypeSelect().then(res => {
+        this.typeOptions =  [...res.data.data];
+        this.typeOptions.unshift({ "id": 'a', name: '全部通道' });
+      })
+      channelSelect().then(res=>{
+        this.chanelOptions = [...res.data.data];
+        this.chanelOptions.unshift({"id":"a",title:"全部支付分类"});
+      })
+      
     },
-    getChanelData() {
-      // _get("api/paytype/select").then(res => {
-        let params = { "id": 'a', name: '全部' };
-        this.chanelOptions = [...ephemeral.order.paytype_select.data];
-        this.chanelOptions.unshift(params);
-      // })
-    },
+
     handleType() {
       let params = {
         type: this.chargeForm.type
       }
       this.getChangeTypeData();
-      // _get("api/change-type/select", params).then(res => {
-        // this.changeOptions = res.data.data;
-        // this.changeOptions = ephemeral.financeM.accpunt_change_type_select.data;
-      // })
+
     },
     getChangeTypeData() {
       // _get("api/change-type/select").then(res => {
-        this.changeOptions = ephemeral.financeM.accpunt_change_type_select.data;
+        // this.changeOptions = ephemeral.financeM.accpunt_change_type_select.data;
       // })
     },
     getTableData(params) {
@@ -366,29 +356,38 @@ export default {
     // 编辑通道信息
     handleEdit(index, row) {
       // let params={id:row.id};
-      _get("api/order/" + row.id).then(res => {
-        let data = res.data.data;
-        this.editForm.pay_order_id = data.pay_order_id;
-        this.editForm.out_trade_id = data.out_trade_id;
-        this.editForm.username = data.merchant.username;
-        this.editForm.pay_amount = data.pay_amount;
-        this.editForm.pay_poundage = data.pay_poundage;
-        this.editForm.pay_actual_amount = data.pay_actual_amount;
-        this.editForm.pay_apply_date = this.switchTime(data.pay_apply_date);
-        this.editForm.pay_success_date = this.switchTime(data.pay_success_date);
-        let pay_status = data.search_status;
-        if (pay_status == 0) {
-          pay_status = '未支付';
-        } else if (pay_status == 1) {
-          pay_status = '已支付未通知';
-        } else if (pay_status == 2) {
-          pay_status = '已支付已通知';
-        } else if (pay_status == 3) {
-          pay_status = '订单冻结';
-        } else {
-          pay_status = '订单解冻';
-        }
-        this.editForm.pay_status = pay_status;
+      console.log(row)
+      _get("merchant/order/" + row.id).then(res => {
+        let data = {...res.data.data};
+        console.log(data)
+        data.forEach(element => {
+          isNaN(element.pay_apply_date)?'':element.pay_apply_date=switchTime(element.pay_apply_date);
+          isNaN(element.pay_success_date)?'':element.pay_success_date=='0'?element.pay_success_date='暂无成功时间':element.pay_success_date=switchTime(element.pay_success_date);
+          element.pay_status=='0'?element.pay_status='待支付':element.pay_status='已支付';
+        });
+        console.log(data)
+        this.editForm=data;
+        // this.editForm.pay_order_id = data.pay_order_id;
+        // this.editForm.out_trade_id = data.out_trade_id;
+        // this.editForm.username = data.merchant.username;
+        // this.editForm.pay_amount = data.pay_amount;
+        // this.editForm.pay_poundage = data.pay_poundage;
+        // this.editForm.pay_actual_amount = data.pay_actual_amount;
+        // this.editForm.pay_apply_date = this.switchTime(data.pay_apply_date);
+        // this.editForm.pay_success_date = this.switchTime(data.pay_success_date);
+        // let pay_status = data.search_status;
+        // if (pay_status == 0) {
+        //   pay_status = '未支付';
+        // } else if (pay_status == 1) {
+        //   pay_status = '已支付未通知';
+        // } else if (pay_status == 2) {
+        //   pay_status = '已支付已通知';
+        // } else if (pay_status == 3) {
+        //   pay_status = '订单冻结';
+        // } else {
+        //   pay_status = '订单解冻';
+        // }
+        // this.editForm.pay_status = pay_status;
       })
 
       //编辑信息
@@ -443,14 +442,15 @@ export default {
     },
     handleSearch() {
       let params = {
-        pay_order_id: this.pay_order_id,
-        pay_apply_date: this.switchDate(this.pay_apply_date),
-        pay_success_date: this.switchDate(this.pay_success_date),
-        pay_type_id: this.pay_type_id=='a'?'':this.pay_type_id,
-        channel_id: this.channel_id=='a'?'':this.channel_id,
-        search_status: this.pay_status=='a'?'':this.pay_status,
-        order_type: this.order_type=='a'?'':this.order_type,
-        lock_status: this.order_status=='a'?'':this.order_status,
+        ...this.orderInquire,
+        // pay_order_id: this.pay_order_id,
+        // pay_apply_date: this.switchDate(this.pay_apply_date),
+        // pay_success_date: this.switchDate(this.pay_success_date),
+        // pay_type_id: this.pay_type_id=='a'?'':this.pay_type_id,
+        // channel_id: this.channel_id=='a'?'':this.channel_id,
+        // search_status: this.pay_status=='a'?'':this.pay_status,
+        // order_type: this.order_type=='a'?'':this.order_type,
+        // lock_status: this.order_status=='a'?'':this.order_status,
         per_page: this.pageSize,
         page: this.page
       };

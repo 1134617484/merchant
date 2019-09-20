@@ -3,7 +3,7 @@
     flex-wrap: wrap;
     padding-left: 1%;
     padding-right: 1%;
-    justify-content: space-around;
+    justify-content: flex-start;
     .analysis_classify{
         display: flex;
         width: 31%;
@@ -15,6 +15,7 @@
         padding-left: 18px;
         font-family:Microsoft YaHei;
         margin-bottom: 18px;
+        margin-right: 1.2%;
         p{
             margin: 0;
             width: 100%;

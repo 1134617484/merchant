@@ -67,7 +67,8 @@ export default {
           });
            
           return;
-        });
+        }
+        );
         return;
       }
       // 验证密码长度

@@ -1,5 +1,5 @@
 import { log } from "util";
-import { _get, _post, _put, _delete,ephemeral,switchTime } from "../../../api/index.js"
+import { _get, _post, _put, _delete,ephemeral,switchTime,channelSelect } from "../../../api/index.js"
 export default {
   name: "AccountChange",
   data() {
@@ -37,8 +37,8 @@ export default {
         id:'',
         transfer_remark:'',
       },
-      chanelOptions:[],//全部通道选项
-      chanelOptions_id:'a',
+      channelOptions:[],//全部通道选项
+      channelOptions_id:'a',//通道下拉列表选中
     };
   },
   created() {
@@ -47,18 +47,10 @@ export default {
   },
   methods: {
     getSelectMenuData() {
-      // _get("api/change-type/select").then(res => {
-        let params={"id":"a",name:"全部"};
-        this.classifyOptions = [...ephemeral.financeM.accpunt_change_type_select.data];
-        this.classifyOptions.unshift(params);
-      // })
-      // _get("api/merchant/select").then(res => {
-        this.typeOptions = [...ephemeral.financeM.merchant_select.data];
-        this.typeOptions.unshift(params);
-
-        this.chanelOptions = [...ephemeral.order.paytype_select.data];
-        this.chanelOptions.unshift(params);
-      // })
+      channelSelect().then(res=>{
+        this.channelOptions = [...res.data.data];
+        this.channelOptions.unshift({"id":"a",name:"全部通道"});
+      })
     },
 
     // 冻结金额
@@ -188,7 +180,7 @@ export default {
     //搜索
     handleSearch(){
       let params = {
-        chanelOptions_id:this.chanelOptions_id,
+        order_id:this.channelOptions_id=='a'?'':this.channelOptions_id,
         created_at:this.timeValue,
         per_page: this.pageSize,
         page:this.page 

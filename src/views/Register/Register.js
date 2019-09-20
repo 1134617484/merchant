@@ -16,12 +16,18 @@ export default {
     // 登录
     register() {
       let { username, password,emil ,newpassword} = this;
+      let reg={
+        // username:new RegExp(/^[a-zA-Z0-9_-]{4,16}$/),
+        // password:new RegExp(/^.(?=.{6,16})(?=.\d)(?=.[A-Z])(?=.[a-z])(?=.*[!@#%^&*? ]).*/),
+        // emil:new RegExp(/^([A-Za-z0-9_-.])+@([A-Za-z0-9_-.])+.([A-Za-z]{2,4})$/),
+        // newpassword:''
+      }
       if (!username || !password) {
         return this.$message({
           message: "账户和密码不能为空",
           type: "warning"
         });
-      }else if(emil){
+      }else if(!emil){
         return this.$message({
           message: "邮箱不能为空",
           type: "warning"

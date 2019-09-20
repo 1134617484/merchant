@@ -227,6 +227,18 @@ export default {
       dialogFormCharge: false,
       //商户id
       chargeId: "",
+       //通道列表
+       channelOptions:[],
+       // 查询需要的参数对象
+       orderInquire:{
+         'out_trade_id':'',//订单号
+         'pay_status':'',//订单状态 0 待支付 1 已支付
+         'pay_apply_date':'',//创建时间
+         'pay_success_date':'',//成功时间
+         'channel_id':'',//通道id
+         'pay_type_id':'',// 通道分类id
+         'order_type':''//订单类型 0 充值 1 收款
+       }
     };
   },
   created() {
@@ -422,9 +434,11 @@ export default {
         pay_success_date: this.switchDate(this.pay_success_date),
         pay_type_id: this.pay_type_id=='a'?'':this.pay_type_id,
         channel_id: this.channel_id=='a'?'':this.channel_id,
+        search_status: this.pay_status=='a'?'':this.pay_status,
         order_type: this.order_type=='a'?'':this.order_type,
+        lock_status: this.order_status=='a'?'':this.order_status,
         per_page: this.pageSize,
-        page:this.page 
+        page: this.page
       };
       this.getTableData(params);
     },

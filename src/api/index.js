@@ -27,7 +27,7 @@ if (process.env.NODE_ENV === "production") {
     axios.defaults.baseURL = "http://api.xinggeyun.com";
   } else {
     //test 测试环境
-    axios.defaults.baseURL = "http://www.xsyvisa.com";
+    axios.defaults.baseURL = "http://api.emide.cn";
   }
 } else {
   //dev 开发环境
@@ -86,6 +86,7 @@ axios.interceptors.response.use(
       let response = err.response.data;
       console.log("统一错误处理: ", response);
       response.code == 402 ? tokenHeader({ response, code: "402" }) : "";
+      store.state.isLodingLogin = false;
       new Vue().$message({
         showClose: true,
         duration: 1000,
@@ -234,6 +235,10 @@ export const bankSelect=()=>{
 // 获取通道下拉列表
 export const channelSelect=()=>{
   return axios.get("merchant/channel/select");
+}
+//获取通道分类
+export const paytypeSelect=()=>{
+  return axios.get("api/paytype/select");
 }
 
   

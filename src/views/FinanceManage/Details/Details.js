@@ -1,5 +1,5 @@
 import { log } from "util";
-import { _get, _post, _put, _delete,ephemeral,switchTime } from "../../../api/index.js"
+import { _get, _post, _put, _delete,ephemeral,switchTime, account_typeSelect, channelSelect } from "../../../api/index.js"
 export default {
   name: "AccountChange",
   data() {
@@ -39,6 +39,11 @@ export default {
       },
       chanelOptions:[],//全部通道选项
       chanelOptions_id:'a',
+      account_typeOptions:[],//类型下拉列表
+      channelOptions:[],//通道下拉列表
+      out_trade_id: '',//输入订单号
+      account_typeOptions_id:'a',//类型下拉列表选择
+      channelOptions_id:'a',//通道下拉列表选中
     };
   },
   created() {
@@ -47,19 +52,14 @@ export default {
   },
   methods: {
     getSelectMenuData() {
-
-      // _get("api/change-type/select").then(res => {
-        let params={"id":"a",name:"全部"};
-        this.classifyOptions = [...ephemeral.financeM.accpunt_change_type_select.data];
-        this.classifyOptions.unshift(params);
-      // })
-      // _get("api/merchant/select").then(res => {
-        this.typeOptions = [...ephemeral.financeM.merchant_select.data];
-        this.typeOptions.unshift(params);
-        
-        this.chanelOptions = [...ephemeral.order.paytype_select.data];
-        this.chanelOptions.unshift(params);
-      // })
+      account_typeSelect().then(res => {
+        this.account_typeOptions = [...res.data.data];
+        this.account_typeOptions.unshift({"id":"a",name:"全部类型"});
+      })
+      channelSelect().then(res=>{
+        this.channelOptions = [...res.data.data];
+        this.channelOptions.unshift({"id":"a",name:"全部通道"});
+      })
     },
     switchTime(time) {
       let date = new Date(time * 1000);
@@ -200,13 +200,14 @@ export default {
     //搜索
     handleSearch(){
       let params = {
-        order_id:this.out_trade_id,
-        created_at:this.timeValue,
-        chanelOptions_id:this.chanelOptions_id,
-        pay_type_id:this.pay_type_id,
+        pay_order_id:this.out_trade_id,
+        channel_id:this.channelOptions_id=='a'?'':this.channelOptions_id,
+        charge_time:this.timeValue,
+        pay_type_id: this.account_typeOptions_id=='a'?'':this.account_typeOptions_id,
         per_page: this.pageSize,
         page:this.page 
       };
+      console.log(params);
      this.getTableData(params);
     },
     // 选择页容量
