@@ -1,5 +1,5 @@
 import { log } from "util";
-import { _get, _post, _put, _delete,ephemeral } from "../../../api/index.js"
+import { _get, _post, _put, _delete,ephemeral, switchTime } from "../../../api/index.js"
 export default {
   name: "AccessConfig",
   data() {
@@ -273,68 +273,76 @@ export default {
     getTableData(params) {
       _get("merchant/order", params).then(res => {
         console.log(res)
-        let paramsData = ephemeral.order.order.data;
-        console.log(paramsData)
-        let data = paramsData.data;
-        console.log(data)
-        this.currentPage = paramsData.current_page;
-        this.total = paramsData.total;
-        this.pageSize = paramsData.per_page;
-        if (data.length > 0) {
-          //this.tableData = data;
-          let tableList = [];
-          for (var i = 0; i < data.length; i++) {
-            let search_status = data[i].search_status;
-            let lock_status = data[i].lock_status;
-            let pay_status=data[i].pay_status;
-            let is_callback=data[i].is_callback;
-            let btnStatus,callbackStatus;
-            if (pay_status == 1 && lock_status == 1) {
-              btnStatus = 2;
-            } else if (pay_status == 1 && lock_status == 0) {
-              btnStatus = 1;
-            } else {
-              btnStatus = 0;
-            }
-            if (pay_status == 1 && is_callback == 0) {
-              callbackStatus = 0;
-            } else{
-              callbackStatus = 1;
-            }
-            if (search_status == 0) {
-              search_status = '未支付';
-            } else if (search_status == 1) {
-              search_status = '已支付未通知';
-            } else if (search_status == 2) {
-              search_status = '已支付已通知';
-            }
+        let data =[...res.data.data.data];
+        data.forEach(element => {
+          isNaN(element.pay_apply_date)?element.pay_apply_date:element.pay_apply_date=switchTime(element.pay_apply_date);
+          isNaN(element.pay_success_date)?element.pay_success_date:element.pay_success_date=switchTime(element.pay_success_date);
+          element.pay_status=='0'?element.pay_status_text='待支付':element.pay_status_text='已支付';
+          element.order_type=='0'?element.order_type_text='充值订单':element.order_type_text='收款订单';
+        });
+        this.tableData=data;
+        // let paramsData = ephemeral.order.order.data;
+        // console.log(paramsData)
+        // let data = paramsData.data;
+        // console.log(data)
+        // this.currentPage = paramsData.current_page;
+        // this.total = paramsData.total;
+        // this.pageSize = paramsData.per_page;
+        // if (data.length > 0) {
+        //   //this.tableData = data;
+        //   let tableList = [];
+        //   for (var i = 0; i < data.length; i++) {
+        //     let search_status = data[i].search_status;
+        //     let lock_status = data[i].lock_status;
+        //     let pay_status=data[i].pay_status;
+        //     let is_callback=data[i].is_callback;
+        //     let btnStatus,callbackStatus;
+        //     if (pay_status == 1 && lock_status == 1) {
+        //       btnStatus = 2;
+        //     } else if (pay_status == 1 && lock_status == 0) {
+        //       btnStatus = 1;
+        //     } else {
+        //       btnStatus = 0;
+        //     }
+        //     if (pay_status == 1 && is_callback == 0) {
+        //       callbackStatus = 0;
+        //     } else{
+        //       callbackStatus = 1;
+        //     }
+        //     if (search_status == 0) {
+        //       search_status = '未支付';
+        //     } else if (search_status == 1) {
+        //       search_status = '已支付未通知';
+        //     } else if (search_status == 2) {
+        //       search_status = '已支付已通知';
+        //     }
 
-            tableList.push({
-              id: data[i].id,
-              pay_order_id: data[i].pay_order_id,
-              out_trade_id: data[i].out_trade_id,
-              pay_amount: data[i].pay_amount,
-              pay_poundage: data[i].pay_poundage,
-              pay_actual_amount: data[i].pay_actual_amount,
-              search_status:search_status,
-              pay_status: data[i].pay_status,
-              pay_apply_date: this.switchTime(data[i].pay_apply_date),
-              pay_success_date: this.switchTime(data[i].pay_success_date),
-              pay_type_id: data[i].pay_type_id,
-              channel_id: data[i].channel_id,
-              order_type: data[i].order_type ? ' 收款订单' : '充值订单',
-              merchant: data[i].merchant,
-              lock_status: data[i].lock_status ? true : false,
-              channel: data[i].channel,
-              type: data[i].type,
-              btnStatus: btnStatus,
-              callbackStatus:callbackStatus,
-            })
-          }
-          this.tableData = tableList;
-        } else {
-          this.tableData = [];
-        }
+        //     tableList.push({
+        //       id: data[i].id,
+        //       pay_order_id: data[i].pay_order_id,
+        //       out_trade_id: data[i].out_trade_id,
+        //       pay_amount: data[i].pay_amount,
+        //       pay_poundage: data[i].pay_poundage,
+        //       pay_actual_amount: data[i].pay_actual_amount,
+        //       search_status:search_status,
+        //       pay_status: data[i].pay_status,
+        //       pay_apply_date: this.switchTime(data[i].pay_apply_date),
+        //       pay_success_date: this.switchTime(data[i].pay_success_date),
+        //       pay_type_id: data[i].pay_type_id,
+        //       channel_id: data[i].channel_id,
+        //       order_type: data[i].order_type ? ' 收款订单' : '充值订单',
+        //       merchant: data[i].merchant,
+        //       lock_status: data[i].lock_status ? true : false,
+        //       channel: data[i].channel,
+        //       type: data[i].type,
+        //       btnStatus: btnStatus,
+        //       callbackStatus:callbackStatus,
+        //     })
+        //   }
+        //   this.tableData = tableList;
+        // } else {
+        //   this.tableData = [];
+        // }
       });
     },
     formatter(row, column) {

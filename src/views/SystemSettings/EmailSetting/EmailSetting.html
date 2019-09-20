@@ -24,7 +24,7 @@
         <el-input-number v-model="ruleForm.calc_money" :controls='false' :disabled='true'></el-input-number>
       </el-form-item>
       <el-form-item label="结算银行卡：" >
-        <el-select placeholder="请选择" class="email_input" v-model="ruleForm.bank_id=classifyOptions[0]" filterable>
+        <el-select placeholder="请选择" @change="change_bank()" class="email_input" v-model="ruleForm.bank_id" filterable>
             <el-option
               v-for="(item,index) in classifyOptions"
               :key="index"
