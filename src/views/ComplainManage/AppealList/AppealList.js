@@ -33,10 +33,6 @@ export default {
       dialogFormAppeal:false,
       appealOptions:[
           {
-          value: 'a',
-          label: '全部'
-         },
-          {
           value: '1',
           label: '申诉商户'
          },
