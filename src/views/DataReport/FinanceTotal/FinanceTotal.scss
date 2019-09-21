@@ -22,14 +22,15 @@
         }
     
         .box {
-          display: block;
-          width: 60px;
-          color: #fff;
-    
+          min-width: 60px;
+    color: #fff;
+    padding-left: 10px;
+    padding-right: 10px;
         }
     
         .bor_text {
           width: 100%;
+          min-width: 270px;
           display: flex;
         }
     

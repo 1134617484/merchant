@@ -10,7 +10,7 @@
             <div class="analysis_footer">
                 <p>
                     <span>交易笔数: {{item.total_count}}</span>
-                    <span>失败率: {{isNaN(item.pending_count)?'0':item.pending_count/item.total_count*100}}%</span>
+                    <span>失败率: {{item.fail_ratio}}</span>
                 </p>
                 <p>
                     <span>成功笔数: {{item.success_count}}</span>

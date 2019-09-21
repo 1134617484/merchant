@@ -50,7 +50,7 @@ axios.interceptors.request.use(
     }
     // 携带token
     // 登录请求不携带 /api/token/login
-    if (config.url != "/api/token/login") {
+    if (config.url != "/api/token/login"||config.url != "merchant/user"||config.url!="merchant/token/login") {
       config.headers.Authorization = `Bearer ${window.localStorage.getItem(
         "token"
       )}`;

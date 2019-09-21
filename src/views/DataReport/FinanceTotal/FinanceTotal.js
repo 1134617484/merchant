@@ -31,7 +31,10 @@ export default {
       pageSize: 10,
       page:'',
       // 管理员信息数据
-      tableData: [],
+      tableData: {
+        data:[],
+        total:{}
+      },
     };
   },
   created() {
@@ -62,16 +65,13 @@ export default {
     },
     getTableData(params) {
       _get("merchant/cash-log",params).then(res => {
-        let data=[...res.data.data.data];
+        let data={...res.data.data.data};
         data.data.forEach(element => {
           isNaN(element.created_at)?element.created_at:element.created_at=switchTime(element.created_at);
-          isNaN(element.verify_tim)?element.verify_tim:element.verify_tim=switchTime(element.verify_tim);
-          // isNaN(element.created_at)?element.created_at=switchTime(element.created_at):element.created_at;
-          // isNaN(element.created_at)?element.created_at=switchTime(element.verify_tim):element.verify_tim;
+          isNaN(element.verify_time)?element.verify_time:element.verify_time==0?element.verify_time='暂无':element.verify_time=switchTime(element.verify_time);
         });
         this.tableData=data;
-        console.log(data)
-     
+        this.tableData.total={...res.data.data.total}
       });
     },
     // 选择页容量

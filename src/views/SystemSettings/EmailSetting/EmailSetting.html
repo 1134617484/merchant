@@ -2,9 +2,9 @@
   <div class="bor">
     <div class="header">申请结算</div>
     <div class="bor_p">
-      <div class="success bor_text"><span class="title" >可提现:</span><span class="box">0元</span></div>
-      <div class="warning bor_text"><span class="title">冻结:</span><span class="box">0元</span></div>
-      <div class="blue bor_text"><span class="title">结算:</span><span class="box">0元</span></div>
+      <div class="success bor_text"><span class="title" >可提现:</span><span class="box">{{withdrawInit.balance}}元</span></div>
+      <div class="warning bor_text"><span class="title">冻结:</span><span class="box">{{withdrawInit.balance_disabled}}元</span></div>
+      <div class="blue bor_text"><span class="title">结算:</span><span class="box">{{withdrawInit.apply_money}}元</span></div>
     </div>
     <el-form
       :model="ruleForm"
@@ -15,7 +15,7 @@
     >
       <el-form-item label="提现金额：" prop="apply_money" >
           <el-input-number class="apply_money" v-model="ruleForm.apply_money"  :controls='false' @blur="handleBlur"></el-input-number>
-        <span class="apply_money_span">注:提现金额最小100.00元.含提现手续费,直接在金额中扣除</span>
+        <span class="apply_money_span">注:提现金额最小{{withdrawInit.unit_min_money}}.00元.含提现手续费,直接在金额中扣除</span>
       </el-form-item>
       <el-form-item label="到账金额：" prop="reality_money">
         <el-input-number v-model="ruleForm.reality_money" :controls='false' :disabled='true'></el-input-number>
@@ -28,7 +28,7 @@
             <el-option
               v-for="(item,index) in classifyOptions"
               :key="index"
-              :label="item.bank_name"
+              :label="item.card_number"
               :value="item.id"
             ></el-option>
           </el-select>

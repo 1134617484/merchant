@@ -14,8 +14,9 @@ export default {
         calc_money: "",
         // 支付密码
         payment_code: "",
-        bank_id:"1"
+        bank_id:"1",
       },
+      withdrawInit:{},//初始化
       rules: {
         apply_money: [
           { required: true, validator: this.$rules.FormValidate.Form().validateNumber, trigger: 'change' }
@@ -42,17 +43,14 @@ export default {
   methods: {
     getFormData(){
       // 银行卡列表
-      _get("/merchant/bank/select").then(res => {
+      _get("merchant/bankcard/bankcard").then(res => {
 this.classifyOptions=res.data.data;
 this.ruleForm.bank_id=this.classifyOptions[0].id;
-        // let data=ephemeral.finance.email.data;
-        // this.ruleForm.smtp_host=data.smtp_host;
-        // this.ruleForm.smtp_port=data.smtp_port;
-        // this.ruleForm.smtp_user=data.smtp_user;
-        // this.ruleForm.smtp_pass=data.smtp_pass;
-        // this.ruleForm.smtp_email=data.smtp_email;
-        // this.ruleForm.smtp_name=data.smtp_name;
       })
+      // 初始化
+      _get("merchant/withdraw/init").then(res => {
+        this.withdrawInit=res.data.data;
+      })      
       
       
     },
@@ -60,6 +58,7 @@ this.ruleForm.bank_id=this.classifyOptions[0].id;
       console.log(formName)
       this.$refs[formName].validate(valid => {
         console.log(valid)
+      if(this.ruleForm.apply_money<100)return this.$message({message: "最小提现金额为100",type: "warning"});
         if (valid) {
           //alert("submit!");
            let params={
@@ -87,6 +86,9 @@ this.ruleForm.bank_id=this.classifyOptions[0].id;
     },
     // 输入提现金额后
     handleBlur(){
+      if(this.ruleForm.apply_money==0)return false;
+      if(this.ruleForm.apply_money<this.withdrawInit.unit_min_money)return this.$message({message: `最小提现金额为${this.withdrawInit.unit_min_money}元`,type: "warning"});
+
       this.ruleForm.apply_money=parseInt(this.ruleForm.apply_money);
       _get(`merchant/withdraw/calc?apply_money=${this.ruleForm.apply_money}`).then(res => {
 this.ruleForm.calc_money=res.data.data.calc;
@@ -98,5 +100,5 @@ change_bank(){
   console.log(this.ruleForm.bank_id);
   // this.ruleForm.bank_id!==''?ruleForm.bank_id:ruleForm.bank_id=classifyOptions[0]
 }
-  }
+  },
 };
