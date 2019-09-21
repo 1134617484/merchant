@@ -14,7 +14,7 @@
                 </p>
                 <p>
                     <span>成功笔数: {{item.success_count}}</span>
-                    <span>失败笔数: {{item.pending_count}}</span>
+                    <span>失败笔数: {{item.fail_count}}</span>
                 </p>
             </div>
         </div>

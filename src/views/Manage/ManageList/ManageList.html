@@ -39,7 +39,7 @@
           <el-button size="mini" @click="handleEdit(scope.$index, scope.row)"
             >修改</el-button
           >
-          <el-button
+          <el-button disabled
             size="mini"
             type="danger"
             class="myDeleteColor"
@@ -63,11 +63,11 @@
           class="my_form_inp"
           label="银行名称: "
           :label-width="formLabelWidth"
-          prop="name"
+          prop="bank.bank_name"
         >
           <el-input
             placeholder="银行名称:"
-            v-model="editForm.name"
+            v-model="editForm.bank.bank_name"
             autocomplete="off"
           ></el-input>
         </el-form-item>
@@ -75,11 +75,11 @@
           class="my_form_inp"
           label="支行名称: "
           :label-width="formLabelWidth"
-          prop="name"
+          prop="sub_branch"
         >
           <el-input
             placeholder="支行名称:"
-            v-model="editForm.name"
+            v-model="editForm.sub_branch"
             autocomplete="off"
           ></el-input>
         </el-form-item>
@@ -87,37 +87,35 @@
           class="my_form_inp"
           label="开户行: "
           :label-width="formLabelWidth"
-          prop="editPassword"
+          prop="account_name"
         >
           <el-input
             placeholder="开户行:"
-            v-model="editForm.editPassword"
+            v-model="editForm.account_name"
             autocomplete="off"
-            show-password
           ></el-input>
         </el-form-item>
         <el-form-item
           class="my_form_inp"
           label="银行卡号: "
           :label-width="formLabelWidth"
-          prop="editPassword"
+          prop="card_number"
         >
           <el-input
             placeholder="银行卡号"
-            v-model="editForm.editPassword"
+            v-model="editForm.card_number"
             autocomplete="off"
-            show-password
           ></el-input>
         </el-form-item>
         <el-form-item
           class="my_form_inp"
           label="所在省: "
           :label-width="formLabelWidth"
-          prop="mobile"
+          prop="province"
         >
           <el-input
             placeholder="所在省:"
-            v-model="editForm.mobile"
+            v-model="editForm.province"
             autocomplete="off"
           ></el-input>
         </el-form-item>
@@ -137,11 +135,11 @@
           class="my_form_inp"
           label="别名: "
           :label-width="formLabelWidth"
-          prop="email"
+          prop="city"
         >
           <el-input
             placeholder="别名"
-            v-model="editForm.email"
+            v-model="editForm.city"
             autocomplete="off"
           ></el-input>
         </el-form-item>
@@ -149,11 +147,11 @@
           class="my_form_inp"
           label="备注: "
           :label-width="formLabelWidth"
-          prop="introduction"
+          prop="last_login_ip"
         >
           <el-input
             placeholder="备注:"
-            v-model="editForm.introduction"
+            v-model="editForm.last_login_ip"
             autocomplete="off"
           ></el-input>
         </el-form-item>

@@ -1,7 +1,8 @@
  <template>
  <div class="config_success">
-     <div v-if="status==0?true:false"><img src="@/assets/images/go.png"/><span>您已认证成功!</span></div>
-     <div v-if="status==1?true:false" class="error"><img src="@/assets/images/error.png"/><span class="error_right">您未认证!</span><span class="error_url">去认证</span></div>
+     <div v-if="status==0"><img src="@/assets/images/go.png"/><span>未认证</span></div>
+     <div v-if="status==1"><img src="@/assets/images/go.png"/><span>您已认证成功!</span></div>
+     <div v-if="status==2" class="error"><img src="@/assets/images/error.png"/><span class="error_right">认证失败!</span><span class="error_url"></span></div>
  </div>
 
  </template>
@@ -21,10 +22,7 @@ export default {
   },
   methods: {
     getTableData() {
-      
-      _get("merchant/user/authorize").then(res => {
-        this.status=res.data.data.authorized;
-      });
+     this.status=JSON.parse(window.localStorage.getItem('userInfo')).authorized;
     },
   }
 

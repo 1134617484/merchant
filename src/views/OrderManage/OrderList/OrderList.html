@@ -112,9 +112,9 @@
             <el-table-column label="操作" width="300px">
                 <template slot-scope="scope">
                     <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">查看</el-button>
-                    <el-button size="mini" @click="TransactionCharge(scope.$index, scope.row)" v-if="scope.row.btnStatus==0">设置为已支付</el-button>
+                    <!-- <el-button size="mini" @click="TransactionCharge(scope.$index, scope.row)" v-if="scope.row.btnStatus==0">设置为已支付</el-button>
                     <el-button size="mini" @click="freezeCharge(scope.$index, scope.row)" v-if="scope.row.btnStatus==1">冻结订单</el-button>
-                    <el-button size="mini" @click="handleOrder(scope.$index, scope.row)" v-if="scope.row.callbackStatus==0">补发订单</el-button>
+                    <el-button size="mini" @click="handleOrder(scope.$index, scope.row)" v-if="scope.row.callbackStatus==0">补发订单</el-button> -->
                 </template>
             </el-table-column>
         </el-table>
@@ -128,7 +128,6 @@
                     <tr>
                         <td>订单号：</td><td>{{editForm.pay_order_id }}</td>
                      </tr>
-
                      <tr>
                         <td>交易金额：</td><td>{{editForm.pay_amount }}</td>
                      </tr>
@@ -147,7 +146,6 @@
                      <tr>
                         <td>订单状态：</td><td>{{editForm.pay_status }}</td>
                      </tr>
-               
                  </table>
             </el-form>
             <div slot="footer" class="dialog-footer">
@@ -164,7 +162,6 @@
                 <el-form-item class="my_form_inp" label="订单金额: " :label-width="formLabelWidth" prop=" pay_amount">
                     <el-input   v-model.trim="TransactionForm.pay_amount" autocomplete="off" disabled></el-input>
                 </el-form-item>
-                
             </el-form>
             <div slot="footer" class="dialog-footer">
                 <el-button class="mybtAdd" @click="dialogFormTransaction = false">取 消</el-button>

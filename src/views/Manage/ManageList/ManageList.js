@@ -63,14 +63,11 @@ export default {
       },
       //新增管理员表单
       editForm: {
-        role_id: "",
-        adminId: "",
-        name: "",
-        email: "",
-        mobile: "",
-        editPassword: "",
-        introduction: ""
+        bank:{
+          bank_name:'',id:''
+        }
       },
+
       formLabelWidth: "100px",
       // 性别下拉框
       sexOptions: [
@@ -147,31 +144,7 @@ export default {
     getTableData(params) {
       _get("merchant/bankcard", params).then(res => {
         this.tableData = res.data.data;
-        // let data = ephemeral.menu.admin.data.data;
-        // console.log(ephemeral.menu)
-        // console.log(data)
-        // let paramsData = ephemeral.menu.admin.data;
-        // this.currentPage = paramsData.current_page;
-        // this.total = paramsData.total;
-        // this.pageSize = paramsData.per_page;
-        // if (data.length > 0) {
-        //   let tableList = [];
-        //   for (let i = 0; i < data.length; i++) {
-        //     tableList.push({
-        //       id: data[i].id,
-        //       role_id: data[i].role_id,
-        //       name: data[i].name,
-        //       mobile: data[i].mobile,
-        //       email: data[i].email,
-        //       status: data[i].status ? true : false,
-        //       last_login_at: this.switchTime(data[i].last_login_at),
-        //       last_login_ip: data[i].last_login_ip
-        //     });
-        //   }
-        //   this.tableData = tableList;
-        // } else {
-        //   this.tableData = [];
-        // }
+        // this.editForm={...this.tableData[0]}
       });
     },
     handleSearch() {
@@ -201,16 +174,7 @@ export default {
     },
     // 编辑管理员信息
     handleEdit(index, row) {
-      console.log(row);
-      //console.log(index, row);
-      this.editForm.id = row.id;
-      this.editForm.name = row.name;
-      this.editForm.mobile = row.mobile;
-      this.editForm.email = row.email;
-      this.editForm.role_id = row.role_id;
-      this.editForm.editPassword = "";
-      this.editForm.introduction = row.introduction;
-      // 编辑信息
+      this.editForm={...row};
       this.outerVisible = true;
     },
     //修改管理员列表状态

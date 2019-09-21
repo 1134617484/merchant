@@ -48,18 +48,13 @@
             <el-table-column prop="pay_order_id" label="订单号"></el-table-column>
             <el-table-column prop="out_trade_id" label="商户编号"></el-table-column>
             <el-table-column prop="pay_amount" label="交易金额"></el-table-column>
+            <el-table-column prop="pay_actual_amount" label="实际交易金额"></el-table-column>
             <el-table-column prop="pay_poundage" label="手续费"></el-table-column>
             <el-table-column prop="pay_apply_date" label="提交时间"></el-table-column>
             <el-table-column prop="pay_success_date" label="成功时间"></el-table-column>
-            <el-table-column prop="pay_channel_pay_reissue" label="支付通道"></el-table-column>
-            <el-table-column prop="pay_code_name" label="支付银行"></el-table-column>
-
-            <!-- <el-table-column label="冻结状态" prop="lock_status">
-                <template slot-scope="scope">
-                     <i class="el-icon-check" v-if="scope.row.lock_status"></i>
-                     <i class="el-icon-close" v-else></i>
-                </template>
-            </el-table-column> -->
+            <el-table-column prop="pay_code_name" label="支付产品"></el-table-column>
+            <el-table-column prop="channel_name" label="支付通道"></el-table-column>
+            <el-table-column prop="type.name" label="支付分类"></el-table-column>
             <el-table-column prop="pay_success_date" label="来源地址"></el-table-column>
             <el-table-column prop="attach" label="订单描述"></el-table-column>
             <el-table-column prop="pay_status_text" label="状态"></el-table-column>
@@ -83,9 +78,6 @@
                      </tr>
                      <tr>
                         <td>下游订单号：</td><td>{{editForm.out_trade_id }}</td>
-                     </tr>
-                     <tr>
-                        <td>商户名称：</td><td>{{editForm.username }}</td>
                      </tr>
                      <tr>
                         <td>交易金额：</td><td>{{editForm.pay_amount }}</td>

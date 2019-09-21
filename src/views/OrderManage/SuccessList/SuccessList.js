@@ -306,34 +306,15 @@ this.tableData=data;
     },
     // 编辑通道信息
     handleEdit(index, row) {
-      // let params={id:row.id};
-      _get("api/order/" + row.id).then(res => {
-        let data = res.data.data;
-        this.editForm.pay_order_id = data.pay_order_id;
-        this.editForm.out_trade_id = data.out_trade_id;
-        this.editForm.username = data.merchant.username;
-        this.editForm.pay_amount = data.pay_amount;
-        this.editForm.pay_poundage = data.pay_poundage;
-        this.editForm.pay_actual_amount = data.pay_actual_amount;
-        this.editForm.pay_apply_date = this.switchTime(data.pay_apply_date);
-        this.editForm.pay_success_date = this.switchTime(data.pay_success_date);
-        let pay_status = data.search_status;
-        if (pay_status == 0) {
-          pay_status = '未支付';
-        } else if (pay_status == 1) {
-          pay_status = '已支付未通知';
-        } else if (pay_status == 2) {
-          pay_status = '已支付已通知';
-        } else if (pay_status == 3) {
-          pay_status = '订单冻结';
-        } else {
-          pay_status = '订单解冻';
-        }
-        this.editForm.pay_status = pay_status;
-      })
-
-      //编辑信息
+      _get("merchant/order/" + row.id).then(res => {
+        let data = {...res.data.data};
+          isNaN(data.pay_apply_date)?'':data.pay_apply_date=switchTime(data.pay_apply_date);
+          isNaN(data.pay_success_date)?'':data.pay_success_date=='0'?data.pay_success_date='暂无成功时间':data.pay_success_date=switchTime(data.pay_success_date);
+          data.pay_status=='0'?data.pay_status='待支付':data.pay_status='已支付';
+        this.editForm=data;
+              //编辑信息
       this.outerVisible = true;
+      })
     },
 
     // 选择页容量
