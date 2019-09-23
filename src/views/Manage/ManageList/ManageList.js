@@ -204,7 +204,7 @@ export default {
             type: "warning"
           })
             .then(() => {
-              _put("api/admin/" + this.editForm.id, params).then(res => {
+              _put("merchant/bankcard/" + this.editForm.bank_id, params).then(res => {
                 this.handleSearch();
                 this.$message({
                   message: "编辑成功",

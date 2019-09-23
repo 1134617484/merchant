@@ -29,21 +29,25 @@ export default {
     getSelectMenuData() {
       account_typeSelect().then(res => {
         this.account_typeOptions = [...res.data.data];
-        this.account_typeOptions.unshift({"id":"a",name:"全部类型"});
+        this.account_typeOptions.unshift({"id":"a",name:"全部支付类型"});
       })
       channelSelect().then(res=>{
         this.channelOptions = [...res.data.data];
-        this.channelOptions.unshift({"id":"a",name:"全部通道"});
+        this.channelOptions.unshift({"id":"a",name:"全部支付通道"});
       })
     },
     // 资金记录表单信息
     getTableData(params) {
       let data='';
       _get("merchant/account-change", params).then(res => {
+        let paramsData=res.data.data;
         data=[...res.data.data.data];
         data.forEach(element => {
           isNaN(element.charge_time)?element.charge_time:element.charge_time=switchTime(element.charge_time);
         });
+        this.currentPage = paramsData.current_page;
+        this.total = paramsData.total;
+        this.pageSize = paramsData.per_page;
         this.tableData=data;
       });
     },
@@ -61,7 +65,6 @@ export default {
         per_page: this.pageSize,
         page:this.page 
       };
-      console.log(params);
      this.getTableData(params);
     },
     // 选择页容量

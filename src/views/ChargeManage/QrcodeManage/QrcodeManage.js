@@ -24,7 +24,6 @@ export default {
   },
   methods: {
     submitForm(formName) {
-      // console.log(this.Form.domain)
       this.$refs[formName].validate(valid => {
         if (valid) {
            let params = {

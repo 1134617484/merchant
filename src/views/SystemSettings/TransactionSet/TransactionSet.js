@@ -41,6 +41,9 @@ export default {
         permit_login_ip: [
           { required: true, validator: this.$rules.FormValidate.Form().validateIp, trigger: 'change' }
         ],
+        birthday: [
+          { required: true, message:'请选择生日', trigger: 'change' }
+        ],
       }
     };
   },
@@ -70,7 +73,8 @@ export default {
         this.Form.realname = data.realname;
         this.Form.idcard = data.idcard;
         this.sex = data.sex+'';
-        this.Form.birthday = this.switchTime(data.birthday);
+        // console.log(data.birthday==0)
+        data.birthday==0?this.Form.birthday='':this.Form.birthday = this.switchTime(data.birthday);
         this.Form.mobile = data.mobile;
         this.Form.qq = data.qq;
         this.Form.address = data.address;
@@ -78,7 +82,12 @@ export default {
       })
     },
     submitForm(formName) {
-      // console.log(this.Form.domain)
+      if(this.Form.birthday==''||this.Form.birthday==null||this.Form.birthday==undefined){
+        return this.$message({
+          message: "生日不能为空",
+          type: "warning"
+        });
+      }
       this.$refs[formName].validate(valid => {
         if (valid) {
            let params = {

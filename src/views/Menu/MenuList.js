@@ -1,5 +1,5 @@
  import SideBar from '../../components/SideBar'
- import { _get, _post,ephemeral  } from "../../api/index.js";
+ import { _get, _post,ephemeral, findPathByLeafId  } from "../../api/index.js";
  import store from "../../store/store.js";
  // 全屏
  import screenfull from "screenfull";
@@ -139,7 +139,14 @@
          isFull = false;
        }
        return isFull;
-     }
+     },
+    //  刷新后更新地址栏
+    refresh_title(){
+      console.log(this.$route)
+console.log(this.$route.path)
+// findPathByLeafId(this.$route.path,ephemeral.menu.menulist)
+findPathByLeafId({'name':'name','text':this.$route.path},ephemeral.menu.menulist)
+    }
    },
    mounted() {
      window.onresize = () => {
@@ -171,5 +178,7 @@
      // 设置用户信息
      this.userMsg = JSON.parse(window.localStorage.getItem("userInfo") || "{}");
      this.getMenuData();
+     this.refresh_title();
+     
    }
  };

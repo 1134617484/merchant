@@ -6,7 +6,6 @@ import store from "../store/store.js";
 
 // const ephemeral= require('./ephemeral.js')
 import {ephemeral_data} from './ephemeral'
-console.log(ephemeral_data)
 export const ephemeral=ephemeral_data;
 
 
@@ -262,4 +261,30 @@ export const switchTime=time=> {
   s=s<10?'0'+s:s;
   let updated_at = y + m + d + h + ":" + mm + ":" + s;
   return updated_at;
+}
+
+
+//递归实现
+//@leafId  查找的属性值 {'name':''}，
+//@nodes   原始Json数据
+//@path    供递归使用
+
+export function findPathByLeafId(leafId, nodes, path) {
+  if(path === undefined) {
+    path = [];
+  }
+  for(var i = 0; i < nodes.length; i++) {
+      var tmpPath = path.concat();
+      tmpPath.push(nodes[i][leafId.name]);
+      console.log(nodes[i][leafId.name])
+      if(leafId.text == nodes[i][leafId.name]) {
+         return tmpPath;
+      }
+      if(nodes[i].children) {
+        var findResult = findPathByLeafId(leafId, nodes[i].children, tmpPath);
+        if(findResult) {
+          return findResult;
+        }
+      }
+  }
 }

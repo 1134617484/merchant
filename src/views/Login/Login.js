@@ -29,7 +29,6 @@ export default {
         store.state.isLodingLogin = true;
         userLogin({ username, password }).then(res => {
           // 登录失败
-          console.log(res)
           if (res.code != 200) {
             setTimeout(() => {
               store.state.isLodingLogin = false;
@@ -49,7 +48,6 @@ export default {
 
           // 用户信息缓存本地
           getUserMsg().then(res => {
-            console.log(res)
             if (res.data.code == 200) {
               window.localStorage.setItem(
                 "userInfo",

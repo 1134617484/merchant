@@ -10,6 +10,7 @@ export const ephemeral_data = {
           label: "管理中心",
           icon: "icon-shouye",
           menu_uri: "",
+          
           children: [
             // 暂无
             {
@@ -150,6 +151,7 @@ export const ephemeral_data = {
               label: "冻结资金明细",
               icon: "icon",
               menu_uri: "/cash-log",
+              text:['财务管理','冻结资金明细'],
               children: [],
               index: "4-4"
             }
@@ -164,7 +166,6 @@ export const ephemeral_data = {
           icon: "icon-caiwuguanli",
           menu_uri: "",
           children: [
-            
             {
               menu_name: "finance.userTrade",
               label: "结算记录",

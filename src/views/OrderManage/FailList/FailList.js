@@ -399,7 +399,11 @@ export default {
         //     })
         // }
         this.tableData = data;
-        console.log(this.tableData);
+        let paramsData =res.data.data;
+        this.currentPage = paramsData.current_page;
+        this.last_page_url = paramsData.last_page_url;
+        this.total = paramsData.total;
+        this.pageSize = paramsData.per_page;
         // }else{
         //   this.tableData=[];
         // }

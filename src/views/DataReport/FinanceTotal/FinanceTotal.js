@@ -68,10 +68,15 @@ export default {
         let data={...res.data.data.data};
         data.data.forEach(element => {
           isNaN(element.created_at)?element.created_at:element.created_at=switchTime(element.created_at);
-          isNaN(element.verify_time)?element.verify_time:element.verify_time==0?element.verify_time='暂无':element.verify_time=switchTime(element.verify_time);
+          isNaN(element.verify_time)?element.verify_time:element.verify_time==0?element.verify_time='暂无':element.verify_time==switchTime(element.verify_time);
         });
         this.tableData=data;
         this.tableData.total={...res.data.data.total}
+        let paramsData =data;
+        this.currentPage = paramsData.current_page;
+        this.last_page_url = paramsData.last_page_url;
+        this.total = paramsData.total.total;
+        this.pageSize = paramsData.per_page;
       });
     },
     // 选择页容量

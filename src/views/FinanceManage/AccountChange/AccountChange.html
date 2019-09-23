@@ -29,7 +29,7 @@
       </label>
       <!-- 下拉选择 -->
       <label class="inp">
-        <el-select placeholder="全部通道" v-model="channelOptions_id">
+        <el-select placeholder="支付通道" v-model="channelOptions_id">
           <el-option
             v-for="(item,index) in channelOptions"
             :key="index"
@@ -40,7 +40,7 @@
       </label>
 
         <label class="inp">
-        <el-select placeholder="全部类型" v-model="account_typeOptions_id" filterable>
+        <el-select placeholder="支付分类" v-model="account_typeOptions_id" filterable>
           <el-option
             v-for="(item,index) in account_typeOptions"
             :key="index"
@@ -69,11 +69,12 @@
         label="订单号"
       ></el-table-column>
       <el-table-column prop="merchant.username" label="用户名"></el-table-column>
-      <el-table-column prop="type.name" label="类型"></el-table-column>
+      <el-table-column prop="order.channel.title" label="支付通道"></el-table-column>
+      <el-table-column prop="type.name" label="支付分类"></el-table-column>
       <el-table-column prop="change_money" label="变动金额"></el-table-column>
       <el-table-column prop="charge_time" label="变动时间"></el-table-column>
       <el-table-column prop="change_money" label="备注"></el-table-column>
-      <el-table-column prop="change_money" label="操做"></el-table-column>
+      <el-table-column prop="change_money" label="操作"></el-table-column>
 
     </el-table>
     <!-- 分页 -->

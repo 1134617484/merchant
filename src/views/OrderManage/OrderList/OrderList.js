@@ -302,6 +302,11 @@ export default {
             : (element.order_type_text = "收款订单");
         });
         this.tableData = data;
+        let paramsData =res.data.data;
+        this.currentPage = paramsData.current_page;
+        this.last_page_url = paramsData.last_page_url;
+        this.total = paramsData.total;
+        this.pageSize = paramsData.per_page;
       });
     },
     formatter(row, column) {

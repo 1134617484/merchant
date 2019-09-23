@@ -1,5 +1,5 @@
 import store from "../../store/store.js";
-import { _get, _post, _put, _delete } from "../../api/index.js"
+import { _get, _post, _put, _delete, getRoleMsg } from "../../api/index.js"
 export default {
   data() {
     return {
@@ -44,9 +44,7 @@ export default {
           type: "warning"
         });
       }
-      console.log(reg.username.test(username))
-      console.log(reg.password.test(password))
-      console.log(reg.emil.test(emil))
+
       let parse={
         username,
         email:emil,
@@ -56,7 +54,6 @@ export default {
       this.loading=true;
       store.state.isLodingLogin = true;
       _post("/merchant/user",parse).then(res => {
-        console.log(res)
       store.state.isLodingLogin = false;
         if(res.code=='200'){
           return this.$message({
@@ -75,6 +72,13 @@ export default {
     // 登录
     login() {
       this.$router.push("/login");
+    },
+    inputChange(){
+      console.log(11);
+      this.newpassword=this.newpassword.replace(/[\W]/g,'')
+    },
+    getRoleMsg(){
+
     }
   },
   computed: {

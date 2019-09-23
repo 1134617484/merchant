@@ -63,11 +63,11 @@ export default {
           isNaN(element.created_at)?element.created_at:element.created_at=switchTime(element.created_at);
         });
         this.tableData=data;
-      //   let paramsData = ephemeral.menu.admin_log.data;
+        let paramsData = res.data.data;
       //   let data = paramsData.data;
-      //   this.currentPage = paramsData.current_page;
-      //   this.total = paramsData.total;
-      //   this.pageSize = paramsData.per_page;
+        this.currentPage = paramsData.current_page;
+        this.total = paramsData.total;
+        this.pageSize = paramsData.per_page;
       //   if (data.length > 0) {
       //     let tableList = [];
       //     for (let i = 0; i < data.length; i++) {

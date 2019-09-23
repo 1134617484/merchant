@@ -236,7 +236,6 @@ export default {
     },
     // 补发次数
     handleChange(value) {
-      console.log(value);
     }
   }
 };

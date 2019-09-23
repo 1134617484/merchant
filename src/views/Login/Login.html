@@ -7,11 +7,13 @@
         <ul class="login_ul">
           <li>
             <span class="account"></span>
-            <input v-model="username" type="text" name id placeholder="请输入账号" />
+            <!-- <input v-model="username" type="text" name id placeholder="请输入账号" /> -->
+            <el-input v-model="username" type="text" :change="username=username.replace(/[\W]/g,'')" placeholder="请输入账号"></el-input>
           </li>
           <li>
             <span class="password"></span>
-            <input v-model="password" type="passwprd" name id placeholder="请输入密码" />
+            <!-- <input v-model="password" type="passwprd" name id placeholder="请输入密码" /> -->
+            <el-input v-model="password" type="password" :change="password=password.replace(/[\W]/g,'')" placeholder="请输入密码"></el-input>
           </li>
          
         </ul>

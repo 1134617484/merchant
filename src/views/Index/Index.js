@@ -72,7 +72,6 @@ export default {
       })
     },
     handelTime(){
-      console.log(this.time==0)
       if(this.time==0){
         this.url='day';
       }else if(this.time==1){
@@ -83,15 +82,12 @@ export default {
       this.getEchartData(this.url);
     },
     getEchartData(url) {
-      console.log(url)
       _get("merchant/index/"+url).then(res => {
-        console.log(res)
-        // let data=ephemeral.menu.day.data;
         let xdata=[...res.data.data.time];
         let ydata=[...res.data.data.result];
-        
          let legendData=[];
          for(var i=0;i<ydata.length;i++){
+          ydata[i].stack=ydata[i].name+ydata[i].stack;
             legendData.push(ydata[i].name);
          }
          this.showEcharts(xdata,ydata,legendData);

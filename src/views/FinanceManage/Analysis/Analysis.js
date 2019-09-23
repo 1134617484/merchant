@@ -13,9 +13,7 @@ created() {
 methods: {
   getAnalysisData(params){
       _get("merchant/channel-finance",params).then(res => {
-        console.log(res)
 this.analysis=[...res.data.data];
-console.log(this.analysis)
       })
   }
 }

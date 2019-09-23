@@ -3,4 +3,3 @@
 </script>
 <style scoped src="../Register/Register.scss" lang="scss" >
 </style>
- 

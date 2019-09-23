@@ -82,14 +82,16 @@ export default {
           element.frozen_start_time=switchTime(element.frozen_start_time);
         });
         this.tableData=data;
+        let paramsData = res.data.data;
+        this.currentPage = paramsData.current_page;
+        this.last_page_url = paramsData.last_page_url;
+        this.total = paramsData.total;
+        this.pageSize = paramsData.per_page;
       })
       // _get("api/cash-log", params).then(res => {
-      //   let paramsData = ephemeral.financeM.cash_log.data;
+        
       //   let data = paramsData.data;
-      //   this.currentPage = paramsData.current_page;
-      //   this.last_page_url = paramsData.last_page_url;
-      //   this.total = paramsData.total;
-      //   this.pageSize = paramsData.per_page;
+        
       //   if (data.length > 0) {
       //     let tableList = [];
       //     for (let i = 0; i < data.length; i++) {
@@ -207,7 +209,6 @@ export default {
         per_page: this.pageSize,
         page:this.page 
       };
-      console.log(params);
      this.getTableData(params);
     },
     // 选择页容量
