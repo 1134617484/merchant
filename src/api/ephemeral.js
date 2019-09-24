@@ -1,3 +1,30 @@
+ const menu_list={
+  '/index':['管理中心','管理首页'],
+
+  '/qrcode':['充值入口','充值二维码'],
+  '/link':['充值入口','充值链接'],
+
+  '/transaction':['账户管理','基本信息'],
+  '/admin':['账户管理','银行卡管理'],
+  '/permission':['账户管理','认证信息'],
+  '/admin':['账户管理','银行卡管理'],
+  '/admin/reset':['账户管理','登录密码'],
+  '/admin/reset_pay':['账户管理','支付密码'],
+  '/admin-log':['账户管理','登录记录'],
+
+  '/account-change':['财务管理','资金记录'],
+  '/account-analysis':['财务管理','通道分析'],
+  '/account-detailss':['财务管理','保证金明细'],
+  '/cash-log':['财务管理','冻结资金明细'],
+
+  '/finance/user-trade':['结算管理','结算记录'],
+  '/email':['结算管理','结算申请'],
+
+  '/order':['订单管理','所有订单'],
+  '/order/success':['订单管理','成功订单'],
+  '/order/fail':['订单管理','手工补发'],
+  '/order/pending':['订单管理','未支付订单'],
+}
 //  临时数据
 export const ephemeral_data = {
   menu: {
@@ -252,22 +279,6 @@ export const ephemeral_data = {
               children: [],
               index: "7-2"
             },
-            // {
-            //   menu_name: "basic.index",
-            //   label: "申请解冻",
-            //   icon: "icon",
-            //   menu_uri: "",
-            //   children: [],
-            //   index: "7-3"
-            // },
-            // {
-            //   menu_name: "basic.index",
-            //   label: "解冻记录",
-            //   icon: "icon",
-            //   menu_uri: "",
-            //   children: [],
-            //   index: "7-4"
-            // },
           ],
           index: '投诉管理'
         },
@@ -275,6 +286,7 @@ export const ephemeral_data = {
       code: 200,
       message: "成功"
     },
+    menu_type_list:menu_list,
     index: {
       data: {
         month_pay_actual_amount: "0.0000",

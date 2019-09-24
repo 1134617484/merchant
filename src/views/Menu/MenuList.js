@@ -142,13 +142,12 @@
      },
     //  刷新后更新地址栏
     refresh_title(){
-      console.log(this.$route)
-console.log(this.$route.path)
+// console.log(this.$route.path)
     // 刷新时重置路由
-     let a= findPathByLeafId({name:'name',value:this.$route.path},ephemeral.menu.menulist,[]);
-     console.log(a)
-// findPathByLeafId(this.$route.path,ephemeral.menu.menulist)
-// findPathByLeafId({'name':'name','text':this.$route.path},ephemeral.menu.menulist)
+    // console.log(ephemeral.menu.menu_type_list[this.$route.path])
+    let title=ephemeral.menu.menu_type_list[this.$route.path]; 
+    this.oneTitle=title[0];
+    this.twoTitle=title[1];
     }
    },
    mounted() {
@@ -181,6 +180,6 @@ console.log(this.$route.path)
      // 设置用户信息
      this.userMsg = JSON.parse(window.localStorage.getItem("userInfo") || "{}");
      this.getMenuData();
-    //  this.refresh_title();
+     this.refresh_title();
    }
  };
