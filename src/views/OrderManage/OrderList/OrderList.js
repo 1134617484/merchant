@@ -4,7 +4,6 @@ import {
   _post,
   _put,
   _delete,
-  ephemeral,
   switchTime,
   paytypeSelect,
   channelSelect

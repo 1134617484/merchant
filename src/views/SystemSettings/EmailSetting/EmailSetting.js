@@ -54,6 +54,9 @@ export default {
       // 初始化
       _get("merchant/withdraw/init").then(res => {
         this.withdrawInit = res.data.data;
+        this.withdrawInit.balance= Number(this.withdrawInit.balance).toFixed(4);
+        this.withdrawInit.balance_disabled=Number(this.withdrawInit.balance_disabled).toFixed(4);
+        this.withdrawInit.apply_money=Number(this.withdrawInit.apply_money).toFixed(4);
       });
     },
     submitForm(formName) {

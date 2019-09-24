@@ -36,7 +36,8 @@ let ipReg = /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])
 let accessReg = /^[a-z0-9]+$/i;
 //银行卡验证
 let card_number_reg = /^(\d{16}|\d{19})$/;
-
+// 登录注册用户名
+let usernameReg=/^[a-zA-Z0-9_-]{4,10}$/;
 let FormValidate = (function() {
   function FormValidate() {}
   // From表单验证规则  可用于公用的校验部分
@@ -98,13 +99,27 @@ let FormValidate = (function() {
         if (!passwordReg.test(value)) {
           callback(
             new Error(
-              "请输入6-20位英文字母、数字或者符号（除空格），且字母、数字和标点符号至少包含两种"
+              "请输入6-20位字母+数字或符号的密码"
             )
           );
         } else {
           callback();
         }
       },
+            // 密码再次验证
+            validateNewPsdReg(rule, value, callback) {
+              console.log(value)
+              console.log(this)
+              if (value!== this.numberValidateForm.password) {
+                callback(
+                  new Error(
+                    "两次密码不一致"
+                  )
+                );
+              } else {
+                callback();
+              }
+            },
 
       // 联系人
       validateContacts(rule, value, callback) {
@@ -235,7 +250,20 @@ let FormValidate = (function() {
           callback(new Error("支行名称"));
         }
       },
-      
+      // 登录/注册用户名 4-10位非中文
+      validateUsername(rule,value,callback){
+        if (value !== "") {
+          console.log(usernameReg.test(value))
+          if (!usernameReg.test(value)) {
+            callback(new Error("用户名请输入4-10位非中文字符"));
+          } else {
+            callback();
+          }
+        } else {
+          callback(new Error("用户名不能为空"));
+        }
+      },
+
     };
   };
 

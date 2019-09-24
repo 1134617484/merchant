@@ -4,8 +4,9 @@ import {
   _post,
   _put,
   _delete,
-  ephemeral,
-  switchTime
+  switchTime,
+  paytypeSelect,
+  channelSelect
 } from "../../../api/index.js";
 export default {
   name: "AccessConfig",
@@ -51,14 +52,7 @@ export default {
           value: "2",
           label: "已支付已通知"
         }
-        // {
-        //   value: '3',
-        //   label: '订单冻结'
-        // },
-        // {
-        //   value: '4',
-        //   label: '订单解冻'
-        // }
+
       ],
       orderTypes: [
         {
@@ -297,21 +291,20 @@ export default {
       return updated_at;
     },
     getSelectData() {
-      // _get("api/channel/select").then(res => {
-      let params = { id: "a", name: "全部" };
-      this.typeOptions = [...ephemeral.financeM.merchant_select.data];
-      this.typeOptions.unshift(params);
-      // })
+      paytypeSelect().then(res => {
+        this.typeOptions = [...res.data.data];
+        this.typeOptions.unshift({ id: "a", name: "全部通道" });
+      });
     },
     getChanelData() {
-      let params = { id: "a", name: "全部" };
-      this.chanelOptions = [...ephemeral.order.paytype_select.data];
-      this.chanelOptions.unshift(params);
-      // _get("api/paytype/select").then(res => {
-      //   let params = { "id": 'a', name: '全部' };
-      //   this.chanelOptions = res.data.data;
-      //   this.chanelOptions.unshift(params);
-      // })
+      paytypeSelect().then(res => {
+        this.typeOptions = [...res.data.data];
+        this.typeOptions.unshift({ id: "a", name: "全部通道" });
+      });
+      channelSelect().then(res => {
+        this.chanelOptions = [...res.data.data];
+        this.chanelOptions.unshift({ id: "a", title: "全部支付分类" });
+      });
     },
     handleType() {
       let params = {

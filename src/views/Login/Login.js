@@ -3,20 +3,32 @@ import { userLogin, getUserMsg } from "../../api/index.js";
 export default {
   data() {
     return {
-      username: "acoll",
-      password: "123456",
+      numberValidateForm:{
+        username: "acoll",
+        password: "123456",
+      },
       auth_code:"",
       loading: store.state.isLodingLogin,
       radio:"0",
       radio_on:require("@/assets/images/login/login_on.png"),
-      radio_off:require("@/assets/images/login/login_off.png")
-    };
-  },
-  name: "login",
+      radio_off:require("@/assets/images/login/login_off.png"),
+	  rules: {
+	    password: [
+	      { required: true, validator: this.$rules.FormValidate.Form().validatePsdReg, trigger: 'change' },
+        { required: true,message:'请输入密码', trigger: 'change' }
+	    ],
+	    username: [
+	      { required: true, message:'请输入用户名', trigger: 'change' },
+        { required: true, validator: this.$rules.FormValidate.Form().validateUsername, trigger: 'change' }
+	    ],
+    },
+    name: "login",
+  }
+},
   methods: {
     // 登录
     login() {
-      let { username, password } = this;
+      let { username, password } = this.numberValidateForm;
       if (!username || !password) {
         return this.$message({
           message: "账户和密码不能为空",
@@ -63,7 +75,7 @@ export default {
                 });
             }
           });
-           
+
           return;
         }
         );
