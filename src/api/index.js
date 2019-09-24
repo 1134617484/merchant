@@ -30,7 +30,7 @@ if (process.env.NODE_ENV === "production") {
   }
 } else {
   //dev 开发环境
-  axios.defaults.baseURL = "http://192.168.2.200:8000";
+  axios.defaults.baseURL = "http://192.168.2.23:8000";
 }
 
 //拦截器
@@ -265,26 +265,46 @@ export const switchTime=time=> {
 
 
 //递归实现
-//@leafId  查找的属性值 {'name':''}，
+//@leafId  查找的属性值 {'name':'','value':value}，
 //@nodes   原始Json数据
 //@path    供递归使用
 
 export function findPathByLeafId(leafId, nodes, path) {
+  console.log(leafId)
+  console.log(nodes)
+  nodes=nodes.data;
+  debugger;
+  let name=leafId.name;
+  let value=leafId.value;
   if(path === undefined) {
     path = [];
   }
   for(var i = 0; i < nodes.length; i++) {
-      var tmpPath = path.concat();
-      tmpPath.push(nodes[i][leafId.name]);
-      console.log(nodes[i][leafId.name])
-      if(leafId.text == nodes[i][leafId.name]) {
-         return tmpPath;
+      // var tmpPath = path.concat();
+      var tmpPath = [];
+      // tmpPath.push(nodes[i][name]);
+      console.log(nodes[i][name])
+      console.log(nodes[i])
+      if(value == nodes[i][name]) {
+        console.log(nodes[i])
+         return nodes[i];
       }
-      if(nodes[i].children) {
-        var findResult = findPathByLeafId(leafId, nodes[i].children, tmpPath);
+      if(nodes[i].children.length>0) {
+       
+        for (let b = 0; b < nodes[i].children.length; b++) {
+          let element;
+          if(nodes[i].children[b].children.length>0){
+            element= nodes[i].children[b].children;
+          }else{
+            element= nodes[i].children;
+          }
+          console.log(element)
+          var findResult = findPathByLeafId(leafId, element, path);
         if(findResult) {
           return findResult;
         }
+        }
+        
       }
   }
 }
