@@ -360,6 +360,7 @@ export default {
         console.log(res);
         this.getTableData();
       });
-    }
+    },
+
   }
 };

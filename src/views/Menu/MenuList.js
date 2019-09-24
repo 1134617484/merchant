@@ -144,8 +144,11 @@
     refresh_title(){
       console.log(this.$route)
 console.log(this.$route.path)
+    // 刷新时重置路由
+     let a= findPathByLeafId({name:'name',value:this.$route.path},ephemeral.menu.menulist,[]);
+     console.log(a)
 // findPathByLeafId(this.$route.path,ephemeral.menu.menulist)
-findPathByLeafId({'name':'name','text':this.$route.path},ephemeral.menu.menulist)
+// findPathByLeafId({'name':'name','text':this.$route.path},ephemeral.menu.menulist)
     }
    },
    mounted() {
@@ -178,7 +181,6 @@ findPathByLeafId({'name':'name','text':this.$route.path},ephemeral.menu.menulist
      // 设置用户信息
      this.userMsg = JSON.parse(window.localStorage.getItem("userInfo") || "{}");
      this.getMenuData();
-     this.refresh_title();
-     
+    //  this.refresh_title();
    }
  };
