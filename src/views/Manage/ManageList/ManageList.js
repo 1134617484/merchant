@@ -1,6 +1,8 @@
 import { log } from "util";
 import screenfull from "screenfull";
 import { _get, _post, _put, _delete, ephemeral } from "../../../api/index.js";
+import { pca, pcaa } from 'area-data'; // v5 or higher
+import { AreaCascader } from "vue-area-linkage"
 export default {
   name: "AdminUser",
   data() {
@@ -9,6 +11,8 @@ export default {
       name: "",
       phone: "",
       email: "",
+pca: pca,
+pcaa: pcaa,
       // 管理员信息数据
       tableData: [],
       //分页参数
@@ -58,6 +62,7 @@ export default {
               trigger: "change"
             },
           ],
+          region:[]
         },
 
       },
@@ -124,13 +129,15 @@ export default {
         province: "", //省
         sub_branch: "" //支行名字
       },
-      editor_tableData: {},
+      editor_tableData: {
+        region:[],
+      },
       OpeningBankVal: "", //开户行id
-      OpeningBank: "" //开户行选项
+      OpeningBank: "", //开户行选项,
     };
   },
   created() {
-    this.editor_tableData = { ...this.editor };
+    this.editor_tableData = { ...this.editor,region:[] };
     this.getTableData("");
     this.getSelectData();
   },
@@ -191,11 +198,19 @@ export default {
       this.$refs[formName].validate(valid => {
         if (valid) {
           let params = {
-            name: this.editForm.name,
-            email: this.editForm.email,
-            mobile: this.editForm.mobile,
-            password: this.editForm.editPassword,
-            introduction: this.editForm.introduction,
+            // account_name: this.editor_tableData.account_name,
+            // bank_id: this.OpeningBankVal||'',
+            // card_number: this.editor_tableData.card_number,
+            // sub_branch: this.editor_tableData.sub_branch,
+            // province:this.editor_tableData.region.length>0?this.editor_tableData.region[0]:'',
+            // city:this.editor_tableData.region.length>1?this.editor_tableData.region[1]:'',
+            alias:this.editForm.alias,
+            remark:this.editForm.remark,
+            // name: this.editForm.name,
+            // email: this.editForm.email,
+            // mobile: this.editForm.mobile,
+            // password: this.editForm.editPassword,
+            // introduction: this.editForm.introduction,
             role_id: this.editForm.role_id
           };
           this.$confirm("确定修改吗?", "提示", {
@@ -247,21 +262,18 @@ export default {
         type: "success"
       });
     },
+    // 添加银行卡
     submitForm() {
       console.log(this.editor_tableData);
-//       let card_number_reg=/^(\d{16}|\d{19})$/;
-//       if(account_name){
-
-//       }else if(!card_number_reg.test(this.editor_tableDatacard_number)){
-// return false;
-//       }else if(sub_branch){
-
-//       }
       let params = {
         account_name: this.editor_tableData.account_name,
-        bank_id: this.OpeningBankVal,
+        bank_id: this.OpeningBankVal||'',
         card_number: this.editor_tableData.card_number,
-        sub_branch: this.editor_tableData.sub_branch
+        sub_branch: this.editor_tableData.sub_branch,
+        province:this.editor_tableData.region.length>0?this.editor_tableData.region[0]:'',
+        city:this.editor_tableData.region.length>1?this.editor_tableData.region[1]:'',
+        alias:this.editor_tableData.alias,
+        remark:this.editor_tableData.remark
       };
       params.bank_id = this.OpeningBankVal;
       console.log(params);

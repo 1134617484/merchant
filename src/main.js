@@ -8,6 +8,13 @@ Vue.prototype.$store = store;
 import ElementUI from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
 Vue.use(ElementUI);
+// 使用三级联动
+import { pca, pcaa } from 'area-data'; // v5 or higher
+import 'vue-area-linkage/dist/index.css'; // v2 or higher
+import VueAreaLinkage from 'vue-area-linkage';
+
+Vue.use(VueAreaLinkage)
+
 //使用图表
 import echarts from 'echarts'
 Vue.prototype.$echarts = echarts

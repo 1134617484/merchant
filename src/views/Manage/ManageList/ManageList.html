@@ -39,13 +39,13 @@
           <el-button size="mini" @click="handleEdit(scope.$index, scope.row)"
             >修改</el-button
           >
-          <el-button disabled
+          <!-- <el-button disabled
             size="mini"
             type="danger"
             class="myDeleteColor"
             @click="handleDelete(scope.$index, scope.row)"
             >删除</el-button
-          >
+          > -->
         </template>
       </el-table-column>
     </el-table>
@@ -128,11 +128,11 @@
           class="my_form_inp"
           label="所在城市:"
           :label-width="formLabelWidth"
-          prop="mobile"
+          prop="city"
         >
           <el-input
             placeholder="所在城市:"
-            v-model="editForm.mobile"
+            v-model="editForm.city"
             autocomplete="off"
             disabled
           ></el-input>
@@ -141,11 +141,11 @@
           class="my_form_inp"
           label="别名: "
           :label-width="formLabelWidth"
-          prop="city"
+          prop="alias"
         >
           <el-input
             placeholder="别名"
-            v-model="editForm.city"
+            v-model="editForm.alias"
             autocomplete="off"
           ></el-input>
         </el-form-item>
@@ -153,11 +153,11 @@
           class="my_form_inp"
           label="备注: "
           :label-width="formLabelWidth"
-          prop="last_login_ip"
+          prop="remark"
         >
           <el-input
             placeholder="备注:"
-            v-model="editForm.last_login_ip"
+            v-model="editForm.remark"
             autocomplete="off"
           ></el-input>
         </el-form-item>
@@ -176,13 +176,13 @@
     <el-dialog
       title="添加信息"
       class="text-left addClass"
-      width="490px"
+      width="816px"
       :visible.sync="dialogFormVisible"
     >
       
       <el-form ref="addForm" :model="editor_tableData" :rules="rules.editor_tableData">
           <el-form-item
-          class="my_form_inp"
+          class="my_form_inp deposit_bank"
           label="银行名称: "
           :label-width="formLabelWidth"
           prop="bank_name"
@@ -211,17 +211,27 @@
           ></el-input>
         </el-form-item>
         <el-form-item
+          class="my_form_inp region_class"
+          label="地址: "
+          :label-width="formLabelWidth"
+          prop="region"
+        >
+        <area-cascader placeholder="请选择开卡地址" v-model="editor_tableData.region" type="text" :data="pcaa"></area-cascader>
+      </el-form-item>
+        <el-form-item
           class="my_form_inp"
           label="开户名: "
           :label-width="formLabelWidth"
           prop="account_name"
         >
+        
           <el-input
             placeholder="开户名:"
             v-model="editor_tableData.account_name"
             autocomplete="off"
           ></el-input>
         </el-form-item>
+        
         <el-form-item
           class="my_form_inp"
           label="银行卡号: "
@@ -234,6 +244,18 @@
             autocomplete="off"
           ></el-input>
         </el-form-item>
+        <el-form-item class="my_form_inp" :label-width="formLabelWidth" label="别名：" prop="alias" :rules="rules.alias">
+            <el-input
+              v-model="editor_tableData.alias"
+              class="email_input"
+            ></el-input>
+          </el-form-item>
+          <el-form-item class="my_form_inp" :label-width="formLabelWidth" label="备注：" prop="remark" :rules="rules.remark">
+            <el-input
+              v-model="editor_tableData.remark"
+              class="email_input"
+            ></el-input>
+          </el-form-item>
         <!-- <el-form-item
           class="my_form_inp"
           label="所在省: "
