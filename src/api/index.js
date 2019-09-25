@@ -30,7 +30,7 @@ if (process.env.NODE_ENV === "production") {
   }
 } else {
   //dev 开发环境
-  axios.defaults.baseURL = "http://192.168.2.23:8000";
+  axios.defaults.baseURL = "http://192.168.2.23";
 }
 
 //拦截器
