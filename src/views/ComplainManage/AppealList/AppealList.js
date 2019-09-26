@@ -98,7 +98,8 @@ export default {
             tableList.push({
               id:data[i].id,
               appeal_type:data[i].appeal_type==1?'申诉商户':'申诉订单',
-              appeal_merchant:data[i].appeal_merchant,
+              appeal_merchant:data[i].appeal_type==1?data[i].appeal_merchant.username:data[i].appeal_order_id,
+              
               appeal_order:data[i].appeal_order,
               appeal_remark: data[i].appeal_remark,
               status: data[i].status==0?'待审核':'审核通过',
@@ -165,6 +166,10 @@ export default {
       };
      this.getTableData(params);
     },
+    el_select(){
+      // console.log(this.Form.complain_type)
+      this.Form.complain='';
+    }
  
   }
 
