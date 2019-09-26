@@ -81,7 +81,8 @@
   display: flex;
   padding-left: 18px;
 }
-.tags .location h4 {
+.tags .location h4,
+.tags .location .location_h4 {
   color: #666666;
 }
 .tags .location span {
@@ -99,8 +100,13 @@
 .tags .location .location_icon_map {
   background-image: url(~@/assets/images/map.png);
 }
-.tags .location .location_text {
-  width: initial;
+.tags .location .location_text,
+.tags .location .location_h4 {
   margin-top: 0;
   color: #999;
+  height: 54px;
+  width: 94px;
+  text-align: center;
+  font-size: 15px;
+  background: inherit;
 }

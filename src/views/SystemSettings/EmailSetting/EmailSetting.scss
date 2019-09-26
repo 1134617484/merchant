@@ -14,7 +14,8 @@
     display: flex;
     margin-bottom: 40px;
     width: 450px;
-    color:#666;
+    color: #666;
+
     span {
       height: 28px;
       line-height: 28px;
@@ -22,15 +23,22 @@
       font-size: 16px;
     }
 
-    .title {
-      margin-right: 15px;
-    }
+    .title {}
 
     .box {
       display: block;
       color: #fff;
       padding-left: 5px;
-    padding-right: 5px;
+      padding-right: 5px;
+
+      input {
+        min-width: 50px;
+        max-width: 78px;
+        overflow-x: hidden;
+        background: initial;
+        color: inherit;
+        text-align: center;
+      }
     }
 
     .bor_text {
@@ -57,18 +65,30 @@
       }
     }
   }
-  .demo-ruleForm{
-    .email_input{
-width: 182px;
+
+  .demo-ruleForm {
+    .email_input {
+      width: 182px;
     }
-    .apply_money{
+
+    .apply_money {
       margin-right: 20px;
     }
-    .apply_money_span{
+
+    .apply_money_span {
       font-size: 14px;
       color: #999;
+
+      input {
+        min-width: 43px;
+        max-width: 60px;
+        color: inherit;
+        overflow-x: hidden;
+        background: inherit;
+      }
     }
-    .el-form-item__label{
+
+    .el-form-item__label {
       color: #666;
     }
   }

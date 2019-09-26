@@ -87,11 +87,14 @@
                 <div class="tags">
                     <div class="location">
                         <span class="location_icon_map"></span>
-                        <h4>当前位置: 
-                        {{oneTitle}}</h4>
+                        <!-- <h4>当前位置: 
+                        {{oneTitle}}</h4> -->
+                        <input class="location_h4" type="text" disabled v-model='oneTitle'>
                         <!-- <span class="location_icon_right"></span> -->
                         <span class="right-arrow"><i class="el-icon-arrow-right"></i></span>
-                        <span class="location_text">{{twoTitle}}</span>
+                        <!-- <span class="location_text">{{twoTitle}}</span> -->
+                        <input class="location_text" disabled type="text" v-model='twoTitle'>
+
                     </div>
                     <!-- <ul>
                         <li :key="tag.name" v-for="(tag ,index) in dynamicTags" class="tags-li">

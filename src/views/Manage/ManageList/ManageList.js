@@ -182,6 +182,7 @@ pcaa: pcaa,
     // 编辑管理员信息
     handleEdit(index, row) {
       this.editForm={...row};
+      console.log(this.editForm)
       this.outerVisible = true;
     },
     //修改管理员列表状态
@@ -196,6 +197,7 @@ pcaa: pcaa,
     },
     isUpdate(formName) {
       this.$refs[formName].validate(valid => {
+        console.log(this.editForm)
         if (valid) {
           let params = {
             // account_name: this.editor_tableData.account_name,
@@ -211,7 +213,7 @@ pcaa: pcaa,
             // mobile: this.editForm.mobile,
             // password: this.editForm.editPassword,
             // introduction: this.editForm.introduction,
-            role_id: this.editForm.role_id
+            id: this.editForm.id
           };
           this.$confirm("确定修改吗?", "提示", {
             confirmButtonText: "确定",

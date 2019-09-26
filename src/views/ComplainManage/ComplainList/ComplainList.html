@@ -37,7 +37,7 @@
             <el-table-column prop="complain_merchant.username" label="投诉商户"></el-table-column>
             <el-table-column prop="complain_order.pay_order_id" label="投诉订单"></el-table-column>
             <el-table-column prop="complain_type" label="投诉类型"></el-table-column>
-            <el-table-column prop="complain" label="投诉标识"></el-table-column>
+            <!-- <el-table-column prop="complain" label="投诉标识"></el-table-column> -->
             <el-table-column prop="complain_remark" label="投诉内容"></el-table-column>
             <el-table-column prop="status" label="状态"></el-table-column>
             <el-table-column prop="created_at" label="创建时间 "></el-table-column>
@@ -52,9 +52,9 @@
          <!-- 商户投诉-->
         <el-dialog title="商户投诉" class="text-left addClass" width="30%" :visible.sync="dialogFormComplain">
             <el-form ref="Form" :model="Form" :rules="Rules">
-                <el-form-item class="my_form_inp" label="投诉标识: " :label-width="formLabelWidth" prop="complain">
+                <!-- <el-form-item class="my_form_inp" label="投诉标识: " :label-width="formLabelWidth" prop="complain">
                     <el-input  v-model.trim="Form.complain" autocomplete="off"></el-input>
-                </el-form-item>
+                </el-form-item> -->
                 <el-form-item class="my_form_inp" label="投诉类型: " :label-width="formLabelWidth" prop="complain_type">
                     <el-select v-model="Form.complain_type" placeholder="请选择投诉类型" filterable>
                     <el-option v-for="(item,index) in complainOptions" :key="index" :label="item.label" :value="item.value">

@@ -62,7 +62,7 @@
        }
      },
      getNavData(url, title) {
-      this.twoTitle=title;
+      // this.twoTitle=title;
        // this.tag = url;
        // let obj = {};
        // this.dynamicTags.push({
@@ -76,15 +76,9 @@
        // 邮箱和密码要存储
      },
      handleOpen(key, keyPath) {
-      this.twoTitle='';
-      this.oneTitle=key;
-       // if (key == "first") {
-       //   this.navName = "订单管理";
-       //   this.navName2 = "";
-       // } else if (key == "about") {
-       //   this.navName = "收款二维码";
-       //   this.navName2 = "";
-       // }
+      // this.twoTitle='';
+      // this.oneTitle=key;
+
      },
      handleClose(key, keyPath) {},
      handleSelect(key, keyPath) {},
@@ -145,11 +139,19 @@
 // console.log(this.$route.path)
     // 刷新时重置路由
     // console.log(ephemeral.menu.menu_type_list[this.$route.path])
-    let title=ephemeral.menu.menu_type_list[this.$route.path]; 
+    let title=ephemeral.menu.menu_type_list[this.$route.path];
+    console.log(title) 
     this.oneTitle=title[0];
     this.twoTitle=title[1];
+    console.log([this.oneTitle,this.twoTitle])
     }
    },
+   watch:{
+    $route(to,from){
+      console.log(to.path);
+    this.refresh_title()
+    }
+  },
    mounted() {
      window.onresize = () => {
        // 全屏模式下监测是否按下Esc

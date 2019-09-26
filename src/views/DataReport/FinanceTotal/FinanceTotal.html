@@ -17,16 +17,16 @@
     </div> -->
     <div class="bor_p">
       <div class="success bor_text  bor_text_one">
-        <span class="title">总成功结算总额:</span><span class="box">{{tableData.total.success_amount}}元</span>
+        <span class="title">总成功结算总额:</span><span class="box"><input type="text" class="" disabled v-model="tableData.total.success_amount">{{tableData.total.success_amount}}元</span>
       </div>
       <div class="warning bor_text  bor_text_tow">
-        <span class="title">总待结算:</span><span class="box">{{tableData.total.wait_amount}}元</span>
+        <span class="title">总待结算:</span><span class="box"><input type="text" class="" disabled v-model="tableData.total.wait_amount">{{tableData.total.wait_amount}}元</span>
       </div>
       <div class="success bor_text  bor_text_three">
-        <span class="title">总成功笔数:</span><span class="box">{{tableData.total.success_count}}笔</span>
+        <span class="title">总成功笔数:</span><span class="box"><input type="text" class="" disabled v-model="tableData.total.success_count">{{tableData.total.success_count}}笔</span>
       </div>
       <div class="error bor_text  bor_text_four" >
-        <span class="title">总失败笔数:</span><span class="box">{{tableData.total.fail_count}}笔</span>
+        <span class="title">总失败笔数:</span><span class="box"><input type="text" class="" disabled v-model="tableData.total.fail_count">{{tableData.total.fail_count}}笔</span>
       </div>
     </div>
     <!-- <div class="grid-content bg-purple el-main fl clearfix account-head">

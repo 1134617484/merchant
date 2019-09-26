@@ -24,6 +24,9 @@
   '/order/success':['订单管理','成功订单'],
   '/order/fail':['订单管理','手工补发'],
   '/order/pending':['订单管理','未支付订单'],
+
+  '/complain':['投诉管理','投诉记录'],
+  '/appeal':['投诉管理','申诉记录'],
 }
 //  临时数据
 export const ephemeral_data = {
