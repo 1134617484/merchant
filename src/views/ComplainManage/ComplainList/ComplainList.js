@@ -94,11 +94,12 @@ export default {
         if (data.length > 0) {
           let tableList = [];
           for (let i = 0; i < data.length; i++) {
-            console.log(data[i])
+            // console.log(data[i])
             tableList.push({
               id:data[i].id,
               complain_type:data[i].complain_type==1?'投诉商户':'投诉订单',
-              complain_merchant:data[i].complain_type==1?data[i].complain_merchant.username:data[i].complain_order.pay_order_id,
+              complain_merchant:data[i].complain_type==1?
+              data[i].complain_merchant.username:data[i].complain_order.pay_order_id?data[i].complain_order.pay_order_id:data[i].complain_order,
               // complain_order_id:data[i].complain_order_id,
               complain_remark: data[i].complain_remark,
               status: data[i].status==0?'待审核':'审核通过',
