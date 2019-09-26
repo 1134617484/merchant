@@ -1,6 +1,7 @@
-.el-menu-item.is-active{
-  background-color: #0085E8!important;
+.el-menu-item.is-active {
+  background-color: #0085E8 !important;
 }
+
 .fullCur {
   cursor: pointer;
 }
@@ -18,11 +19,13 @@
 
   .box_logo_img {
     padding: 0;
+
     .search {
       width: 200px;
       height: 70px;
       background-color: #0185e9;
-      img{
+
+      img {
         width: 35px;
         height: 35px;
         position: relative;
@@ -31,46 +34,72 @@
       }
     }
   }
+
   .header_search {
     position: relative;
     width: 260px;
     top: -70px;
     left: 210px;
   }
-  .header-right{
-    .user-avator{
+
+  .header-right {
+    .user-avator {
       display: flex;
-    justify-content: center;
-    align-items: center;
-    img{
-      margin-right: 14px;
-    }
-    .avator_text{
-      margin-right: 58px;
-    }
-    .avator_exit{
-      margin-right: 38px;
-    }
-    span{
-      font-size: 18px;
-      cursor: pointer;
-    }
-    
+      justify-content: center;
+      align-items: center;
+
+      img {
+        margin-right: 14px;
+      }
+
+      .avator_text {
+        margin-right: 58px;
+      }
+
+      .avator_exit {
+        margin-right: 38px;
+      }
+
+      span {
+        font-size: 18px;
+        cursor: pointer;
+      }
+
     }
   }
 }
 
-.el-aside{
-  .user_title{
+.el-aside {
+  .user_title {
     height: 180px;
-    img{
+
+    img {
       width: 80px;
       height: 80px;
       border-radius: 50%;
       position: relative;
+    }
+    .user_img{
       bottom: -15px;
     }
-    p{
+
+    .avatar-uploader {
+      position: relative;
+      top: -190px;
+      left: 60px;
+      /* z-index: 10; */
+      background-color: azure;
+      font-size: 48px;
+      /* opacity: 0; */
+      width: 80px;
+      height: 80px;
+      text-align: center;
+      line-height: 80px;
+      border: 50%;
+      border-radius: 50%;
+    }
+
+    p {
       height: 30px;
       line-height: 30px;
       color: #ffffff;
@@ -80,37 +109,43 @@
   }
 }
 
-.tags{
+.tags {
   margin-bottom: 0;
-    border: none;
-    box-shadow: none;
-    -webkit-box-shadow: none;
-    background-color: #f2f2f2;
-    color: #666666;
-  .location{
+  border: none;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+  background-color: #f2f2f2;
+  color: #666666;
+
+  .location {
     display: flex;
     padding-left: 18px;
-    h4{
+
+    h4 {
       color: #666666
     }
-    span{
+
+    span {
       width: 20px;
       height: 20px;
       margin-top: 16px;
       display: block;
       background-size: 100% 100%;
     }
-    .location_icon_right{
+
+    .location_icon_right {
       background-image: url('~@/assets/images/icon_right.png');
       margin-left: 15px;
       margin-right: 15px;
     }
-    .location_icon_map{
-background-image: url(~@/assets/images/map.png);
+
+    .location_icon_map {
+      background-image: url(~@/assets/images/map.png);
     }
-    .location_text{
+
+    .location_text {
       width: initial;
-      margin-top: 0;  
+      margin-top: 0;
       color: #999;
     }
   }

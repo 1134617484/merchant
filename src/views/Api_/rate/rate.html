@@ -1,0 +1,14 @@
+<div class="api_rate">
+  <div class="api_rate_title">
+    <p>结算方式:</p>
+    <span>T+0</span>
+  </div>
+  <el-table :data="tableData" style="width: 100%;text-align: center" border>
+    <el-table-column prop="merchant_id" label="商户ID"></el-table-column>
+    <!-- <el-table-column prop="rate" label="银行费率"></el-table-column> -->
+    <!-- <el-table-column prop="capping_fee" label="封顶手续费"></el-table-column> -->
+    <el-table-column prop="t1_capping_fee" label="T1封顶手续费"></el-table-column>
+    <el-table-column prop="t1_default_rate" label="T1运营费率"></el-table-column>
+    <el-table-column prop="t1_rate" label="T1成本费率"></el-table-column>
+  </el-table>
+</div>

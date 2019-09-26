@@ -271,3 +271,4 @@ let FormValidate = (function() {
 })();
 
 exports.FormValidate = FormValidate;
+

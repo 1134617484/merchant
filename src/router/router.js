@@ -297,6 +297,27 @@ export default new Router({
           component: () =>
             import("../views/ChargeManage/LinkManage/LinkManage.vue")
         },
+        {
+          //查看通道费率
+          path: "/api/rate",
+          name: "api/rate",
+          meta: {
+            isLoginToken: true
+          },
+          component: () =>
+            import("../views/Api_/rate/rate.vue")
+        },
+        {
+          //API开发文档
+          path: "/api/doc",
+          name: "api/doc",
+          meta: {
+            isLoginToken: true
+          },
+          component: () =>
+          import("../views/Api_/doc_/doc.vue")
+        },
+
       ]
     }
   ]

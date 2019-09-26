@@ -140,6 +140,9 @@ export default {
               type: "success"
             });
             this.dialogFormComplain=false;
+            this.Form.complain='';
+            this.Form.complain_type='';
+            this.Form.complain_remark='';
             this.handleSearch();
           }).catch(error => {
               this.$message({
@@ -168,6 +171,10 @@ export default {
       };
      this.getTableData(params);
     },
+    el_select(){
+      // console.log(this.Form.complain_type)
+      this.Form.complain='';
+    }
  
   }
 

@@ -34,6 +34,7 @@ export default {
 .config_success>div{
   height: 60px;
   line-height: 60px;
+      padding-top: 120px;
   display: flex;
   justify-content: center;align-items: center;
 }
@@ -42,7 +43,7 @@ export default {
   margin-right: 15px
 }
 .config_success span{
-        color: #52c42e;
+        color: #52c41a;
     font-weight: bold;
     font-size: 20px;
 }

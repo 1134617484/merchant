@@ -150,7 +150,14 @@ pcaa: pcaa,
     },
     getTableData(params) {
       _get("merchant/bankcard", params).then(res => {
-        this.tableData = res.data.data;
+        let data = {...res.data.data};
+        data.data.forEach(element => {
+          element.default==1?element.default=true:element.default=false;
+        });
+
+        this.tableData=data;
+        console.log(this.tableData)
+
         // this.editForm={...this.tableData[0]}
       });
     },
@@ -182,11 +189,13 @@ pcaa: pcaa,
     // 编辑管理员信息
     handleEdit(index, row) {
       this.editForm={...row};
+      console.log(this.editForm)
       this.outerVisible = true;
     },
     //修改管理员列表状态
     handleStatus(index, row) {
-      _get("api/admin/toggle/" + row.id).then(res => {
+      console.log(row)
+      _get("merchant/bankcard/toggle/" + row.id).then(res => {
         this.handleSearch();
         this.$message({
           message: "状态修改成功",
@@ -196,6 +205,7 @@ pcaa: pcaa,
     },
     isUpdate(formName) {
       this.$refs[formName].validate(valid => {
+        console.log(this.editForm)
         if (valid) {
           let params = {
             // account_name: this.editor_tableData.account_name,
@@ -211,7 +221,7 @@ pcaa: pcaa,
             // mobile: this.editForm.mobile,
             // password: this.editForm.editPassword,
             // introduction: this.editForm.introduction,
-            role_id: this.editForm.role_id
+            id: this.editForm.id
           };
           this.$confirm("确定修改吗?", "提示", {
             confirmButtonText: "确定",
@@ -219,7 +229,7 @@ pcaa: pcaa,
             type: "warning"
           })
             .then(() => {
-              _put("merchant/bankcard/" + this.editForm.bank_id, params).then(res => {
+              _put("merchant/bankcard/" + this.editForm.id, params).then(res => {
                 this.handleSearch();
                 this.$message({
                   message: "编辑成功",

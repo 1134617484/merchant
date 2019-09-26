@@ -1,5 +1,5 @@
 .el-menu-item.is-active {
-  background-color: #0085E8!important;
+  background-color: #0085E8 !important;
 }
 .fullCur {
   cursor: pointer;
@@ -60,7 +60,24 @@
   height: 80px;
   border-radius: 50%;
   position: relative;
+}
+.el-aside .user_title .user_img {
   bottom: -15px;
+}
+.el-aside .user_title .avatar-uploader {
+  position: relative;
+  top: -190px;
+  left: 60px;
+  /* z-index: 10; */
+  background-color: azure;
+  font-size: 48px;
+  /* opacity: 0; */
+  width: 80px;
+  height: 80px;
+  text-align: center;
+  line-height: 80px;
+  border: 50%;
+  border-radius: 50%;
 }
 .el-aside .user_title p {
   height: 30px;

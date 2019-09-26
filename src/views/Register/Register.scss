@@ -39,16 +39,16 @@
 
       .login_ul {
         width: 100%;
-
+        margin-bottom: 30px;
         li {
           list-style-type: none;
-          margin-bottom: 16px;
+          margin-bottom: 14px;
           border-bottom: 1px solid rgba(222, 222, 222, 1);
           display: flex;
           line-height: 32px;
           span {
             display: block;
-            width: 13px;
+            width: 15px;
             height: 15px;
             margin-top: 11px;
             background-size: 100% 100%;
@@ -60,7 +60,8 @@
           }
           .emil{
             background-image: url("~@/assets/images/login/emil.png");
-
+            width: 16px;
+            height: 14px;
           }
 
           .password {
@@ -77,7 +78,7 @@
         margin-bottom: 20px;
         margin-top: 2px;
         text-align: right;
-        height: 17px;
+        height: 10px;
         line-height: 17px;
         padding-left: 150px;
         div{

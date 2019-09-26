@@ -24,6 +24,13 @@
   '/order/success':['订单管理','成功订单'],
   '/order/fail':['订单管理','手工补发'],
   '/order/pending':['订单管理','未支付订单'],
+
+  '/complain':['投诉管理','投诉记录'],
+  '/appeal':['投诉管理','申诉记录'],
+
+  '/api/rate':['API管理','查看通道费率'],
+  '/api/doc':['API管理','API开发文档'],
+  
 }
 //  临时数据
 export const ephemeral_data = {
@@ -281,6 +288,32 @@ export const ephemeral_data = {
             },
           ],
           index: '投诉管理'
+        },
+         // api管理
+         {
+          menu_name: "api.system",
+          label: "API管理",
+          icon: "icon-tousuxingjiancha",
+          menu_uri: "",
+          children: [
+            {
+              menu_name: "admin.reset",
+              label: "查看通道费率",
+              icon: "icon",
+              menu_uri: "/api/rate",
+              children: [],
+              index: "8-1"
+            },
+            {
+              menu_name: "basic.index",
+              label: "API开发文档",
+              icon: "icon",
+              menu_uri: "/api/doc",
+              children: [],
+              index: "8-2"
+            },
+          ],
+          index: 'API管理'
         },
       ],
       code: 200,
