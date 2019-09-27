@@ -44,7 +44,7 @@
        screenWidth: "",
        screenHeight: "",
        header_search:"",//搜索
-       imageUrl:"",//图片地址
+       dialogImageUrl:"",//图片地址
        default_img:require("@/assets/images/login/upload.png"),//默认图
        upload_url:axios.defaults.baseURL+'merchant/user/logo',//上传地址
      };
@@ -153,6 +153,7 @@
            message: "上传成功",
            type: "success"
          });
+         console.log(this.dialogImageUrl=url)
        })
     }
    },

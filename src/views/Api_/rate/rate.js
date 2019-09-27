@@ -8,25 +8,67 @@ export default {
       userMsg: {
         
       },
-      tableData:[{
-        username:"121",
-        pay_order_id:"1212",
-        complain_type:"你猜猜",
-        status:"状态1"
-      }]
+      tableData:{
+        channelRates:[],
+        merchantRates:[],
+        data_arr:[]
+      },
+      tableData1: [{
+        id: 1,
+        date: '2016-05-02',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1518 弄'
+      }, {
+        id: 2,
+        date: '2016-05-04',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1517 弄'
+      }, {
+        id: 3,
+        date: '2016-05-01',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1519 弄',
+        children: [{
+            id: 31,
+            date: '2016-05-01',
+            name: '王小虎',
+            address: '上海市普陀区金沙江路 1519 弄'
+          }, {
+            id: 32,
+            date: '2016-05-01',
+            name: '王小虎',
+            address: '上海市普陀区金沙江路 1519 弄'
+        }]
+      }, {
+        id: 4,
+        date: '2016-05-03',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1516 弄'
+      }],
       
     };
   },
 
   methods: {
     getMenuData() {
-      _get("/merchant/channel").then(res => {
-        console.log(res)
-        this.tableData=res.data.data;
+      // console.log(ephemeral.api_rate)
+      // let data={...ephemeral.api_rate.data};
+      // this.tableData=data;
+      // this.tableData.merchantRates=[data.merchantRates];
+      _get("merchant/user/rate").then(res => {
+        // console.log(res)
+        let data={...res.data.data};
+        console.log(data)
+        let data_arr=[];
+        data.channelRates.forEach(element => {
+          data_arr=data_arr.concat({...element})
+          data_arr=data_arr.concat(element.channels)
+        });
+        this.tableData=data;
+        this.tableData.merchantRates=[data.merchantRates];
+        this.tableData.data_arr=data_arr;
+        console.log(this.tableData)
       })
-      
-        // let data = ephemeral.menu.menulist.data;
-        // this.menuList = data;
     },
   },
   mounted() {

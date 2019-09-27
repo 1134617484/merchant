@@ -1,9 +1,12 @@
  <template>
- <div class="config_success">
+ <div class="container">
+<div class="config_success">
      <div v-if="status==0"><img src="@/assets/images/go.png"/><span>未认证</span></div>
      <div v-if="status==1"><img src="@/assets/images/go.png"/><span>您已认证成功!</span></div>
      <div v-if="status==2" class="error"><img src="@/assets/images/error.png"/><span class="error_right">认证失败!</span><span class="error_url"></span></div>
  </div>
+ </div>
+ 
 
  </template>
 
@@ -31,6 +34,12 @@ export default {
 </script>
 
 <style lang="css" scoped>
+.container{
+border:  1px solid #ddd;
+    margin: 0;
+    border-radius: 5px;
+
+}
 .config_success>div{
   height: 60px;
   line-height: 60px;
@@ -47,9 +56,7 @@ export default {
     font-weight: bold;
     font-size: 20px;
 }
-.error{
 
-}
 .config_success .error_right{
 color: #d81e06;
 margin-right: 20px;

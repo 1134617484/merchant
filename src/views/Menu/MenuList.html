@@ -11,7 +11,7 @@
                 <div class="header-user-con">
 
                     <div class="user-avator">
-                            <img v-if="imageUrl" :src="imageUrl">
+                            <img v-if="dialogImageUrl" :src="dialogImageUrl">
                             <img v-else :src="default_img">
                         <!-- <img src="../../assets/images/img.jpg" /> -->
                         <span class="avator_text">{{userMsg.username}}</span>
@@ -32,7 +32,7 @@
                                     :show-file-list="false"
                                     :on-success="handleAvatarSuccess"
                                     :before-upload="beforeAvatarUpload">
-                                    <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                                    <img v-if="dialogImageUrl" :src="dialogImageUrl" class="avatar">
                                     <img v-else :src="default_img" class="avatar">
                                     <!-- <i v-else class="el-icon-plus avatar-uploader-icon"></i> -->
                                     </el-upload>

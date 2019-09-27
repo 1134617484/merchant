@@ -42,27 +42,15 @@ export default new Router({
             import("../views/Index/Index.vue")
         },
         // 充值链接
-        {
-          path: "/recharge-link",
-          name: "recharge-link",
-          meta: {
-            // isLoginToken: true
-          },
-          component: () =>
-            import("../views/Recharge/Link/Link.vue")
-        },
-        //充值二维码
-        {
-          path: "/recharge-qrcode",
-          name: "recharge-qrcode",
-          meta: {
-            // isLoginToken: true
-          },
-          component: () =>
-            import("../views/Recharge/QrCode/QrCode.vue")
-        },
-        
-
+        // {
+        //   path: "/recharge-link",
+        //   name: "recharge-link",
+        //   meta: {
+        //     // isLoginToken: true
+        //   },
+        //   component: () =>
+        //     import("../views/Recharge/Link/Link.vue")
+        // }, 
         {
           path: "/order",
           name: "order",

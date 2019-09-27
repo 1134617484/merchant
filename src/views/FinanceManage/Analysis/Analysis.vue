@@ -1,5 +1,6 @@
 <template>
-    <div class="analysis">
+<div class="bor container">
+<div class="analysis">
         <div class="analysis_classify" v-for="(item) in analysis" :key="item.id">
             <p><img src="" alt="">{{item.name}}</p>
             <div class="analysis_text">
@@ -19,7 +20,15 @@
             </div>
         </div>
     </div>
+</div>
 </template>
 <script src="./Analysis.js"></script>
 <style scoped lang="scss"  src="./Analysis.scss"></style>
 
+<style >
+
+    .container{
+    background-color: #f2f2f2;
+    border: none;
+}
+</style>

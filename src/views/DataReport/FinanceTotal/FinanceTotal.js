@@ -75,8 +75,10 @@ export default {
         this.tableData.total={...res.data.data.total}
         this.tableData.total.success_amount= Number(this.tableData.total.success_amount).toFixed(4);
         this.tableData.total.wait_amount=Number(this.tableData.total.wait_amount).toFixed(4);
-        this.tableData.total.success_count=Number(this.tableData.total.success_count).toFixed(4);
-        this.tableData.total.fail_count=Number(this.tableData.total.fail_count).toFixed(4);
+        this.tableData.total.success_count=this.tableData.total.success_count;
+        this.tableData.total.fail_count=this.tableData.total.fail_count;
+        this.tableData.total.wait_count=this.tableData.total.wait_count;
+
         let paramsData =data;
         this.currentPage = paramsData.current_page;
         this.last_page_url = paramsData.last_page_url;

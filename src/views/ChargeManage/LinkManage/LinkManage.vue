@@ -19,3 +19,4 @@
     line-height: 50px;
 }
 </style>
+<style lang="css" src='@/assets/css/bor.css'></style>

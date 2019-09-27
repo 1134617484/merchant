@@ -5,4 +5,6 @@
 .el-input--prefix .el-input__inner{
 	border-radius: 4px;
 }
+
 </style>
+<style lang="css" src='@/assets/css/bor.css'></style>
