@@ -155,7 +155,19 @@
          });
          console.log(this.dialogImageUrl=url)
        })
+    },
+    // 阻止右键
+    button_right(){
+      document.oncontextmenu = function(){
+				return false;
+			}
+      document.onmousedown = function(){
+        if(event.button == 2){
+          return false;
+        }
+      }
     }
+    
    },
    watch:{
     $route(to,from){
@@ -193,7 +205,9 @@
      // 设置用户信息
      this.userMsg = JSON.parse(window.localStorage.getItem("userInfo") || "{}");
      console.log(this.userMsg)
+     this.dialogImageUrl=this.userMsg.logo||'';
      this.getMenuData();
      this.refresh_title();
+     this.button_right()
    }
  };
