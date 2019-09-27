@@ -150,15 +150,17 @@ pcaa: pcaa,
     },
     getTableData(params) {
       _get("merchant/bankcard", params).then(res => {
-        let data = {...res.data.data};
-        data.data.forEach(element => {
-          element.default==1?element.default=true:element.default=false;
-        });
-
-        this.tableData=data;
-        console.log(this.tableData)
-
-        // this.editForm={...this.tableData[0]}
+        let datas = res.data.data;
+        let state=datas.data;
+        for (let i = 0; i < state.length; i++) {
+          if(state[i].default=="0"){
+            state[i].default="false";
+          }else{
+            state[i].default="true";
+          }
+        }
+        datas.data=state;
+        this.tableData=datas;
       });
     },
     handleSearch() {
@@ -195,6 +197,7 @@ pcaa: pcaa,
     //修改管理员列表状态
     handleStatus(index, row) {
       console.log(row)
+      console.log(this.tableData)
       _get("merchant/bankcard/toggle/" + row.id).then(res => {
         this.handleSearch();
         this.$message({
