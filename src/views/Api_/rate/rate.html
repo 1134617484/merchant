@@ -9,9 +9,7 @@
     style="width: 100%;text-align: center"
     border
   >
-    <!-- <el-table-column prop="merchant_id" label="商户ID"></el-table-column> -->
-    <!-- <el-table-column prop="rate" label="银行费率"></el-table-column> -->
-    <!-- <el-table-column prop="capping_fee" label="封顶手续费"></el-table-column> -->
+
     <el-table-column
       prop="t1_capping_fee"
       label="T+1封顶手续费"
@@ -24,86 +22,23 @@
   </el-table>
   <div class="table_header">通道费率</div>
 
- 
-    <!-- <el-table
-      :data="tableData.channelRates"
-      style="width: 100%;margin-bottom: 20px;"
-      row-key=""
-      border
-      default-expand-all
-      :tree-props="{children: 'channels', hasChildren: 'hasChildren'}"
-    >
-      <el-table-column prop="channel_name" label="产品名称" sortable width="180">
-      </el-table-column>
-      <el-table-column prop="channel_code" label="所属产品编码" sortable width="180">
-      </el-table-column>
-      <el-table-column prop="t1_capping_fee" label="T+1封顶手续费"> </el-table-column>
-      <el-table-column prop="t1_default_rate" label="T+1运营费率"> </el-table-column>
-      <el-table-column prop="t1_rate" label="T+1成本费率"> </el-table-column>
-    </el-table> -->
-    <!-- <el-table
-    :data="tableData.channelRates"
-    style="width: 100%;margin-bottom: 20px;"
-    row-key="id"
-    border
-    default-expand-all
-    :tree-props="{children: 'children', hasChildren: 'hasChildren'}">
-    <el-table-column prop="product_name" label="通道名称"></el-table-column>
-    <el-table-column prop="product_code" label="通道编码"></el-table-column> -->
-
-    <!-- <el-table-column
-      prop="rates.t1_capping_fee"
-      label="T+1封顶手续费"
-    ></el-table-column>
-    <el-table-column
-      prop="rates.t1_default_rate"
-      label="T+1运营费率"
-    ></el-table-column>
-    <el-table-column prop="rates.t1_rate" label="T+1成本费率"></el-table-column> -->
-  <!-- </el-table>
-
-    <el-table
-    :data="tableData1"
-    style="width: 100%;margin-bottom: 20px;"
-    row-key="id"
-    border
-    default-expand-all
-    :tree-props="{children: 'children', hasChildren: 'hasChildren'}">
-    <el-table-column
-      prop="date"
-      label="日期"
-      sortable
-      width="180">
-    </el-table-column>
-    <el-table-column
-      prop="name"
-      label="姓名"
-      sortable
-      width="180">
-    </el-table-column>
-    <el-table-column
-      prop="address"
-      label="地址">
-    </el-table-column>
-  </el-table>
-  </div> -->
   <el-table
-    :data="tableData.data_arr"
+    :data="tableData.channelRates"
     style="width: 100%;text-align: center"
     border
   >
-    <el-table-column prop="product_name" label="产品名称"></el-table-column>
-    <el-table-column prop="product_code" label="产品编码"></el-table-column>
-    <el-table-column prop="channel_name" label="所属通道名称"></el-table-column>
+    <el-table-column prop="product_name" label="所属产品名称"></el-table-column>
+    <el-table-column prop="product_code" label="所属产品编码"></el-table-column>
+    <el-table-column prop="channel_name" label="通道名称"></el-table-column>
     <!-- <el-table-column prop="channel_code" label="通道编码"></el-table-column> -->
     <el-table-column
-      prop="rates.t1_capping_fee"
+      prop="t1_capping_fee"
       label="T+1封顶手续费"
     ></el-table-column>
     <el-table-column
-      prop="rates.t1_default_rate"
+      prop="t1_default_rate"
       label="T+1运营费率"
     ></el-table-column>
-    <el-table-column prop="rates.t1_rate" label="T+1成本费率"></el-table-column>
+    <el-table-column prop="t1_rate" label="T+1成本费率"></el-table-column>
   </el-table>
 </div>

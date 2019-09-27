@@ -1,5 +1,6 @@
 import { _get, _post,ephemeral  } from "../../../api/index.js";
 import store from "../../../store/store.js";
+import Clipboard from "clipboard";
 export default {
   name: "rate",
   data() {
@@ -19,7 +20,7 @@ export default {
   },
 
   methods: {
-   //
+   //打开弹窗
    open3() {
     this.$prompt('请输入支付密码', '提示', {
       confirmButtonText: '确定',
@@ -30,6 +31,7 @@ export default {
     }).then(({ value }) => {
         _post("/merchant/user/apikey", {pay_password:value}).then(res => {
      this.apikey=res.data.apikey;
+    //  this.CopyInquireKey();
     })
     }).catch(() => {
       this.$message({
@@ -37,7 +39,26 @@ export default {
         message: '取消输入'
       });       
     });
-  }
+  },
+      //复制密钥
+      CopyInquireKey(data) {
+        this.Clipboard(".copy-inquire");
+      },
+      // 统一处理复制
+      Clipboard(ele) {
+        var clipboard = new Clipboard(ele);
+        clipboard.on("success", e => {
+          this.$message.success("复制成功");
+          // 释放内存
+          clipboard.destroy();
+        });
+        clipboard.on("error", e => {
+          // 不支持复制
+          this.$message.warning("该浏览器不支持自动复制");
+          // 释放内存
+          clipboard.destroy();
+        });
+      }
   },
   mounted() {
 

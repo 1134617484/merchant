@@ -1,5 +1,6 @@
 import { _get, _post,ephemeral  } from "../../../api/index.js";
 import store from "../../../store/store.js";
+import Clipboard from "clipboard";
 export default {
   name: "rate",
   data() {
@@ -59,14 +60,8 @@ export default {
         // console.log(res)
         let data={...res.data.data};
         console.log(data)
-        let data_arr=[];
-        data.channelRates.forEach(element => {
-          data_arr=data_arr.concat({...element})
-          data_arr=data_arr.concat(element.channels)
-        });
         this.tableData=data;
         this.tableData.merchantRates=[data.merchantRates];
-        this.tableData.data_arr=data_arr;
         console.log(this.tableData)
       })
     },

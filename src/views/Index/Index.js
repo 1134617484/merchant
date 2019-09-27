@@ -180,5 +180,8 @@ export default {
   },
   created() {
     this.getIndexData();
+    document.oncontextmenu = function(){
+      　　return false;
+      }
   }
 };

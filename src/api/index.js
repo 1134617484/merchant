@@ -86,12 +86,15 @@ axios.interceptors.response.use(
       console.log("统一错误处理: ", response);
       response.code == 402 ? tokenHeader({ response, code: "402" }) : "";
       store.state.isLodingLogin = false;
-      new Vue().$message({
-        showClose: true,
-        duration: 1000,
-        message: response.message,
-        type: "warning"
-      });
+      if(response.code !== "402"){
+        return new Vue().$message({
+          showClose: true,
+          duration: 1000,
+          message: response.message,
+          type: "warning"
+        });
+      }
+      
     }
 
     return Promise.reject(err);

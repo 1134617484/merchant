@@ -4,7 +4,7 @@
           <p>商户号: <strong style="font-weight: bold"
             >{{userMsg.id}}</strong></p>
           <p>网关地址:<b style="font-weight: bold"> https://api.emide.cn/gateway/index</b></p>
-          <div class="secret_key"><span>APIKEY: <b>{{apikey}}</b></span><el-button v-if="!this.apikey" size="mini" class="mybtAdd" type="primary" @click="open3">复制秘钥</el-button></div>
+          <div class="secret_key"><span>APIKEY: <b>{{apikey}}</b></span><el-button v-if="!this.apikey" size="mini" class="mybtAdd" type="primary"  :data-clipboard-text="apikey" @click="open3">复制秘钥</el-button></div>
          
         </div>
         <!-- <div class="api_doc_demo">
