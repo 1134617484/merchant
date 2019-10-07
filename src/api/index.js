@@ -31,6 +31,7 @@ if (process.env.NODE_ENV === "production") {
 } else {
   //dev 开发环境
   axios.defaults.baseURL = "http://192.168.2.13";
+  // axios.defaults.baseURL = "http://test.laravel.com";
 }
 
 //拦截器
@@ -86,6 +87,7 @@ axios.interceptors.response.use(
       console.log("统一错误处理: ", response);
       response.code == 402 ? tokenHeader({ response, code: "402" }) : "";
       store.state.isLodingLogin = false;
+      console.clear();
       if(response.code !== "402"){
         return new Vue().$message({
           showClose: true,
@@ -94,7 +96,6 @@ axios.interceptors.response.use(
           type: "warning"
         });
       }
-      
     }
 
     return Promise.reject(err);

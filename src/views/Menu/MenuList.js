@@ -149,6 +149,9 @@
          console.log(res)
           let url=res.data;
           this.dialogImageUrl=url;
+          console.log(this.userMsg)
+          this.userMsg.logo=url;
+          localStorage.setItem('userInfo',JSON.stringify(this.userMsg))
           this.$message({
            message: "上传成功",
            type: "success"

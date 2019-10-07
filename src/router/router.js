@@ -80,7 +80,6 @@ export default new Router({
           component: () =>
             import("../views/FinanceManage/Analysis/Analysis.vue")
             // import("../views/FinanceManage/Details/Details.vue")
-
         },
         {
           // 保证金明细

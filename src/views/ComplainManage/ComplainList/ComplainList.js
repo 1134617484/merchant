@@ -136,10 +136,6 @@ export default {
             complain_remark: this.Form.complain_remark,
             }
           _post("merchant/complain", params).then(res => {
-            this.$message({
-              message: "投诉成功",
-              type: "success"
-            });
             this.dialogFormComplain=false;
             this.Form.complain='';
             this.Form.complain_type='';
