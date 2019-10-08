@@ -200,6 +200,7 @@ pcaa: pcaa,
       console.log(this.tableData)
       _get("merchant/bankcard/toggle/" + row.id).then(res => {
         this.handleSearch();
+        if(res.data)return
         this.$message({
           message: "状态修改成功",
           type: "success"
@@ -234,6 +235,7 @@ pcaa: pcaa,
             .then(() => {
               _put("merchant/bankcard/" + this.editForm.id, params).then(res => {
                 this.handleSearch();
+                if(res.data)return
                 this.$message({
                   message: "编辑成功",
                   type: "success"
@@ -270,6 +272,7 @@ pcaa: pcaa,
     // 确定添加
     isAddUser() {
       this.dialogFormVisible = false;
+      if(res.data)return
       this.$message({
         message: "添加成功",
         type: "success"
@@ -293,6 +296,7 @@ pcaa: pcaa,
       _post("merchant/bankcard", params)
         .then(res => {
           this.getTableData("");
+          if(res.data)return
           this.$message({
             message: "添加成功",
             type: "success"

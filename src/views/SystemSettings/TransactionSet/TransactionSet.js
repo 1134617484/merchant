@@ -101,11 +101,13 @@ export default {
             permit_login_ip: this.Form.permit_login_ip,
             }
           _post("merchant/user/profile-submit", params).then(res => {
-            this.$message({
-              message: "提交成功",
-              type: "success"
-            });
+            if(res.data){
+              this.$message({
+                message: "提交成功",
+                type: "success"
+              });
             this.getFormData();
+            }
           })
         }else {
           console.log("error submit!!");

@@ -88,10 +88,13 @@ export default {
             verify_remark: this.VerifyForm.verify_remark,
           };
           _post("api/cash-log/review/" + this.VerifyForm.id, params).then(res => {
-            this.$message({
-              message: "提交成功",
-              type: "success"
-            });
+            if(res.data){
+              this.$message({
+                message: "提交成功",
+                type: "success"
+              });
+            }
+            
             this.dialogFormVerify = false;
             this.handleSearch();
           }).catch(error => {
@@ -118,10 +121,13 @@ export default {
             transfer_remark:this.TransferForm.transfer_remark,
           };
           _post("api/cash-log/transfer/" + this.TransferForm.id, params).then(res => {
-            this.$message({
-              message: "提交成功",
-              type: "success"
-            });
+            if(res.data){
+              this.$message({
+                message: "提交成功",
+                type: "success"
+              });
+            }
+            
             this.dialogFormTransfer = false;
             this.handleSearch();
           }).catch(error => {

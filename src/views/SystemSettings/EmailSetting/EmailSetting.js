@@ -57,6 +57,7 @@ export default {
         this.withdrawInit.balance= Number(this.withdrawInit.balance).toFixed(4);
         this.withdrawInit.balance_disabled=Number(this.withdrawInit.balance_disabled).toFixed(4);
         this.withdrawInit.apply_money=Number(this.withdrawInit.apply_money).toFixed(4);
+      console.log(this.withdrawInit)
       });
     },
     submitForm(formName) {
@@ -73,10 +74,12 @@ export default {
             pay_password: this.ruleForm.payment_code
           };
           _post("/merchant/withdraw", params).then(res => {
-            this.$message({
-              message: "提交成功",
-              type: "success"
-            });
+            if(res.dada){
+              this.$message({
+                message: "提交成功",
+                type: "success"
+              });
+            }
             // this.getFormData();
           });
         } else {
@@ -101,10 +104,8 @@ export default {
       _get(
         `merchant/withdraw/calc?apply_money=${this.ruleForm.apply_money}`
       ).then(res => {
-        this.ruleForm.calc_money = res.data.data.calc;
-        this.ruleForm.reality_money = Number(
-          this.ruleForm.apply_money - this.ruleForm.calc_money
-        );
+        this.ruleForm.fee = res.data.data.fee;
+        this.ruleForm.money = res.data.data.money;
       });
     },
     // 修改bank后

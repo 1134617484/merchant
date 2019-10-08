@@ -133,10 +133,12 @@ export default {
             appeal_remark: this.Form.appeal_remark,
             }
           _post("merchant/appeal", params).then(res => {
-            this.$message({
-              message: "申诉成功",
-              type: "success"
-            });
+            if(res.data){
+              this.$message({
+                message: "申诉成功",
+                type: "success"
+              });
+            }
             this.dialogFormAppeal=false;
             this.handleSearch();
           }).catch(error => {

@@ -30,10 +30,12 @@ export default {
             realname: this.Form.realname,
             }
           _post("merchant/user/profile-submit", params).then(res => {
-            this.$message({
-              message: "提交成功",
-              type: "success"
-            });
+            if(res.data){
+              this.$message({
+                message: "提交成功",
+                type: "success"
+              });
+            }
           })
         }else {
           console.log("error submit!!");
@@ -63,10 +65,12 @@ export default {
       fd.append("pay_type_id", 11); //随文件上传的其他参数
       fd.append("file", file);
       _post("api/sysqrcode", fd).then(res => {
-        this.$message({
-          message: "上传成功",
-          type: "success"
-        });
+        if(res.data){
+          this.$message({
+            message: "上传成功",
+            type: "success"
+          });
+        }
         this.getTableData("");
       });
     },
@@ -75,10 +79,12 @@ export default {
       fd.append("pay_type_id", 12); //随文件上传的其他参数
       fd.append("file", file);
       _post("api/sysqrcode", fd).then(res => {
-        this.$message({
-          message: "上传成功",
-          type: "success"
-        });
+        if(res.data){
+          this.$message({
+            message: "上传成功",
+            type: "success"
+          });
+        }
         this.getTableData("");
       });
     },

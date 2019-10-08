@@ -125,6 +125,7 @@ export default {
       //console.log(index,row);
       _get("api/permission/switch/" + row.id).then(res => {
         this.handleSearch();
+        if(res.data)return
         this.$message({
           message: "状态修改成功",
           type: "success"
@@ -136,6 +137,7 @@ export default {
       //console.log(index,row);
       _get("api/permission/toggle/" + row.id).then(res => {
         this.handleSearch();
+        if(res.data)return
         this.$message({
           message: "状态修改成功",
           type: "success"
@@ -166,6 +168,7 @@ export default {
         .then(() => {
           _delete("api/permission/" + row.id).then(res => {
             this.handleSearch();
+            if(res.data)return
             this.$message({
               message: "删除成功",
               type: "success"
@@ -202,6 +205,7 @@ export default {
             .then(() => {
               _put("api/permission/" + this.editForm.id, params).then(res => {
                 this.handleSearch();
+                if(res.data)return
                 this.$message({
                   message: "编辑成功",
                   type: "success"
@@ -270,6 +274,7 @@ export default {
           };
           _post("api/permission", params).then(res => {
             this.getTableData();
+            if(res.data)return
             this.$message({
               message: "添加成功",
               type: "success"

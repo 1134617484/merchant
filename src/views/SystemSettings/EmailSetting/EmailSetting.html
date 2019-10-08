@@ -35,16 +35,16 @@
           }}.00元.含提现手续费,直接在金额中扣除</span
         >
       </el-form-item>
-      <el-form-item label="到账金额：" prop="reality_money">
+      <el-form-item label="到账金额：" prop="money">
         <el-input-number
-          v-model="ruleForm.reality_money"
+          v-model="ruleForm.money"
           :controls="false"
           :disabled="true"
         ></el-input-number>
       </el-form-item>
-      <el-form-item label="手续费：" prop="calc_money">
+      <el-form-item label="手续费：" prop="fee">
         <el-input-number
-          v-model="ruleForm.calc_money"
+          v-model="ruleForm.fee"
           :controls="false"
           :disabled="true"
         ></el-input-number>

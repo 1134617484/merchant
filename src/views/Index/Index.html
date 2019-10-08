@@ -8,6 +8,38 @@
       登录时间:<span>{{ InitAll.last_login_time }}</span>
     </div>
   </div>
+  <el-row class="merchant_block">
+    <div class="grid-content_bg-purple">
+      <div class="cont-head">预定服务费</div>
+      <div class="ibox-content">
+        <div class="chart" id="">{{ InitAll.fund.default_services_fee }}<span class="fr unit">元</span></div>
+      </div>
+    </div>
+    <div class="grid-content_bg-purple">
+      <div class="cont-head">实收服务费</div>
+      <div class="ibox-content">
+        <div class="chart" id="">{{ InitAll.fund.services_fee }}<span class="fr unit">元</span></div>
+      </div>
+    </div>
+    <div class="grid-content_bg-purple">
+      <div class="cont-head">预收保证金</div>
+      <div class="ibox-content">
+        <div class="chart" id="">{{ InitAll.fund.default_margin }}<span class="fr unit">元</span></div>
+      </div>
+    </div>
+    <div class="grid-content_bg-purple">
+      <div class="cont-head">实收保证金</div>
+      <div class="ibox-content">
+        <div class="chart" id="">{{ InitAll.fund.margin }}<span class="fr unit">元</span></div>
+      </div>
+    </div>
+    <div class="grid-content_bg-purple">
+      <div class="cont-head">保证金收取比例</div>
+      <div class="ibox-content">
+        <div class="chart" id="">{{ InitAll.fund.deposit_ratio }}<span class="fr unit">元</span></div>
+      </div>
+    </div>
+  </el-row>
   <el-row :gutter="20" style="margin-top:20px">
     <el-col :span="6">
       <div class="grid-content bg-purple">
@@ -76,38 +108,7 @@
       </div>
     </el-col>
   </el-row>
-  <el-row class="merchant_block">
-    <div class="grid-content_bg-purple">
-      <div class="cont-head">预定服务费</div>
-      <div class="ibox-content">
-        <div class="chart" id="">{{ InitAll.fund.default_services_fee }}</div>
-      </div>
-    </div>
-    <div class="grid-content_bg-purple">
-      <div class="cont-head">实收服务费</div>
-      <div class="ibox-content">
-        <div class="chart" id="">{{ InitAll.fund.services_fee }}</div>
-      </div>
-    </div>
-    <div class="grid-content_bg-purple">
-      <div class="cont-head">预收保证金</div>
-      <div class="ibox-content">
-        <div class="chart" id="">{{ InitAll.fund.default_margin }}</div>
-      </div>
-    </div>
-    <div class="grid-content_bg-purple">
-      <div class="cont-head">实收保证金</div>
-      <div class="ibox-content">
-        <div class="chart" id="">{{ InitAll.fund.margin }}</div>
-      </div>
-    </div>
-    <div class="grid-content_bg-purple">
-      <div class="cont-head">保证金收取比例</div>
-      <div class="ibox-content">
-        <div class="chart" id="">{{ InitAll.fund.deposit_ratio }}</div>
-      </div>
-    </div>
-  </el-row>
+  
   <el-row :gutter="20">
     <el-col :span="24">
       <div class="grid-content bg-purple">

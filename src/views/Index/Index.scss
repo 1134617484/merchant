@@ -50,6 +50,9 @@
           padding: 0;
           .chart{
           height: 100%;
+          display: flex;
+          justify-content: center;
+
           }
         }
       }
