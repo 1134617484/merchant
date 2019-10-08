@@ -52,7 +52,13 @@
          <!-- 商户投诉-->
         <el-dialog title="商户投诉" class="text-left addClass" width="30%" :visible.sync="dialogFormComplain">
             <el-form ref="Form" :model="Form" :rules="Rules">
+<<<<<<< HEAD
                 
+=======
+                <!-- <el-form-item class="my_form_inp" label="投诉标识: " :label-width="formLabelWidth" prop="complain">
+                    <el-input  v-model.trim="Form.complain" autocomplete="off"></el-input>
+                </el-form-item> -->
+>>>>>>> 63cec2830a13718f59b6de9865bfbb755e4216ee
                 <el-form-item class="my_form_inp" label="投诉类型: " :label-width="formLabelWidth" prop="complain_type">
                     <el-select v-model="Form.complain_type" placeholder="请选择投诉类型" filterable @change='el_select'>
                     <el-option v-for="(item,index) in complainOptions" :key="index" :label="item.label" :value="item.value">

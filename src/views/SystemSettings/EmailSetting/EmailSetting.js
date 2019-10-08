@@ -53,11 +53,19 @@ export default {
       });
       // 初始化
       _get("merchant/withdraw/init").then(res => {
+<<<<<<< HEAD
         this.withdrawInit = res.data.data;
         this.withdrawInit.balance= Number(this.withdrawInit.balance).toFixed(4);
         this.withdrawInit.balance_disabled=Number(this.withdrawInit.balance_disabled).toFixed(4);
         this.withdrawInit.apply_money=Number(this.withdrawInit.apply_money).toFixed(4);
       console.log(this.withdrawInit)
+=======
+        this.withdrawInit = {...res.data.data};
+        this.withdrawInit.balance= Number(this.withdrawInit.balance).toFixed(5);
+        this.withdrawInit.balance_disabled=Number(this.withdrawInit.balance_disabled).toFixed(5);
+        this.withdrawInit.apply_money=Number(this.withdrawInit.apply_money).toFixed(5);
+        console.log(this.withdrawInit)
+>>>>>>> 63cec2830a13718f59b6de9865bfbb755e4216ee
       });
     },
     submitForm(formName) {

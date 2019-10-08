@@ -4,15 +4,15 @@
     <div class="bor_p">
       <div class="success bor_text">
         <span class="title">余额:</span
-        ><span class="box">{{ withdrawInit.balance }}元</span>
+        ><span class="box" :visible.sync="withdrawInit.balance_disabled"><input type="text" class="" disabled v-model="withdrawInit.balance">{{  withdrawInit.balance}}元</span>
       </div>
       <div class="warning bor_text">
         <span class="title">冻结:</span
-        ><span class="box">{{ withdrawInit.balance_disabled }}元</span>
+        ><span class="box"><input type="text" class="" disabled v-model="withdrawInit.balance_disabled">{{  withdrawInit.balance_disabled}}元</span>
       </div>
       <div class="blue bor_text">
         <span class="title">结算:</span
-        ><span class="box">{{ withdrawInit.apply_money }}元</span>
+        ><span class="box"><input type="text" class="" disabled v-model="withdrawInit.apply_money">{{  withdrawInit.balance_disabled}}元</span>
       </div>
     </div>
     <el-form
@@ -30,9 +30,7 @@
           @blur="handleBlur"
         ></el-input-number>
         <span class="apply_money_span"
-          >注:提现金额最小{{
-            withdrawInit.unit_min_money
-          }}.00元.含提现手续费,直接在金额中扣除</span
+          >注:提现金额最小<input type="text" v-model='withdrawInit.unit_min_money' disabled>元.含提现手续费,直接在金额中扣除</span
         >
       </el-form-item>
       <el-form-item label="到账金额：" prop="money">

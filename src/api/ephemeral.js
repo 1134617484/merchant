@@ -27,10 +27,13 @@
 
   '/complain':['投诉管理','投诉记录'],
   '/appeal':['投诉管理','申诉记录'],
+<<<<<<< HEAD
 
   '/api/rate':['API管理','查看通道费率'],
   '/api/doc':['API管理','API开发文档'],
   
+=======
+>>>>>>> 63cec2830a13718f59b6de9865bfbb755e4216ee
 }
 //  临时数据
 export const ephemeral_data = {

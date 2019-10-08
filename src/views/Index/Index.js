@@ -48,8 +48,11 @@ export default {
       this.userName = userInfo.name;
       _get("/merchant/index").then(res => {
         let all_order=res.data.data.today_pending_count+res.data.data.today_success_count;
-        this.InitAll={...res.data.data,total_order_count:all_order};
+        setTimeout(() => {
+          this.InitAll={...res.data.data,total_order_count:all_order};
         isNaN(this.InitAll.last_login_time)?'':this.InitAll.last_login_time=switchTime(this.InitAll.last_login_time);
+        },50000);
+        
         // let data = ephemeral.menu.index.data;
         // this.total_success_amount = data.total_success_amount;
         // this.total_pending_amount = data.total_pending_amount;

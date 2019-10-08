@@ -65,7 +65,31 @@
          this.navName2 = text;
        }
      },
+<<<<<<< HEAD
     
+=======
+     getNavData(url, title) {
+      // this.twoTitle=title;
+       // this.tag = url;
+       // let obj = {};
+       // this.dynamicTags.push({
+       //   name: title,
+       //   url: url,
+       // });
+       // this.dynamicTags = this.dynamicTags.reduce((cur, next) => {
+       //   obj[next.url] ? "" : (obj[next.url] = true && cur.push(next));
+       //   return cur;
+       // }, []); //设置cur默认类型为数组，并且初始值为空的数组
+       // 邮箱和密码要存储
+     },
+     handleOpen(key, keyPath) {
+      // this.twoTitle='';
+      // this.oneTitle=key;
+
+     },
+     handleClose(key, keyPath) {},
+     handleSelect(key, keyPath) {},
+>>>>>>> 63cec2830a13718f59b6de9865bfbb755e4216ee
      doSomething() {
        this.isCollapse = !this.isCollapse;
      },
@@ -122,6 +146,7 @@
     refresh_title(){
 // console.log(this.$route.path)
     // 刷新时重置路由
+<<<<<<< HEAD
     let title=ephemeral.menu.menu_type_list[this.$route.path];
     this.oneTitle=title[0];
     this.twoTitle=title[1];
@@ -169,12 +194,24 @@
           return false;
         }
       }
+=======
+    // console.log(ephemeral.menu.menu_type_list[this.$route.path])
+    let title=ephemeral.menu.menu_type_list[this.$route.path];
+    console.log(title) 
+    this.oneTitle=title[0];
+    this.twoTitle=title[1];
+    console.log([this.oneTitle,this.twoTitle])
+>>>>>>> 63cec2830a13718f59b6de9865bfbb755e4216ee
     }
     
    },
    watch:{
     $route(to,from){
+<<<<<<< HEAD
       // console.log(to.path);
+=======
+      console.log(to.path);
+>>>>>>> 63cec2830a13718f59b6de9865bfbb755e4216ee
     this.refresh_title()
     }
   },
