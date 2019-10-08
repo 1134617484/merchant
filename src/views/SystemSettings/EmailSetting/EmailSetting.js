@@ -26,11 +26,12 @@ export default {
           }
         ],
         payment_code: [
-          {
-            required: true,
-            validator: this.$rules.FormValidate.Form().validatePsdReg,
-            trigger: "change"
-          }
+          { required: true, message: "请输入支付密码", trigger: "blur" }
+          // {
+          //   required: true,
+          //   validator: this.$rules.FormValidate.Form().validatePsdReg,
+          //   trigger: "change"
+          // }
         ],
         reality_money: [{ required: true, trigger: "change" }],
         calc_money: [{ required: true, trigger: "change" }],
@@ -74,11 +75,12 @@ export default {
             pay_password: this.ruleForm.payment_code
           };
           _post("/merchant/withdraw", params).then(res => {
-            if(res.dada){
+            if(res.code==200){
               this.$message({
                 message: "提交成功",
                 type: "success"
               });
+              this.$router.push("/finance/user-trade");
             }
             // this.getFormData();
           });
