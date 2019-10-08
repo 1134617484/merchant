@@ -30,8 +30,8 @@ if (process.env.NODE_ENV === "production") {
   }
 } else {
   //dev 开发环境
-  axios.defaults.baseURL = "http://192.168.2.13";
-  // axios.defaults.baseURL = "http://test.laravel.com";
+  // axios.defaults.baseURL = "http://192.168.2.13";
+  axios.defaults.baseURL = "http://test.laravel.com";
 }
 
 //拦截器
@@ -312,3 +312,10 @@ export function findPathByLeafId(leafId, nodes, path) {
       }
   }
 }
+/**
+ * 返回axios请求的域名或ip用于图片路径
+ */
+export const imgurl=()=>{
+  return axios.defaults.baseURL;
+}
+

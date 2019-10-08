@@ -1,6 +1,6 @@
  import SideBar from '../../components/SideBar'
  import axios from "axios";
- import { _get, _post,ephemeral, findPathByLeafId  } from "../../api/index.js";
+ import { _get, _post,ephemeral, findPathByLeafId,imgurl  } from "../../api/index.js";
  import store from "../../store/store.js";
  // 全屏
  import screenfull from "screenfull";
@@ -148,7 +148,7 @@
        _post("merchant/user/logo", fd).then(res => {
          console.log(res)
           let url=res.data;
-          this.dialogImageUrl=url;
+          this.dialogImageUrl=imgurl()+url;
           console.log(this.userMsg)
           this.userMsg.logo=url;
           localStorage.setItem('userInfo',JSON.stringify(this.userMsg))
@@ -156,7 +156,7 @@
            message: "上传成功",
            type: "success"
          });
-         console.log(this.dialogImageUrl=url)
+
        })
     },
     // 阻止右键
@@ -208,7 +208,7 @@
      // 设置用户信息
      this.userMsg = JSON.parse(window.localStorage.getItem("userInfo") || "{}");
      console.log(this.userMsg)
-     this.dialogImageUrl=this.userMsg.logo||'';
+     this.dialogImageUrl=imgurl()+this.userMsg.logo||'';
      this.getMenuData();
      this.refresh_title();
      this.button_right()
