@@ -29,6 +29,31 @@
         margin-right: 50px;
       }
     }
+    .merchant_block{
+      display: flex;
+      margin-left: -20px;
+    margin-right: -20px;
+    justify-content: space-between;
+      .grid-content_bg-purple{
+        height: 100px;
+        width:18%;
+        background: #fff;
+        padding: 10px 0;
+        margin-bottom: 15px;
+        text-align: center;
+        .cont-head,.chart{
+          padding: 0;
+          height: 40px;
+          line-height:40px;
+        }
+        .ibox-content{
+          padding: 0;
+          .chart{
+          height: 100%;
+          }
+        }
+      }
+    }
   }
   .el-col {
     border-radius: 2px;

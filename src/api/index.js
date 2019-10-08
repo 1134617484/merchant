@@ -30,8 +30,8 @@ if (process.env.NODE_ENV === "production") {
   }
 } else {
   //dev 开发环境
-  // axios.defaults.baseURL = "http://192.168.2.13";
-  axios.defaults.baseURL = "http://test.laravel.com";
+  axios.defaults.baseURL = "http://192.168.2.13";
+  // axios.defaults.baseURL = "http://test.laravel.com";
 }
 
 //拦截器

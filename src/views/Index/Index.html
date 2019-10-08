@@ -1,86 +1,137 @@
 <div class="main-box">
-    <!-- <div class="main-head">用户名：{{userName}}</div> -->
-    <div class="position_ip">
-        <div class="left_span">登录ip:<span>{{InitAll.login_ip}}</span></div>
-        <div>登录时间:<span>{{InitAll.last_login_time}}</span></div>
+  <!-- <div class="main-head">用户名：{{userName}}</div> -->
+  <div class="position_ip">
+    <div class="left_span">
+      登录ip:<span>{{ InitAll.login_ip }}</span>
     </div>
-    <el-row :gutter="20" style="margin-top:20px">
-        <el-col :span="6">
-            <div class="grid-content bg-purple">
-                <div class="cont-head">今日总订单数</div>
-                <div class="ibox-content">{{InitAll.total_order_count}}<span class=" unit">笔</span></div>
-            </div>
-        </el-col>
-        <el-col :span="6">
-            <div class="grid-content bg-purple">
-                <div class="cont-head">今日已付订单数</div>
-                <div class="ibox-content">{{InitAll.today_success_count}}<span class=" unit">笔</span></div>
-            </div>
-        </el-col>
-        <el-col :span="6">
-            <div class="grid-content bg-purple">
-                <div class="cont-head">今日未付订单数</div>
-                <div class="ibox-content">{{InitAll.today_pending_count}}<span class="unit">笔</span></div>
-            </div>
-        </el-col>
-        <el-col :span="6">
-            <div class="grid-content bg-purple">
-                <div class="cont-head">今日收入</div>
-                <div class="ibox-content">{{InitAll.today_success_amount}}<span class=" unit">元</span></div>
-            </div>
-        </el-col>
-    </el-row>
-    <el-row :gutter="20" style="margin-top:20px">
-        <el-col :span="6">
-            <div class="grid-content bg-purple">
-                <div class="cont-head">今日实付金额</div>
-                <div class="ibox-content">{{InitAll.today_success_count}}<span class=" unit">元</span></div>
-            </div>
-        </el-col>
-        <el-col :span="6">
-            <div class="grid-content bg-purple">
-                <div class="cont-head">余额</div>
-                <div class="ibox-content">{{InitAll.fund.balance}}<span class=" unit">元</span></div>
-            </div>
-        </el-col>
-        <el-col :span="6">
-            <div class="grid-content bg-purple">
-                <div class="cont-head">冻结金额</div>
-                <div class="ibox-content">{{InitAll.fund.balance_disabled}}<span class=" unit">元</span></div>
-            </div>
-        </el-col>
-        <el-col :span="6">
-            <div class="grid-content bg-purple">
-                <div class="cont-head">投诉保证金</div>
-                <div class="ibox-content">{{InitAll.fund.complain_margin}}<span class=" unit">元</span></div>
-            </div>
-        </el-col>
-    </el-row>
-    <!-- <el-row :gutter="20">
-        <el-col :span="24">
-            <div class="grid-content bg-purple">
-                <div class="cont-head">订单数目统计</div>
-                <div class="ibox-content">
-                    <div class="chart" id="myChart">
-                    </div>
-                </div>
-            </div>
-        </el-col>
-    </el-row> -->
-    <el-row :gutter="20">
-        <el-col :span="24">
-            <div class="grid-content bg-purple">
-                <div class="cont-head" style="margin-bottom: 10px">日交易统计
-                    <el-select v-model="time" placeholder="请选择" class="" @change="handelTime">
-                        <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
-                        </el-option>
-                    </el-select>
-                </div>
-                <div class="ibox-content">
-                    <div class="chart" id="myChart3">
-                    </div>
-                </div>
-            </div>
-        </el-col>
-    </el-row>
+    <div>
+      登录时间:<span>{{ InitAll.last_login_time }}</span>
+    </div>
+  </div>
+  <el-row :gutter="20" style="margin-top:20px">
+    <el-col :span="6">
+      <div class="grid-content bg-purple">
+        <div class="cont-head">今日总订单数</div>
+        <div class="ibox-content">
+          {{ InitAll.total_order_count }}<span class=" unit">笔</span>
+        </div>
+      </div>
+    </el-col>
+    <el-col :span="6">
+      <div class="grid-content bg-purple">
+        <div class="cont-head">今日已付订单数</div>
+        <div class="ibox-content">
+          {{ InitAll.today_success_count }}<span class=" unit">笔</span>
+        </div>
+      </div>
+    </el-col>
+    <el-col :span="6">
+      <div class="grid-content bg-purple">
+        <div class="cont-head">今日未付订单数</div>
+        <div class="ibox-content">
+          {{ InitAll.today_pending_count }}<span class="unit">笔</span>
+        </div>
+      </div>
+    </el-col>
+    <el-col :span="6">
+      <div class="grid-content bg-purple">
+        <div class="cont-head">今日收入</div>
+        <div class="ibox-content">
+          {{ InitAll.today_success_amount }}<span class=" unit">元</span>
+        </div>
+      </div>
+    </el-col>
+  </el-row>
+  <el-row :gutter="20" style="margin-top:20px">
+    <el-col :span="6">
+      <div class="grid-content bg-purple">
+        <div class="cont-head">今日实付金额</div>
+        <div class="ibox-content">
+          {{ InitAll.today_success_count }}<span class=" unit">元</span>
+        </div>
+      </div>
+    </el-col>
+    <el-col :span="6">
+      <div class="grid-content bg-purple">
+        <div class="cont-head">余额</div>
+        <div class="ibox-content">
+          {{ InitAll.fund.balance }}<span class=" unit">元</span>
+        </div>
+      </div>
+    </el-col>
+    <el-col :span="6">
+      <div class="grid-content bg-purple">
+        <div class="cont-head">冻结金额</div>
+        <div class="ibox-content">
+          {{ InitAll.fund.balance_disabled }}<span class=" unit">元</span>
+        </div>
+      </div>
+    </el-col>
+    <el-col :span="6">
+      <div class="grid-content bg-purple">
+        <div class="cont-head">投诉保证金</div>
+        <div class="ibox-content">
+          {{ InitAll.fund.complain_margin }}<span class=" unit">元</span>
+        </div>
+      </div>
+    </el-col>
+  </el-row>
+  <el-row class="merchant_block">
+    <div class="grid-content_bg-purple">
+      <div class="cont-head">预定服务费</div>
+      <div class="ibox-content">
+        <div class="chart" id="">{{ InitAll.fund.default_services_fee }}</div>
+      </div>
+    </div>
+    <div class="grid-content_bg-purple">
+      <div class="cont-head">实收服务费</div>
+      <div class="ibox-content">
+        <div class="chart" id="">{{ InitAll.fund.services_fee }}</div>
+      </div>
+    </div>
+    <div class="grid-content_bg-purple">
+      <div class="cont-head">预收保证金</div>
+      <div class="ibox-content">
+        <div class="chart" id="">{{ InitAll.fund.default_margin }}</div>
+      </div>
+    </div>
+    <div class="grid-content_bg-purple">
+      <div class="cont-head">实收保证金</div>
+      <div class="ibox-content">
+        <div class="chart" id="">{{ InitAll.fund.margin }}</div>
+      </div>
+    </div>
+    <div class="grid-content_bg-purple">
+      <div class="cont-head">保证金收取比例</div>
+      <div class="ibox-content">
+        <div class="chart" id="">{{ InitAll.fund.deposit_ratio }}</div>
+      </div>
+    </div>
+  </el-row>
+  <el-row :gutter="20">
+    <el-col :span="24">
+      <div class="grid-content bg-purple">
+        <div class="cont-head" style="margin-bottom: 10px">
+          日交易统计
+          <el-select
+            v-model="time"
+            placeholder="请选择"
+            class=""
+            @change="handelTime"
+          >
+            <el-option
+              v-for="item in options"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            >
+            </el-option>
+          </el-select>
+        </div>
+        <div class="ibox-content">
+          <div class="chart" id="myChart3"></div>
+        </div>
+      </div>
+    </el-col>
+  </el-row>
 </div>
