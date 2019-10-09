@@ -1,5 +1,5 @@
 import { log } from "util";
-import { _get, _post, _put, _delete } from "../../../api/index.js"
+import { _get, _post, _put, _delete,switchTime } from "../../../api/index.js"
 export default {
   name: "AccessConfig",
   data() {
@@ -66,24 +66,6 @@ export default {
         this.typeOptions.unshift(params);
       })
     },
-     switchTime(time) {
-      let date = new Date(time * 1000);
-      let y = date.getFullYear() + "-";
-      let m =
-        (date.getMonth() + 1 < 10
-          ? "0" + (date.getMonth() + 1)
-          : date.getMonth() + 1) + "-";
-      let d =
-        (date.getDate() < 10 ? "0" + date.getDate() : date.getDate()) + " ";
-      let h = date.getHours();
-       h=h<10?'0'+h:h;
-      let mm = date.getMinutes();
-      mm=mm<10?'0'+mm:mm;
-      let s = date.getSeconds();
-      s=s<10?'0'+s:s;
-      let updated_at = y + m + d + h + ":" + mm + ":" + s;
-      return updated_at;
-    },
     getTableData(params) {
       _get("merchant/complain",params).then(res => {
         let data = res.data.data.data;
@@ -93,17 +75,17 @@ export default {
         this.pageSize = paramsData.per_page;
         if (data.length > 0) {
           let tableList = [];
+          console.log(data)
           for (let i = 0; i < data.length; i++) {
-            // console.log(data[i])
+            console.log(data[i])
             tableList.push({
               id:data[i].id,
               complain_type:data[i].complain_type==1?'投诉商户':'投诉订单',
               complain_merchant:data[i].complain_type==1?
-              data[i].complain_merchant.username:data[i].complain_order.pay_order_id?data[i].complain_order.pay_order_id:data[i].complain_order,
-              // complain_order_id:data[i].complain_order_id,
+              data[i].complain_merchant.username:data[i].complain_order?data[i].complain_order.pay_order_id:data[i].complain_order,
               complain_remark: data[i].complain_remark,
               status: data[i].status==0?'待审核':'审核通过',
-              created_at:this.switchTime(data[i].created_at),
+              created_at:switchTime(data[i].created_at),
               merchant:data[i].merchant,
               complain_order:data[i].complain_order,
               complain:data[i].complain,
