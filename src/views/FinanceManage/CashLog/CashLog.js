@@ -49,7 +49,7 @@ export default {
     getSelectMenuData() {
       channelSelect().then(res=>{
         this.channelOptions = [...res.data.data];
-        this.channelOptions.unshift({"id":"a",name:"全部通道"});
+        this.channelOptions.unshift({"id":"a",title:"全部通道"});
       })
     },
 
