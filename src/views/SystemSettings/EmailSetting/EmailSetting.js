@@ -14,7 +14,7 @@ export default {
         calc_money: "",
         // 支付密码
         payment_code: "",
-        bank_id: "1"
+        bank_id: "暂无银行卡"
       },
       withdrawInit: {}, //初始化
       rules: {
@@ -58,7 +58,8 @@ export default {
         this.withdrawInit.balance= Number(this.withdrawInit.balance).toFixed(4);
         this.withdrawInit.balance_disabled=Number(this.withdrawInit.balance_disabled).toFixed(4);
         this.withdrawInit.apply_money=Number(this.withdrawInit.apply_money).toFixed(4);
-      console.log(this.withdrawInit)
+        this.withdrawInit.unit_min_money=Number(this.withdrawInit.unit_min_money).toFixed(2);
+      // console.log(this.withdrawInit)
       });
     },
     submitForm(formName) {

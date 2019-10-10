@@ -32,7 +32,7 @@
         <span class="apply_money_span"
           >注:提现金额最小{{
             withdrawInit.unit_min_money
-          }}.00元.含提现手续费,直接在金额中扣除</span
+          }}元.含提现手续费,直接在金额中扣除</span
         >
       </el-form-item>
       <el-form-item label="到账金额：" prop="money">
@@ -55,6 +55,7 @@
           @change="change_bank()"
           class="email_input"
           v-model="ruleForm.bank_id"
+          :disabled="ruleForm.bank_id=='false'?true:false"
           filterable
         >
           <el-option
