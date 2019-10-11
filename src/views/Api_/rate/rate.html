@@ -3,10 +3,11 @@
     <p>结算方式:</p>
     <span>T+1</span>
   </div>
-  <div class="table_header">商户费率</div>
+  <div class="table_header" v-if="tableData.custom_rate==0">商户费率</div>
   <el-table
     :data="tableData.merchantRates"
     style="width: 100%;text-align: center"
+    v-if="tableData.custom_rate==0"
     border
   >
 
@@ -20,9 +21,9 @@
     ></el-table-column>
     <el-table-column prop="t1_rate" label="T+1成本费率"></el-table-column>
   </el-table>
-  <div class="table_header">通道费率</div>
+  <div class="table_header" v-if="tableData.custom_rate==1">通道费率</div>
 
-  <el-table
+  <el-table v-if="tableData.custom_rate==1"
     :data="tableData.channelRates"
     style="width: 100%;text-align: center"
     border

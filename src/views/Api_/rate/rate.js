@@ -12,7 +12,9 @@ export default {
       tableData:{
         channelRates:[],
         merchantRates:[],
-        data_arr:[]
+        data_arr:[],
+        custom_rate: 0
+
       },
       tableData1: [{
         id: 1,
