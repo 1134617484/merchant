@@ -67,14 +67,15 @@
       <el-table-column
         prop="order_id"
         label="订单号"
+        :show-overflow-tooltip="true"
       ></el-table-column>
-      <el-table-column prop="merchant.username" label="用户名"></el-table-column>
-      <el-table-column prop="order.channel.title" label="支付通道"></el-table-column>
-      <el-table-column prop="type.name" label="支付分类"></el-table-column>
-      <el-table-column prop="change_money" label="变动金额"></el-table-column>
-      <el-table-column prop="charge_time" label="变动时间"></el-table-column>
-      <el-table-column prop="change_money" label="备注"></el-table-column>
-      <el-table-column prop="change_money" label="操作"></el-table-column>
+      <el-table-column :show-overflow-tooltip="true" prop="merchant.username" label="用户名"></el-table-column>
+      <el-table-column :show-overflow-tooltip="true" prop="order.channel.title" label="支付通道"></el-table-column>
+      <el-table-column :show-overflow-tooltip="true" prop="type.name" label="支付分类"></el-table-column>
+      <el-table-column :show-overflow-tooltip="true" prop="change_money" label="变动金额"></el-table-column>
+      <el-table-column :show-overflow-tooltip="true" prop="charge_time" label="变动时间"></el-table-column>
+      <el-table-column :show-overflow-tooltip="true" prop="change_money" label="备注"></el-table-column>
+      <el-table-column :show-overflow-tooltip="true" prop="change_money" label="操作"></el-table-column>
 
     </el-table>
     <!-- 分页 -->

@@ -13,13 +13,13 @@
       border
     >
       <el-table-column prop="id" label="ID"></el-table-column>
-      <el-table-column prop="bank.bank_name" label="银行名称"></el-table-column>
-      <el-table-column prop="sub_branch" label="支行名称"></el-table-column>
-      <el-table-column prop="account_name" label="开户名"></el-table-column>
-      <el-table-column prop="card_number" label="银行卡号"></el-table-column>
-      <el-table-column prop="province" label="所在省"></el-table-column>
-      <el-table-column prop="city" label="所在城市"></el-table-column>
-      <el-table-column prop="alias" label="别名"></el-table-column>
+      <el-table-column :show-overflow-tooltip="true" prop="bank.bank_name" label="银行名称"></el-table-column>
+      <el-table-column :show-overflow-tooltip="true" prop="sub_branch" label="支行名称"></el-table-column>
+      <el-table-column :show-overflow-tooltip="true" prop="account_name" label="开户名"></el-table-column>
+      <el-table-column :show-overflow-tooltip="true" prop="card_number" label="银行卡号"></el-table-column>
+      <el-table-column :show-overflow-tooltip="true" prop="province" label="所在省"></el-table-column>
+      <el-table-column :show-overflow-tooltip="true" prop="city" label="所在城市"></el-table-column>
+      <el-table-column :show-overflow-tooltip="true" prop="alias" label="别名"></el-table-column>
 
       <el-table-column label="默认结算">
         <template slot-scope="scope">
@@ -33,7 +33,7 @@
           ></el-switch>
         </template>
       </el-table-column>
-      <el-table-column prop="remark" label="备注"></el-table-column>
+      <el-table-column :show-overflow-tooltip="true" prop="remark" label="备注"></el-table-column>
       <el-table-column label="操作" width="160px">
         <template slot-scope="scope">
           <!-- <el-button size="mini" class="" @click="editorPassword({type:'open',index:scope.$index,row:scope.row})"

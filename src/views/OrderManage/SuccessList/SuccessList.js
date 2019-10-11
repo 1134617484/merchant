@@ -13,6 +13,8 @@ export default {
   name: "AccessConfig",
   data() {
     return {
+            // 滚动显示隐藏
+            scrollLeft:true,
       value3: [new Date(2000, 10, 10, 10, 10), new Date(2000, 10, 11, 10, 10)],
       //查询参数
       pay_order_id: "",
@@ -526,6 +528,12 @@ export default {
           return false;
         }
       });
-    }
+    },
+            // 切换订单
+            scrollLeftType(row, column, event) {
+              if (column.label == "操作") return false;
+              console.log([row, column, event]);
+              this.scrollLeft = !this.scrollLeft;
+            }
   }
 };
