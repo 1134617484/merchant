@@ -2,9 +2,24 @@
   <div class="bor">
     <div class="header">申请结算</div>
     <div class="bor_p">
+<<<<<<< HEAD
       <div class="success bor_text"><span class="title" >可提现:</span><span class="box">0元</span></div>
       <div class="warning bor_text"><span class="title">冻结:</span><span class="box">0元</span></div>
       <div class="blue bor_text"><span class="title">结算:</span><span class="box">0元</span></div>
+=======
+      <div class="success bor_text">
+        <span class="title">余额:</span
+        ><span class="box" :visible.sync="withdrawInit.balance_disabled"><input type="text" class="" disabled v-model="withdrawInit.balance">{{  withdrawInit.balance}}元</span>
+      </div>
+      <div class="warning bor_text">
+        <span class="title">冻结:</span
+        ><span class="box"><input type="text" class="" disabled v-model="withdrawInit.balance_disabled">{{  withdrawInit.balance_disabled}}元</span>
+      </div>
+      <div class="blue bor_text">
+        <span class="title">结算:</span
+        ><span class="box"><input type="text" class="" disabled v-model="withdrawInit.apply_money">{{  withdrawInit.balance_disabled}}元</span>
+      </div>
+>>>>>>> 01d537a8f4ed5533d17f7358057ce7a3240c0d4d
     </div>
     <el-form
       :model="ruleForm"
@@ -13,9 +28,22 @@
       label-width="150px"
       class="demo-ruleForm"
     >
+<<<<<<< HEAD
       <el-form-item label="提现金额：" prop="apply_money" >
           <el-input-number class="apply_money" v-model="ruleForm.apply_money"  :controls='false' @blur="handleBlur"></el-input-number>
         <span class="apply_money_span">注:提现金额最小100.00元.含提现手续费,直接在金额中扣除</span>
+=======
+      <el-form-item label="提现金额：" prop="apply_money">
+        <el-input-number
+          class="apply_money"
+          v-model="ruleForm.apply_money"
+          :controls="false"
+          @blur="handleBlur"
+        ></el-input-number>
+        <span class="apply_money_span"
+          >注:提现金额最小<input type="text" v-model='withdrawInit.unit_min_money' disabled>元.含提现手续费,直接在金额中扣除</span
+        >
+>>>>>>> 01d537a8f4ed5533d17f7358057ce7a3240c0d4d
       </el-form-item>
       <el-form-item label="到账金额：" prop="reality_money">
         <el-input-number v-model="ruleForm.reality_money" :controls='false' :disabled='true'></el-input-number>

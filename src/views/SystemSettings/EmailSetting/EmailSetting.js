@@ -42,6 +42,7 @@ export default {
   methods: {
     getFormData(){
       // 银行卡列表
+<<<<<<< HEAD
       _get("/merchant/bank/select").then(res => {
 console.log(res)
 this.classifyOptions=res.data.data;
@@ -56,6 +57,28 @@ this.bank_id=res.data.data[0].id;
       })
       
       
+=======
+      _get("merchant/bankcard/bankcard").then(res => {
+        this.classifyOptions = res.data.data;
+        this.ruleForm.bank_id = this.classifyOptions[0].id;
+      });
+      // 初始化
+      _get("merchant/withdraw/init").then(res => {
+<<<<<<< HEAD
+        this.withdrawInit = res.data.data;
+        this.withdrawInit.balance= Number(this.withdrawInit.balance).toFixed(4);
+        this.withdrawInit.balance_disabled=Number(this.withdrawInit.balance_disabled).toFixed(4);
+        this.withdrawInit.apply_money=Number(this.withdrawInit.apply_money).toFixed(4);
+      console.log(this.withdrawInit)
+=======
+        this.withdrawInit = {...res.data.data};
+        this.withdrawInit.balance= Number(this.withdrawInit.balance).toFixed(5);
+        this.withdrawInit.balance_disabled=Number(this.withdrawInit.balance_disabled).toFixed(5);
+        this.withdrawInit.apply_money=Number(this.withdrawInit.apply_money).toFixed(5);
+        console.log(this.withdrawInit)
+>>>>>>> 63cec2830a13718f59b6de9865bfbb755e4216ee
+      });
+>>>>>>> 01d537a8f4ed5533d17f7358057ce7a3240c0d4d
     },
     submitForm(formName) {
       console.log(formName)

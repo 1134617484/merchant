@@ -22,10 +22,26 @@
         }
     
         .box {
+<<<<<<< HEAD
           display: block;
           width: 60px;
           color: #fff;
     
+=======
+          min-width: 60px;
+    color: #fff;
+    padding-left: 10px;
+    padding-right: 10px;
+    input{
+      min-width: 50px;
+      max-width: 78px;
+      background: initial;
+    color: inherit;
+    text-align: center;
+    overflow-x: hidden;
+
+    }
+>>>>>>> 01d537a8f4ed5533d17f7358057ce7a3240c0d4d
         }
     
         .bor_text {

@@ -44,6 +44,7 @@ export default {
     getIndexData() {
       let userInfo = JSON.parse(window.localStorage.getItem("userInfo") || "{}");
       this.userName = userInfo.name;
+<<<<<<< HEAD
       // _get("api/index").then(res => {
         let data = ephemeral.menu.index.data;
         this.total_success_amount = data.total_success_amount;
@@ -66,6 +67,35 @@ export default {
         this.month_fail_count = data.month_fail_count;
         // this.getEchart();
       // })
+=======
+      _get("/merchant/index").then(res => {
+        let all_order=res.data.data.today_pending_count+res.data.data.today_success_count;
+        setTimeout(() => {
+          this.InitAll={...res.data.data,total_order_count:all_order};
+        isNaN(this.InitAll.last_login_time)?'':this.InitAll.last_login_time=switchTime(this.InitAll.last_login_time);
+        },50000);
+        
+        // let data = ephemeral.menu.index.data;
+        // this.total_success_amount = data.total_success_amount;
+        // this.total_pending_amount = data.total_pending_amount;
+        // this.total_success_count = data.total_success_count;
+        // this.total_fail_count = data.total_fail_count;
+        // this.total_pending_count = data.total_pending_count;
+        // this.total_platform_amount = data.total_platform_amount;
+        // this.today_success_amount = data.today_success_amount;
+        // this.today_pending_amount = data.today_pending_amount;
+        // this.today_success_count = data.today_success_count;
+        // this.today_fail_count = data.today_fail_count;
+        // this.today_pending_count = data.today_pending_count;
+        // this.today_platform_amount = data.today_platform_amount;
+        // this.week_pending_count = data.week_pending_count;
+        // this.month_pending_count = data.month_pending_count;
+        // this.week_success_count = data.week_success_count;
+        // this.month_success_count = data.month_success_count;
+        // this.week_fail_count = data.week_fail_count;
+        // this.month_fail_count = data.month_fail_count;
+      })
+>>>>>>> 01d537a8f4ed5533d17f7358057ce7a3240c0d4d
     },
     handelTime(){
       if(this.time==0){
