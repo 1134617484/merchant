@@ -1,37 +1,3 @@
- const menu_list={
-  '/index':['管理中心','管理首页'],
-
-  '/qrcode':['充值入口','充值二维码'],
-  '/link':['充值入口','充值链接'],
-
-  '/transaction':['账户管理','基本信息'],
-  '/admin':['账户管理','银行卡管理'],
-  '/permission':['账户管理','认证信息'],
-  '/admin':['账户管理','银行卡管理'],
-  '/admin/reset':['账户管理','登录密码'],
-  '/admin/reset_pay':['账户管理','支付密码'],
-  '/admin-log':['账户管理','登录记录'],
-
-  '/account-change':['财务管理','资金记录'],
-  '/account-analysis':['财务管理','通道分析'],
-  '/account-detailss':['财务管理','保证金明细'],
-  '/cash-log':['财务管理','冻结资金明细'],
-
-  '/finance/user-trade':['结算管理','结算记录'],
-  '/email':['结算管理','结算申请'],
-
-  '/order':['订单管理','所有订单'],
-  '/order/success':['订单管理','成功订单'],
-  '/order/fail':['订单管理','手工补发'],
-  '/order/pending':['订单管理','未支付订单'],
-
-  '/complain':['投诉管理','投诉记录'],
-  '/appeal':['投诉管理','申诉记录'],
-
-  '/api/rate':['API管理','查看通道费率'],
-  '/api/doc':['API管理','API开发文档'],
-  
-}
 //  临时数据
 export const ephemeral_data = {
   menu: {
@@ -44,7 +10,6 @@ export const ephemeral_data = {
           label: "管理中心",
           icon: "icon-shouye",
           menu_uri: "",
-          
           children: [
             // 暂无
             {
@@ -185,7 +150,6 @@ export const ephemeral_data = {
               label: "冻结资金明细",
               icon: "icon",
               menu_uri: "/cash-log",
-              text:['财务管理','冻结资金明细'],
               children: [],
               index: "4-4"
             }
@@ -200,6 +164,7 @@ export const ephemeral_data = {
           icon: "icon-caiwuguanli",
           menu_uri: "",
           children: [
+            
             {
               menu_name: "finance.userTrade",
               label: "结算记录",
@@ -286,40 +251,29 @@ export const ephemeral_data = {
               children: [],
               index: "7-2"
             },
+            // {
+            //   menu_name: "basic.index",
+            //   label: "申请解冻",
+            //   icon: "icon",
+            //   menu_uri: "",
+            //   children: [],
+            //   index: "7-3"
+            // },
+            // {
+            //   menu_name: "basic.index",
+            //   label: "解冻记录",
+            //   icon: "icon",
+            //   menu_uri: "",
+            //   children: [],
+            //   index: "7-4"
+            // },
           ],
           index: '投诉管理'
-        },
-         // api管理
-         {
-          menu_name: "api.system",
-          label: "API管理",
-          icon: "icon-tousuxingjiancha",
-          menu_uri: "",
-          children: [
-            {
-              menu_name: "admin.reset",
-              label: "查看通道费率",
-              icon: "icon",
-              menu_uri: "/api/rate",
-              children: [],
-              index: "8-1"
-            },
-            {
-              menu_name: "basic.index",
-              label: "API开发文档",
-              icon: "icon",
-              menu_uri: "/api/doc",
-              children: [],
-              index: "8-2"
-            },
-          ],
-          index: 'API管理'
         },
       ],
       code: 200,
       message: "成功"
     },
-    menu_type_list:menu_list,
     index: {
       data: {
         month_pay_actual_amount: "0.0000",
@@ -698,6 +652,5 @@ export const ephemeral_data = {
     },
     "code": 200,
     "message": "成功"
-},
-api_rate:{"data":{"channelRates":[{"product_name":"qweqweqqe","product_code":"WeChatScan","channels":[{"channel_name":"hjghg","channel_code":"WxScan","rates":{"id":8,"channel_id":10004,"capping_fee":"0.0003","rate":"0.0002","t1_default_rate":"0.0005","t1_capping_fee":"0.0000","t1_rate":"0.0000"}},{"channel_name":"xxxxxx","channel_code":"WxScan121","rates":{"id":9,"channel_id":10008,"capping_fee":"0.0004","rate":"0.0004","t1_default_rate":"0.0005","t1_capping_fee":"0.0000","t1_rate":"0.0000"}},{"channel_name":"vvvvv","channel_code":"WxScan121","rates":{"id":9,"channel_id":10008,"capping_fee":"0.0004","rate":"0.0004","t1_default_rate":"0.0005","t1_capping_fee":"0.0000","t1_rate":"0.0000"}}]},{"product_name":"zxzxcx","product_code":"WeChatScan","channels":[{"channel_name":"qqweqwe","channel_code":"WxScan","rates":{"id":8,"channel_id":10004,"capping_fee":"0.0003","rate":"0.0002","t1_default_rate":"0.0005","t1_capping_fee":"0.0000","t1_rate":"0.0000"}},{"channel_name":"asd","channel_code":"WxScan121","rates":{"id":9,"channel_id":10008,"capping_fee":"0.0004","rate":"0.0004","t1_default_rate":"0.0005","t1_capping_fee":"0.0000","t1_rate":"0.0000"}},{"channel_name":"afasfasda","channel_code":"WxScan121","rates":{"id":9,"channel_id":10008,"capping_fee":"0.0004","rate":"0.0004","t1_default_rate":"0.0005","t1_capping_fee":"0.0000","t1_rate":"0.0000"}}]}],"merchantRates":{"id":9,"merchant_id":10001,"capping_fee":"0.0002","rate":"0.0001","t1_default_rate":"0.0000","t1_capping_fee":"0.0000","t1_rate":"0.0000"}},"code":200,"message":"\\u6210\\u529f"},
+}
 };

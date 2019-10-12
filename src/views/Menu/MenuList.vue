@@ -3,20 +3,20 @@
 </script>
 <style scoped lang="less" src="./MenuList.less">
 </style>
-<style >
+<style lang="css" scoped>
+.header_search .header_search_input .el-input__inner{
+  border-radius: 18px !important; 
+}
+    input.el-input__inner {
+  border-radius: 18px !important; 
+    width: 240px;
+}
 .el-input__prefix {
   left: 15px;
 }
 .tags .location .right-arrow{
+   margin-top:0px;
    margin:0px 5px;
 }
-.tags .location .right-arrow i{
-	display:inherit;
-	margin-top:2px;
-}
- .el-input--prefix .el-input__inner{
- 	padding-left:42px;
- 	border-radius: 18px;
- }
 </style>
  

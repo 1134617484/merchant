@@ -8,13 +8,6 @@ Vue.prototype.$store = store;
 import ElementUI from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
 Vue.use(ElementUI);
-// 使用三级联动
-import { pca, pcaa } from 'area-data'; // v5 or higher
-import 'vue-area-linkage/dist/index.css'; // v2 or higher
-import VueAreaLinkage from 'vue-area-linkage';
-
-Vue.use(VueAreaLinkage)
-
 //使用图表
 import echarts from 'echarts'
 Vue.prototype.$echarts = echarts
@@ -23,7 +16,6 @@ import axios from "axios";
 //使用公共样式
 import "./assets/css/index.css";
 import "./assets/font/iconfont.css";
- 
 // import './assets/css/common.less'
 // 使用表单规则验证
 import rules from "./assets/js/rules.js";
@@ -55,14 +47,14 @@ router.beforeEach((to, from, next) => {
 
 //异常处理
 Vue.config.errorHandler = function(err, vm, info) {
-  //console.log(`Error: ${err.toString()}\nInfo: ${info}`);
+  console.log(`Error: ${err.toString()}\nInfo: ${info}`);
 };
 
 
-const originalPush = Router.prototype.push
-Router.prototype.push = function push(location) {
-  return originalPush.call(this, location).catch(err => err)
-}
+// const originalPush = Router.prototype.push
+// Router.prototype.push = function push(location) {
+//   return originalPush.call(this, location).catch(err => err)
+// }
 
 
 new Vue({

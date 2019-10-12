@@ -76,12 +76,12 @@ export default {
   },
   methods: {
      getChild (){
-         //console.log(this.$store.state.url);
+         console.log(this.$store.state.url);
      },
     getSelectMenuData(){
       _get("api/permission/menu").then(res => {
           let data=res.data.data;
-          //console.log(data);
+          console.log(data);
       })
     }, 
    },

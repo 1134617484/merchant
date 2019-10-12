@@ -44,10 +44,3 @@ textarea:-ms-input-placeholder { /* Internet Explorer 10+ */
   min-width: 400px;
   width: 273%;
 }
-.el-input--prefix .el-input__inner{
-  border-radius: 2px;
-}
-.myTableForm{
-  margin-top: 10px;
-  padding-left: 200px;
-}

@@ -42,15 +42,15 @@ export default {
         })
       }
       this.valData = valList
-      //console.log(valList,"valList");
+      console.log(valList,"valList");
       return val;
     },
     selectTypes(e) {
       this.valData = [{id:e}];
-      //console.log(valData,"valData")
+      console.log(valData,"valData")
     },
     getInputWeight(row) {
-      //console.log(row,"row");
+      console.log(row,"row");
     },
   },
 }

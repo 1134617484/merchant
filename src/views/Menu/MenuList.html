@@ -2,45 +2,51 @@
     <el-container>
         <el-header style="height:70px">
             <div class="collapse-btn box_logo_img">
-                <div class="search">
-                    <img src="~@/assets/images/logo.png" alt="" srcset="">
-                    <span>安吉支付</span>
-                </div>
+                <div class="search"></div>
             </div>
+
+            <div class="header_search">
+                <el-input class="header_search_input" style="width: 240px;border-radius:18px; "
+                    placeholder="请输入想搜索的内容"
+                    prefix-icon="el-icon-search"
+                    v-model="header_search">
+                </el-input>
+            </div>
+
             <div class="header-right">
                 <div class="header-user-con">
-
+                    <!-- <div class="btn-fullscreen">
+                        <i class="el-icon-rank el-tooltip fullCur" aria-describedby="el-tooltip-6515" tabindex="0" @click="screenfull"></i>
+                    </div> -->
                     <div class="user-avator">
-                            <img v-if="dialogImageUrl" :src="dialogImageUrl">
-                            <img v-else :src="default_img">
-                        <!-- <img src="../../assets/images/img.jpg" /> -->
+                        <img src="../../assets/images/img.jpg" />
                         <span class="avator_text">{{userMsg.username}}</span>
                         <span class="avator_exit" @click="quitLogin()">退出</span>
                     </div>
 
+                    <!-- <el-dropdown @command="quitLogin" clas="login_down">
+                        <span class="el-dropdown-link">
+                            {{userMsg.userName}}
+                            <i class="el-icon-arrow-down el-icon--right"></i>
+                        </span>
+                        <el-dropdown-menu slot="dropdown">
+                            <el-dropdown-item command="b">修改密码</el-dropdown-item>
+                            <el-dropdown-item command="a">退出登录</el-dropdown-item>
+                        </el-dropdown-menu>
+                    </el-dropdown> -->
                 </div>
             </div>
         </el-header>
-        <el-container >
+        <el-container>
             <el-aside width="auto">
+                <!-- <el-scrollbar wrap-class="scrollbar-wrapper"> -->
                         <div class="user_title">
-                                <img class="user_img" src="../../assets/images/img.jpg" alt=""><p>ID:{{userMsg.id}}</p>
-                                <el-upload
-                                    class="avatar-uploader"
-                                    action=""
-                                    accept=".png, .jpg"
-                                    :show-file-list="false"
-                                    :on-success="handleAvatarSuccess"
-                                    :before-upload="beforeAvatarUpload">
-                                    <img v-if="dialogImageUrl" :src="dialogImageUrl" class="avatar">
-                                    <img v-else :src="default_img" class="avatar">
-                                    <!-- <i v-else class="el-icon-plus avatar-uploader-icon"></i> -->
-                                    </el-upload>
+                                <img src="../../assets/images/img.jpg" alt=""><p>ID:{{userMsg.id}}</p>
                             </div>
-                <el-menu router mode="vertical" unique-opened class="el-menu-vertical-demo" :collapse="isCollapse" default-active="defaultActive" background-color="#304156"  text-color="#bfcbd9"   active-text-color="#fff">
+                <el-menu router mode="vertical" unique-opened class="el-menu-vertical-demo" :collapse="isCollapse" default-active="defaultActive" background-color="#304156"  text-color="#bfcbd9"   active-text-color="#fff" @open="handleOpen">
                     <div v-for="(item,index) in menuList" :key="index">
                         <template v-if="item.children.length == 0">
-                            <el-menu-item :index="item.menu_uri">
+                            <el-menu-item :index="item.menu_uri" @click="getNavData(item.menu_uri,item.label)">
                                 <i :class="[iconfont,item.icon]" ></i>
                                 {{item.label}}+{{index}}
                             </el-menu-item>
@@ -58,13 +64,13 @@
                                     </template>
                                     <template v-for="(threeChild,index) in child.children">
                                         <sidebar-item v-if="threeChild.children&&threeChild.children.length>0" :item="child" :key="index" />
-                                        <el-menu-item v-else :key="index" :index="threeChild.menu_uri">
+                                        <el-menu-item v-else :key="index" :index="threeChild.menu_uri" @click="getNavData(threeChild.menu_uri,threeChild.label)">
                                             <i :class="[iconfont,child.icon]" ></i>
                                             {{child.label}}
                                         </el-menu-item>
                                     </template>
                                 </el-submenu>
-                                <el-menu-item v-else :key="index" :index="child.menu_uri">
+                                <el-menu-item v-else :key="index" :index="child.menu_uri" @click="getNavData(child.menu_uri,child.label)">
                                     <i :class="[iconfont,child.icon]" ></i>
                                     {{child.label}}
                                 </el-menu-item>
@@ -80,12 +86,34 @@
                         <span class="location_icon_map"></span>
                         <h4>当前位置: 
                         {{oneTitle}}</h4>
+                        <!-- <span class="location_icon_right"></span> -->
                         <span class="right-arrow"><i class="el-icon-arrow-right"></i></span>
                         <span class="location_text">{{twoTitle}}</span>
                     </div>
+                    <!-- <ul>
+                        <li :key="tag.name" v-for="(tag ,index) in dynamicTags" class="tags-li">
+                            <router-link :to="tag.url">
+                                {{tag.name}}
+                                <span class="tags-li-icon"></span>
+                            </router-link>
+                            <i class="el-icon-close" @click="handleCloseTag(tag.url,index,$event)"></i>
+                        </li>
+                    </ul>
+                    <el-dropdown @command="handleCommand" style="margin-top:5px">
+                        <span class="el-dropdown-link">
+                            标签选项
+                            <i class="el-icon-arrow-down el-icon--right"></i>
+                        </span>
+                        <el-dropdown-menu slot="dropdown">
+                            <el-dropdown-item command="a">关闭其他</el-dropdown-item>
+                            <el-dropdown-item command="b">关闭所有</el-dropdown-item>
+                        </el-dropdown-menu>
+                    </el-dropdown> -->
                 </div>
                 <div class="container">
+                    <!-- <keep-alive> -->
                         <router-view></router-view>
+                    <!-- </keep-alive> -->
                 </div>
             </el-main>
         </el-container>

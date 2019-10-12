@@ -29,20 +29,36 @@
       </label>
       <!-- 下拉选择 -->
       <label class="inp">
-        <el-select placeholder="支付通道" v-model="channelOptions_id">
+        <el-select placeholder="全部通道" v-model="chanelOptions_id">
           <el-option
-            v-for="(item,index) in channelOptions"
+            v-for="(item,index) in chanelOptions"
             :key="index"
             :label="item.name"
             :value="item.id"
           ></el-option>
         </el-select>
       </label>
-
+        <!-- <label class="inp">
+          <label>
+            <el-select
+              v-model="merchant_id"
+              placeholder="成功, 已返回"
+              filterable
+            >
+              <el-option
+                v-for="(item,index) in typeOptions"
+                :key="index"
+                :label="item.name"
+                :value="item.id"
+              >
+              </el-option>
+            </el-select>
+          </label>
+        </label> -->
         <label class="inp">
-        <el-select placeholder="支付分类" v-model="account_typeOptions_id" filterable>
+        <el-select placeholder="全部类型" v-model="pay_type_id" filterable>
           <el-option
-            v-for="(item,index) in account_typeOptions"
+            v-for="(item,index) in classifyOptions"
             :key="index"
             :label="item.name"
             :value="item.id"
@@ -63,19 +79,23 @@
     </div>
     <!-- 资金变动列表 -->
     <el-table :data="tableData" border style="width: 100%;text-align: center">
-      <el-table-column prop="merchant_id" label="id"></el-table-column>
+      <el-table-column prop="id" label="id"></el-table-column>
       <el-table-column
         prop="order_id"
         label="订单号"
-        :show-overflow-tooltip="true"
       ></el-table-column>
-      <el-table-column :show-overflow-tooltip="true" prop="merchant.username" label="用户名"></el-table-column>
-      <el-table-column :show-overflow-tooltip="true" prop="order.channel.title" label="支付通道"></el-table-column>
-      <el-table-column :show-overflow-tooltip="true" prop="type.name" label="支付分类"></el-table-column>
-      <el-table-column :show-overflow-tooltip="true" prop="change_money" label="变动金额"></el-table-column>
-      <el-table-column :show-overflow-tooltip="true" prop="charge_time" label="变动时间"></el-table-column>
-      <el-table-column :show-overflow-tooltip="true" prop="change_money" label="备注"></el-table-column>
-      <el-table-column :show-overflow-tooltip="true" prop="change_money" label="操作"></el-table-column>
+      <el-table-column prop="merchant.username" label="用户名"></el-table-column>
+      <el-table-column prop="type.name" label="类型"></el-table-column>
+      <!-- <el-table-column label="用户名"></el-table-column>
+            <el-table-column label="提成级别"></el-table-column> -->
+      <el-table-column prop="change_money" label="变动金额"></el-table-column>
+      <el-table-column prop="charge_time" label="变动时间"></el-table-column>
+      <!-- <el-table-column
+        prop="order.channel.title"
+        label="通道"
+      ></el-table-column> -->
+      <el-table-column prop="change_money" label="备注"></el-table-column>
+      <el-table-column prop="change_money" label="操做"></el-table-column>
 
     </el-table>
     <!-- 分页 -->

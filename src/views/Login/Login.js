@@ -1,34 +1,21 @@
 import store from "../../store/store.js";
 import { userLogin, getUserMsg } from "../../api/index.js";
+import { log } from "util";
 export default {
   data() {
     return {
-      numberValidateForm:{
-        username: "acoll",
-        password: "123456",
-      },
+      username: "acoll",
+      password: "123456",
       auth_code:"",
       loading: store.state.isLodingLogin,
-      radio:"0",
-      radio_on:require("@/assets/images/login/login_on.png"),
-      radio_off:require("@/assets/images/login/login_off.png"),
-	  rules: {
-	    password: [
-	      { required: true, validator: this.$rules.FormValidate.Form().validatePsdReg, trigger: 'change' },
-        { required: true,message:'请输入密码', trigger: 'change' }
-	    ],
-	    username: [
-	      { required: true, message:'请输入用户名', trigger: 'change' },
-        { required: true, validator: this.$rules.FormValidate.Form().validateUsername, trigger: 'change' }
-	    ],
-    },
-    name: "login",
-  }
-},
+      radio:"1"
+    };
+  },
+  name: "login",
   methods: {
     // 登录
     login() {
-      let { username, password } = this.numberValidateForm;
+      let { username, password } = this;
       if (!username || !password) {
         return this.$message({
           message: "账户和密码不能为空",
@@ -41,6 +28,7 @@ export default {
         store.state.isLodingLogin = true;
         userLogin({ username, password }).then(res => {
           // 登录失败
+          console.log(res)
           if (res.code != 200) {
             setTimeout(() => {
               store.state.isLodingLogin = false;
@@ -59,7 +47,9 @@ export default {
           // localStorage.setItem("user", res.data.access_token);
 
           // 用户信息缓存本地
+
           getUserMsg().then(res => {
+            console.log(res)
             if (res.data.code == 200) {
               window.localStorage.setItem(
                 "userInfo",
@@ -75,10 +65,9 @@ export default {
                 });
             }
           });
-
+           
           return;
-        }
-        );
+        });
         return;
       }
       // 验证密码长度
@@ -87,13 +76,6 @@ export default {
         message: "密码长度为6-16位数字或字母",
         type: "warning"
       });
-    },
-    changeRedio(){
-      this.radio=='0'?this.radio='1':this.radio='0';
-    },
-    // 注册
-    register(){
-      this.$router.push("/register");
     }
   },
   computed: {
@@ -104,6 +86,5 @@ export default {
   },
   created() {
     window.localStorage.removeItem("userInfo");
-    window.localStorage.removeItem("token");
   }
 };

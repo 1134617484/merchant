@@ -4,16 +4,18 @@ export default {
   name: "AccountChange",
   data() {
     return {
-      analysis:[]
+      analysis:[{
+        title:'微信'
+      }]
     }
 },
 created() {
-  this.getAnalysisData('')
+  this.getAnalysisData()
 },
 methods: {
-  getAnalysisData(params){
-      _get("merchant/channel-finance",params).then(res => {
-this.analysis=[...res.data.data];
+  getAnalysisData(){
+      _get("merchant/channel-finance").then(res => {
+        console.log(res)
       })
   }
 }

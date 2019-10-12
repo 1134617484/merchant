@@ -1,6 +1,5 @@
  import SideBar from '../../components/SideBar'
- import axios from "axios";
- import { _get, _post,ephemeral, findPathByLeafId,imgurl  } from "../../api/index.js";
+ import { _get, _post,ephemeral  } from "../../api/index.js";
  import store from "../../store/store.js";
  // 全屏
  import screenfull from "screenfull";
@@ -15,7 +14,7 @@
        },
        isCollapse: false,
        oneTitle:'管理中心',
-       twoTitle:'管理首页',
+       twoTitle:'',
        tag: "",
        iconfont:'iconfont',
        dynamicTags: [],
@@ -44,17 +43,15 @@
        screenWidth: "",
        screenHeight: "",
        header_search:"",//搜索
-       dialogImageUrl:"",//图片地址
-       default_img:require("@/assets/images/login/upload.png"),//默认图
-       upload_url:axios.defaults.baseURL+'merchant/user/logo',//上传地址
      };
    },
 
    methods: {
      getMenuData() {
-       _get("merchant/channel/select").then(res => {})
+      //  _get("api/permission/menu").then(res => {
          let data = ephemeral.menu.menulist.data;
          this.menuList = data;
+      //  })
      },
      activeMenu(el) {
        let reg = new RegExp("[\u4e00-\u9fa5]+$", "g");
@@ -65,7 +62,33 @@
          this.navName2 = text;
        }
      },
-    
+     getNavData(url, title) {
+      this.twoTitle=title;
+       // this.tag = url;
+       // let obj = {};
+       // this.dynamicTags.push({
+       //   name: title,
+       //   url: url,
+       // });
+       // this.dynamicTags = this.dynamicTags.reduce((cur, next) => {
+       //   obj[next.url] ? "" : (obj[next.url] = true && cur.push(next));
+       //   return cur;
+       // }, []); //设置cur默认类型为数组，并且初始值为空的数组
+       // 邮箱和密码要存储
+     },
+     handleOpen(key, keyPath) {
+      this.twoTitle='';
+      this.oneTitle=key;
+       // if (key == "first") {
+       //   this.navName = "订单管理";
+       //   this.navName2 = "";
+       // } else if (key == "about") {
+       //   this.navName = "收款二维码";
+       //   this.navName2 = "";
+       // }
+     },
+     handleClose(key, keyPath) {},
+     handleSelect(key, keyPath) {},
      doSomething() {
        this.isCollapse = !this.isCollapse;
      },
@@ -117,67 +140,8 @@
          isFull = false;
        }
        return isFull;
-     },
-    //  刷新后更新地址栏
-    refresh_title(){
-// //console.log(this.$route.path)
-    // 刷新时重置路由
-    let title=ephemeral.menu.menu_type_list[this.$route.path];
-    this.oneTitle=title[0];
-    this.twoTitle=title[1];
-    },
-    // 图片上传
-    handleAvatarSuccess(res, file) {
-      //console.log(file)
-      this.imageUrl = URL.createObjectURL(file.raw);
-    },
-    // 图片上传
-    beforeAvatarUpload(file) {
-      // const isJPG = file.type === 'image/jpeg';
-      const isLt2M = file.size / 1024 / 1024 < 2;
-      // if (!isJPG) {
-      //   this.$message.error('上传头像图片只能是 JPG 格式!');
-      // }
-      if (!isLt2M) {
-        this.$message.error('上传头像图片大小不能超过 2MB!');
-      }
-        let fd = new FormData();
-        // fd.append('pay_type_id', 11)//随文件上传的其他参数
-        fd.append('logo', file);
-        //console.log(file)
-       _post("merchant/user/logo", fd).then(res => {
-         //console.log(res)
-          let url=res.data;
-          this.dialogImageUrl=imgurl()+url;
-          //console.log(this.userMsg)
-          this.userMsg.logo=url;
-          localStorage.setItem('userInfo',JSON.stringify(this.userMsg))
-          this.$message({
-           message: "上传成功",
-           type: "success"
-         });
-
-       })
-    },
-    // 阻止右键
-    button_right(){
-      document.oncontextmenu = function(){
-				return false;
-			}
-      document.onmousedown = function(){
-        if(event.button == 2){
-          return false;
-        }
-      }
-    }
-    
+     }
    },
-   watch:{
-    $route(to,from){
-      // //console.log(to.path);
-    this.refresh_title()
-    }
-  },
    mounted() {
      window.onresize = () => {
        // 全屏模式下监测是否按下Esc
@@ -207,10 +171,6 @@
    created() {
      // 设置用户信息
      this.userMsg = JSON.parse(window.localStorage.getItem("userInfo") || "{}");
-     //console.log(this.userMsg)
-     this.dialogImageUrl=this.userMsg.logo?imgurl()+this.userMsg.logo:null;
      this.getMenuData();
-     this.refresh_title();
-     this.button_right()
    }
  };

@@ -7,10 +7,9 @@
     }
     .bor_p {
         display: flex;
-        margin-bottom: 26px;
+        margin-bottom: 40px;
         width: 800px;
         color:#666;
-
         span {
           height: 28px;
           line-height: 28px;
@@ -23,15 +22,14 @@
         }
     
         .box {
-          min-width: 60px;
-    color: #fff;
-    padding-left: 10px;
-    padding-right: 10px;
+          display: block;
+          width: 60px;
+          color: #fff;
+    
         }
     
         .bor_text {
           width: 100%;
-          min-width: 270px;
           display: flex;
         }
     

@@ -139,8 +139,8 @@ li {
 }
 
 ::-webkit-scrollbar {
-  width: 15px;
-  height: 12px;
+  width: 5px;
+  height: 5px;
 }
 
 ::-webkit-scrollbar-track-piece {
@@ -149,13 +149,13 @@ li {
 }
 
 ::-webkit-scrollbar-thumb:vertical {
-  height: 12px;
+  height: 5px;
   background-color: rgba(125, 125, 125, 0.7);
   -webkit-border-radius: 6px;
 }
 
 ::-webkit-scrollbar-thumb:horizontal {
-  width: 15px;
+  width: 5px;
   background-color: rgba(125, 125, 125, 0.7);
   -webkit-border-radius: 6px;
 }
@@ -257,7 +257,7 @@ body {
 }
 
 .el-main {
-  background-color: #F6F6F6;
+  background-color: #f2f2f2;
   color: #333;
   text-align: center;
   line-height: 160px;
@@ -566,7 +566,7 @@ body > .el-container {
 }
 .myTableForm {
   text-align: left;
-  margin-top: 30px;
+  margin-top: 45px;
 }
 .el-form .el-form-item__content {
   text-align: left;
@@ -622,8 +622,3 @@ body > .el-container {
   width: 100%;
  }*/
  .header_search_input .el-input--prefix .el-input__inner{border: 1px solid red;border-radius:20px; }
-
- /* 实际金额为红色 */
- .tableCellClassName {
-	color: red
-}

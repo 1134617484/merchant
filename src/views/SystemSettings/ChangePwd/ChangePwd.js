@@ -37,17 +37,16 @@ export default {
              password_confirmation:this.ruleForm.newTowPWD,
            }
           _post("/merchant/user/reset-password",params).then(res => {
-            if(res.data){
             this.$message({
               message: "修改密码成功",
               type: "success"
             });
-          }
+
            })
           }
            
         } else {
-          //console.log("error submit!!");
+          console.log("error submit!!");
           return false;
         }
       });

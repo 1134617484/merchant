@@ -31,10 +31,7 @@ export default {
       pageSize: 10,
       page:'',
       // 管理员信息数据
-      tableData: {
-        data:[],
-        total:{}
-      },
+      tableData: [],
     };
   },
   created() {
@@ -65,25 +62,60 @@ export default {
     },
     getTableData(params) {
       _get("merchant/cash-log",params).then(res => {
-        let data={...res.data.data.data};
-        data.data.forEach(element => {
-          
-          isNaN(element.created_at)?element.created_at:element.created_at=switchTime(element.created_at);
-          isNaN(element.verify_time)?element.verify_time:element.verify_time==0?element.verify_time='暂无':element.verify_time==switchTime(element.verify_time);
+        let data=[...res.data.data.data.data];
+        data.forEach(element => {
+          isNaN(element.created_at)?element.created_at=switchTime(element.created_at):element.created_at;
+          isNaN(element.created_at)?element.created_at=switchTime(element.verify_tim):element.verify_tim;
         });
         this.tableData=data;
-        this.tableData.total={...res.data.data.total}
-        this.tableData.total.success_amount= Number(this.tableData.total.success_amount).toFixed(4);
-        this.tableData.total.wait_amount=Number(this.tableData.total.wait_amount).toFixed(4);
-        this.tableData.total.success_count=this.tableData.total.success_count;
-        this.tableData.total.fail_count=this.tableData.total.fail_count;
-        this.tableData.total.wait_count=this.tableData.total.wait_count;
+      //   let paramsData =ephemeral.finance.trade.data.merchants;
+      //   let data = paramsData.data;
 
-        let paramsData =data;
-        this.currentPage = paramsData.current_page;
-        this.last_page_url = paramsData.last_page_url;
-        this.total = paramsData.total.total;
-        this.pageSize = paramsData.per_page;
+      //   this.tableData=[];
+      //   this.tableData=data;
+        
+      //   this.currentPage = paramsData.current_page;
+      //   this.total = paramsData.total;
+      //   this.pageSize = paramsData.per_page;
+      //   let statistics=ephemeral.finance.trade.data.statistics;
+        
+      //   let lastData={id:'统计:',
+      //   username:statistics.member_count+'个商户',
+      //   all_order_count:statistics.all_order_count+'条订单',
+      //   all_order_amount:statistics.all_order_amount+'元',
+      //   paid_order_amount:statistics.paid_order_amount+'元',
+      //   all_order_poundage:statistics.all_order_poundage+'元',
+      //   balance:statistics.balance+'元',
+      //   balance_disabled:statistics.balance_disabled+'元',
+      //   pay_amount_total:statistics.pay_amount_total+'元',
+      // };
+      //   this.tableData.push(lastData);
+        // if (data.length > 0) {
+        //   let tableList = [];
+        //   for (let i = 0; i < data.length; i++) {
+        //     let type=data[i].type;
+        //     let mType;
+        //     if(type=='1'){
+        //        mType="商户登录"
+        //     }else if(type=='2'){
+        //       mType='商户短信验证'
+        //     }else{
+        //       mType='支付密码验证'
+        //     }
+        //     tableList.push({
+        //       id: data[i].id,
+        //       ip:data[i].ip,
+        //       type: mType,
+        //       merchant_id: data[i].merchant_id,
+        //       comment: data[i].comment,
+        //       updated_at: this.switchTime(data[i].created_at),
+        //       merchant:data[i].merchant
+        //     })
+        //   }
+        //   this.tableData = tableList;
+        // }else{
+        //   this.tableData=[];
+        // }
       });
     },
     // 选择页容量

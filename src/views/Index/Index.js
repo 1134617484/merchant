@@ -1,10 +1,10 @@
 import store from "../../store/store.js";
-import { _get, _post, _put, _delete,ephemeral, switchTime } from "../../api/index.js"
+import { _get, _post, _put, _delete,ephemeral } from "../../api/index.js"
 import { log } from "util";
 export default {
   data() {
     return {
-      time:'0',
+      time:'每日',
       url:'',
       options: [{
           value: '0',
@@ -36,9 +36,7 @@ export default {
       month_pending_count: '',
       month_success_count: '',
       month_fail_count: '',
-      InitAll:{
-        fund:{}
-      },//初始化所有数据
+
     };
   },
   name: "index",
@@ -46,30 +44,28 @@ export default {
     getIndexData() {
       let userInfo = JSON.parse(window.localStorage.getItem("userInfo") || "{}");
       this.userName = userInfo.name;
-      _get("/merchant/index").then(res => {
-        let all_order=res.data.data.today_pending_count+res.data.data.today_success_count;
-        this.InitAll={...res.data.data,total_order_count:all_order};
-        isNaN(this.InitAll.last_login_time)?'':this.InitAll.last_login_time=switchTime(this.InitAll.last_login_time);
-        // let data = ephemeral.menu.index.data;
-        // this.total_success_amount = data.total_success_amount;
-        // this.total_pending_amount = data.total_pending_amount;
-        // this.total_success_count = data.total_success_count;
-        // this.total_fail_count = data.total_fail_count;
-        // this.total_pending_count = data.total_pending_count;
-        // this.total_platform_amount = data.total_platform_amount;
-        // this.today_success_amount = data.today_success_amount;
-        // this.today_pending_amount = data.today_pending_amount;
-        // this.today_success_count = data.today_success_count;
-        // this.today_fail_count = data.today_fail_count;
-        // this.today_pending_count = data.today_pending_count;
-        // this.today_platform_amount = data.today_platform_amount;
-        // this.week_pending_count = data.week_pending_count;
-        // this.month_pending_count = data.month_pending_count;
-        // this.week_success_count = data.week_success_count;
-        // this.month_success_count = data.month_success_count;
-        // this.week_fail_count = data.week_fail_count;
-        // this.month_fail_count = data.month_fail_count;
-      })
+      // _get("api/index").then(res => {
+        let data = ephemeral.menu.index.data;
+        this.total_success_amount = data.total_success_amount;
+        this.total_pending_amount = data.total_pending_amount;
+        this.total_success_count = data.total_success_count;
+        this.total_fail_count = data.total_fail_count;
+        this.total_pending_count = data.total_pending_count;
+        this.total_platform_amount = data.total_platform_amount;
+        this.today_success_amount = data.today_success_amount;
+        this.today_pending_amount = data.today_pending_amount;
+        this.today_success_count = data.today_success_count;
+        this.today_fail_count = data.today_fail_count;
+        this.today_pending_count = data.today_pending_count;
+        this.today_platform_amount = data.today_platform_amount;
+        this.week_pending_count = data.week_pending_count;
+        this.month_pending_count = data.month_pending_count;
+        this.week_success_count = data.week_success_count;
+        this.month_success_count = data.month_success_count;
+        this.week_fail_count = data.week_fail_count;
+        this.month_fail_count = data.month_fail_count;
+        // this.getEchart();
+      // })
     },
     handelTime(){
       if(this.time==0){
@@ -82,33 +78,24 @@ export default {
       this.getEchartData(this.url);
     },
     getEchartData(url) {
-      _get("merchant/index/"+url).then(res => {
-        let xdata=[...res.data.data.time];
-        let ydata=[...res.data.data.result];
-         let legendData=[];
-         for(var i=0;i<ydata.length;i++){
-          ydata[i].stack=ydata[i].name+ydata[i].stack;
-            legendData.push(ydata[i].name);
-         }
-         this.showEcharts(xdata,ydata,legendData);
-      })
+      // _get("api/index/"+url).then(res => {
+        let data=ephemeral.menu.day.data;
+        let xdata=data.time;
+        let ydata=data.result;
+        // this.showEcharts(xdata,ydata);
+      // })
     },
-    showEcharts(xdata, ydata,legendData) {
+    showEcharts(xdata, ydata) {
       let myChart3 = this.$echarts.init(document.getElementById('myChart3'));
-      let option = {
-        color:['#FF0000','#019CFF'],
+      let option = option = {
         title: {
-          text: '交易订单概况',
-          subtext: '按天统计',
-          left: '40%',
-          textAlign: 'center',
+          text: ''
         },
         tooltip: {
           trigger: 'axis'
         },
         legend: {
-          right:'60',
-          data:legendData,
+          data: ['待支付订单', '成功订单','异常订单']
         },
         grid: {
           left: '3%',
@@ -176,12 +163,10 @@ export default {
     }
   },
   mounted() {
-    this.handelTime();
+    this.getEchart();
   },
   created() {
     this.getIndexData();
-    document.oncontextmenu = function(){
-      　　return false;
-      }
+    this.getEchartData('day');
   }
 };

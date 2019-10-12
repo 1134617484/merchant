@@ -2,7 +2,6 @@
 import Vue from "vue";
 import Router from "vue-router";
 import Login from "../views/Login/Login.vue";
-import Register from "../views/Register/Register.vue";
 
 Vue.use(Router);
 
@@ -18,11 +17,6 @@ export default new Router({
       path: "/login",
       name: "Login",
       component: Login
-    },
-    {
-      path: "/register",
-      name: "Register",
-      component: Register
     },
     {
       path: "/menuList",
@@ -42,15 +36,27 @@ export default new Router({
             import("../views/Index/Index.vue")
         },
         // 充值链接
-        // {
-        //   path: "/recharge-link",
-        //   name: "recharge-link",
-        //   meta: {
-        //     // isLoginToken: true
-        //   },
-        //   component: () =>
-        //     import("../views/Recharge/Link/Link.vue")
-        // }, 
+        {
+          path: "/recharge-link",
+          name: "recharge-link",
+          meta: {
+            // isLoginToken: true
+          },
+          component: () =>
+            import("../views/Recharge/Link/Link.vue")
+        },
+        //充值二维码
+        {
+          path: "/recharge-qrcode",
+          name: "recharge-qrcode",
+          meta: {
+            // isLoginToken: true
+          },
+          component: () =>
+            import("../views/Recharge/QrCode/QrCode.vue")
+        },
+        
+
         {
           path: "/order",
           name: "order",
@@ -80,6 +86,7 @@ export default new Router({
           component: () =>
             import("../views/FinanceManage/Analysis/Analysis.vue")
             // import("../views/FinanceManage/Details/Details.vue")
+
         },
         {
           // 保证金明细
@@ -146,7 +153,7 @@ export default new Router({
             isLoginToken: true
           },
           component: () =>
-            import("../views/Manage/AC/AC.vue")
+            import("../views/Manage/AccessConfig/AccessConfig.vue")
         },
         
         {
@@ -284,27 +291,6 @@ export default new Router({
           component: () =>
             import("../views/ChargeManage/LinkManage/LinkManage.vue")
         },
-        {
-          //查看通道费率
-          path: "/api/rate",
-          name: "api/rate",
-          meta: {
-            isLoginToken: true
-          },
-          component: () =>
-            import("../views/Api_/rate/rate.vue")
-        },
-        {
-          //API开发文档
-          path: "/api/doc",
-          name: "api/doc",
-          meta: {
-            isLoginToken: true
-          },
-          component: () =>
-          import("../views/Api_/doc_/doc.vue")
-        },
-
       ]
     }
   ]

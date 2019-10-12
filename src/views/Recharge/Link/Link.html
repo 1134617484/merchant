@@ -1,0 +1,33 @@
+<div class="recharge_link">
+  <div class="recharge_left">
+    <h3>收款信息设置</h3>
+    <div class="msg_setting">
+      <p>收款人姓名:</p>
+      <label class="inp">
+        <el-input
+          placeholder="请输入姓名"
+          v-model="out_trade_id"
+          clearable
+        ></el-input>
+      </label>
+      <el-form-item class="myTableForm">
+        <el-button
+          type="primary"
+          class="submitBtn"
+          @click="submitForm('ruleForm')"
+          >立即提交</el-button
+        >
+        <el-button @click="resetForm('ruleForm')">重置</el-button>
+      </el-form-item>
+    </div>
+    <div class="bf_setting">
+        <input type="file" name="" id="">
+        <el-button @click="">上传图片</el-button>
+        <p>二维码</p>
+    </div>
+  </div>
+  <div class="recharge_right">
+
+  </div>
+  我是充值链接
+</div>

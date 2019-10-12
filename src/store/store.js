@@ -15,14 +15,7 @@ export default new Vuex.Store({
     url:"",
     title:"",
     // 用户登录信息
-  user_data:'',
-  // 几个下拉选项
-    //获取类型下拉列表
-    account_typeSelect:[],
-    // 获取商户银行下拉列表
-    bankSelect:[],
-    // 获取通道下拉列表
-    channelSelect:[]
+  user_data:''
   },
   mutations: mutations,
   getters: getters,

@@ -24,21 +24,20 @@ export default {
   },
   methods: {
     submitForm(formName) {
+      // console.log(this.Form.domain)
       this.$refs[formName].validate(valid => {
         if (valid) {
            let params = {
             realname: this.Form.realname,
             }
           _post("merchant/user/profile-submit", params).then(res => {
-            if(res.data){
-              this.$message({
-                message: "提交成功",
-                type: "success"
-              });
-            }
+            this.$message({
+              message: "提交成功",
+              type: "success"
+            });
           })
         }else {
-          //console.log("error submit!!");
+          console.log("error submit!!");
           return false;
         }
       });
@@ -48,10 +47,10 @@ export default {
     },
     onSubmit(){},   
     handleRemove(file, fileList) {
-        //console.log(file, fileList);
+        console.log(file, fileList);
       },
       handlePreview(file) {
-        //console.log(file);
+        console.log(file);
       },
       handleExceed(files, fileList) {
         this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
@@ -65,12 +64,10 @@ export default {
       fd.append("pay_type_id", 11); //随文件上传的其他参数
       fd.append("file", file);
       _post("api/sysqrcode", fd).then(res => {
-        if(res.data){
-          this.$message({
-            message: "上传成功",
-            type: "success"
-          });
-        }
+        this.$message({
+          message: "上传成功",
+          type: "success"
+        });
         this.getTableData("");
       });
     },
@@ -79,17 +76,15 @@ export default {
       fd.append("pay_type_id", 12); //随文件上传的其他参数
       fd.append("file", file);
       _post("api/sysqrcode", fd).then(res => {
-        if(res.data){
-          this.$message({
-            message: "上传成功",
-            type: "success"
-          });
-        }
+        this.$message({
+          message: "上传成功",
+          type: "success"
+        });
         this.getTableData("");
       });
     },
     handleSuccess(response, file, fileList) {
-      // //console.log(file);
+      // console.log(file);
       this.$refs.upload.clearFiles();
     },
  

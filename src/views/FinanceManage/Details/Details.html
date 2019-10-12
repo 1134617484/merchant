@@ -1,67 +1,101 @@
 <div>
-  <div class="bor">
-    <div class="grid-content bg-purple el_main fl clearfix account-head">
-      <label class="inp">
-        <div class="block">
-          <el-date-picker v-model="timeValue" type="daterange" start-placeholder="申请开始日期" end-placeholder="申请结束日期"
-            value-format="yyyy-MM-dd"></el-date-picker>
+    <div class="bor">
+        <div class="grid-content bg-purple el_main fl clearfix account-head">
+            <!-- <label class="inp">
+                <label>
+               <el-select v-model="merchant_id" placeholder="请选择商户名称" filterable>
+                    <el-option v-for="(item,index) in typeOptions" :key="index" :label="item.name" :value="item.id">
+                    </el-option>
+                </el-select>
+            </label> -->
+            <label class="inp">
+                <el-input
+                  placeholder="请输入订单号"
+                  v-model="out_trade_id"
+                  clearable
+                ></el-input>
+              </label>
+            <label class="inp">
+                <div class="block">
+                    <el-date-picker v-model="timeValue" type="daterange" start-placeholder="申请开始日期" end-placeholder="申请结束日期" value-format="yyyy-MM-dd"  ></el-date-picker>
+                  </div>
+            </label>
+            <label class="inp">
+                <el-select placeholder="全部通道" v-model="chanelOptions_id">
+                  <el-option
+                    v-for="(item,index) in chanelOptions"
+                    :key="index"
+                    :label="item.name"
+                    :value="item.id"
+                  ></el-option>
+                </el-select>
+              </label>
+                <label class="inp">
+                    <el-select placeholder="全部类型" v-model="pay_type_id" filterable>
+                      <el-option
+                        v-for="(item,index) in classifyOptions"
+                        :key="index"
+                        :label="item.name"
+                        :value="item.id"
+                      ></el-option>
+                    </el-select>
+                    </label>
+            <!-- 按钮 -->
+            <label class="btn">
+                <!-- <el-button type="primary" class="myExport_btn" @click="handleExport">导出数据</el-button> -->
+                <el-button type="primary" class="mySearch_btn" @click="handleSearch">查询</el-button>
+            </label>
+
         </div>
-      </label>
-      </label>
-      <!-- 按钮 -->
-      <label class="btn">
-        <!-- <el-button type="primary" class="myExport_btn" @click="handleExport">导出数据</el-button> -->
-        <el-button type="primary" class="mySearch_btn" @click="handleSearch">查询</el-button>
-      </label>
-
+        <!-- 资金变动列表 -->
+        <el-table :data="tableData" border style="width: 100%;text-align: center">
+                <el-table-column prop="id" label="ID"></el-table-column>
+                <el-table-column prop="order_id" label="订单号"></el-table-column>
+                <el-table-column prop="frozen_money" label="金额" ></el-table-column>
+                <el-table-column prop="status" label=" 状态"></el-table-column>
+                <el-table-column prop="frozen_end_time" label="计划解冻时间"></el-table-column>
+                <el-table-column prop="frozen_run_time" label="实际解冻时间"></el-table-column>
+                <el-table-column prop="frozen_start_time" label="冻结时间"></el-table-column>
+            </el-table>
+        <!-- 分页 -->
+        <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="+currentPage"
+        background
+        :page-sizes="[20, 50, 100, 200]"
+        :page-size="+pageSize"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="+total">
+      </el-pagination>
+      <!-- 审核-->
+        <el-dialog title="审核" class="text-left addClass" width="30%" :visible.sync="dialogFormVerify">
+            <el-form ref="VerifyForm" :model="VerifyForm" :rules="Rules">
+                <el-form-item class="my_form_inp" label="提现: " :label-width="formLabelWidth" prop="verify_status">
+                     <el-radio v-model="VerifyForm.verify_status" label="1">审核通过</el-radio>
+                     <el-radio v-model="VerifyForm.verify_status" label="0">审核不通过</el-radio>
+                </el-form-item>
+                <el-form-item class="my_form_inp" label="审核备注: " :label-width="formLabelWidth" prop=" verify_remark">
+                    <el-input  type="textarea"  v-model.trim="VerifyForm.verify_remark" autocomplete="off" ></el-input>
+                </el-form-item>
+                
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button class="mybtAdd" @click="dialogFormVerify = false">取 消</el-button>
+                <el-button class="mybtAdd" type="primary" @click="submitVerifyForm('VerifyForm')">保 存</el-button>
+            </div>
+        </el-dialog>
+        <!-- 汇款确认-->
+        <el-dialog title="汇款确认" class="text-left addClass" width="30%" :visible.sync="dialogFormTransfer">
+            <el-form ref="TransferForm" :model="TransferForm" :rules="Rules">
+                <el-form-item class="my_form_inp" label="转账备注: " :label-width="formLabelWidth" prop=" transfer_remark">
+                    <el-input  type="textarea"  v-model.trim="TransferForm.transfer_remark" autocomplete="off" ></el-input>
+                </el-form-item>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button class="mybtAdd" @click="dialogFormTransfer = false">取 消</el-button>
+                <el-button class="mybtAdd" type="primary" @click="submitTransferForm('TransferForm')">保 存</el-button>
+            </div>
+        </el-dialog>
     </div>
-    <!-- 资金变动列表 -->
-    <el-table :data="tableData" border style="width: 100%;text-align: center">
-      <el-table-column :show-overflow-tooltip="true" prop="id" label="ID"></el-table-column>
-      <el-table-column :show-overflow-tooltip="true" prop="merchant_id" label="商户号"></el-table-column>
-      <el-table-column :show-overflow-tooltip="true" prop="channel.title" label="渠道名称"></el-table-column>
-      <el-table-column :show-overflow-tooltip="true" prop="types.name" label="资金变动类型"></el-table-column>
-      <el-table-column :show-overflow-tooltip="true" prop="transaction_id" label="交易流水号"></el-table-column>
-      <el-table-column :show-overflow-tooltip="true" prop="original_margin" label="变动前金额"></el-table-column>
-      <el-table-column :show-overflow-tooltip="true" prop="change_margin" label="变动金额"></el-table-column>
-      <el-table-column :show-overflow-tooltip="true" prop="changed_margin" label="变动后金额"></el-table-column>
-      <el-table-column :show-overflow-tooltip="true" prop="content" label="备注"></el-table-column>
-      <el-table-column :show-overflow-tooltip="true" prop="created_at" label="创建时间"></el-table-column>
-
-    </el-table>
-    <!-- 分页 -->
-    <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="+currentPage"
-      background :page-sizes="[20, 50, 100, 200]" :page-size="+pageSize"
-      layout="total, sizes, prev, pager, next, jumper" :total="+total">
-    </el-pagination>
-    <!-- 审核-->
-    <el-dialog title="审核" class="text-left addClass" width="30%" :visible.sync="dialogFormVerify">
-      <el-form ref="VerifyForm" :model="VerifyForm" :rules="Rules">
-        <el-form-item class="my_form_inp" label="提现: " :label-width="formLabelWidth" prop="verify_status">
-          <el-radio v-model="VerifyForm.verify_status" label="1">审核通过</el-radio>
-          <el-radio v-model="VerifyForm.verify_status" label="0">审核不通过</el-radio>
-        </el-form-item>
-        <el-form-item class="my_form_inp" label="审核备注: " :label-width="formLabelWidth" prop=" verify_remark">
-          <el-input type="textarea" v-model.trim="VerifyForm.verify_remark" autocomplete="off"></el-input>
-        </el-form-item>
-
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button class="mybtAdd" @click="dialogFormVerify = false">取 消</el-button>
-        <el-button class="mybtAdd" type="primary" @click="submitVerifyForm('VerifyForm')">保 存</el-button>
-      </div>
-    </el-dialog>
-    <!-- 汇款确认-->
-    <el-dialog title="汇款确认" class="text-left addClass" width="30%" :visible.sync="dialogFormTransfer">
-      <el-form ref="TransferForm" :model="TransferForm" :rules="Rules">
-        <el-form-item class="my_form_inp" label="转账备注: " :label-width="formLabelWidth" prop=" transfer_remark">
-          <el-input type="textarea" v-model.trim="TransferForm.transfer_remark" autocomplete="off"></el-input>
-        </el-form-item>
-      </el-form> 
-      <div slot="footer" class="dialog-footer">
-        <el-button class="mybtAdd" @click="dialogFormTransfer = false">取 消</el-button>
-        <el-button class="mybtAdd" type="primary" @click="submitTransferForm('TransferForm')">保 存</el-button>
-      </div>
-    </el-dialog>
-  </div>
 </div>

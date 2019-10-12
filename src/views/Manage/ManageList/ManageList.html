@@ -12,28 +12,26 @@
       :default-sort="{prop: 'date', order: 'descending'}"
       border
     >
-      <el-table-column prop="id" label="ID"></el-table-column>
-      <el-table-column :show-overflow-tooltip="true" prop="bank.bank_name" label="银行名称"></el-table-column>
-      <el-table-column :show-overflow-tooltip="true" prop="sub_branch" label="支行名称"></el-table-column>
-      <el-table-column :show-overflow-tooltip="true" prop="account_name" label="开户名"></el-table-column>
-      <el-table-column :show-overflow-tooltip="true" prop="card_number" label="银行卡号"></el-table-column>
-      <el-table-column :show-overflow-tooltip="true" prop="province" label="所在省"></el-table-column>
-      <el-table-column :show-overflow-tooltip="true" prop="city" label="所在城市"></el-table-column>
-      <el-table-column :show-overflow-tooltip="true" prop="alias" label="别名"></el-table-column>
+      <el-table-column prop="bank_id" label="ID"></el-table-column>
+      <el-table-column prop="bank.bank_name" label="银行名称"></el-table-column>
+      <el-table-column prop="sub_branch" label="支行名称"></el-table-column>
+      <el-table-column prop="account_name" label="开户名"></el-table-column>
+      <el-table-column prop="card_number" label="银行卡号"></el-table-column>
+      <el-table-column prop="province" label="所在省"></el-table-column>
+      <el-table-column prop="city" label="所在城市"></el-table-column>
+      <el-table-column prop="alias" label="别名"></el-table-column>
 
       <el-table-column label="默认结算">
         <template slot-scope="scope">
           <el-switch
-            v-model="scope.row.default"
+            v-model="scope.row.status"
             active-color="#67c23a"
             inactive-color="#dcdfe6"
-            active-value="true"
-            inactive-value="false"
             @change="handleStatus(scope.$index, scope.row)"
           ></el-switch>
         </template>
       </el-table-column>
-      <el-table-column :show-overflow-tooltip="true" prop="remark" label="备注"></el-table-column>
+      <el-table-column prop="last_login_ip" label="备注"></el-table-column>
       <el-table-column label="操作" width="160px">
         <template slot-scope="scope">
           <!-- <el-button size="mini" class="" @click="editorPassword({type:'open',index:scope.$index,row:scope.row})"
@@ -41,13 +39,13 @@
           <el-button size="mini" @click="handleEdit(scope.$index, scope.row)"
             >修改</el-button
           >
-          <!-- <el-button disabled
+          <el-button
             size="mini"
             type="danger"
             class="myDeleteColor"
             @click="handleDelete(scope.$index, scope.row)"
             >删除</el-button
-          > -->
+          >
         </template>
       </el-table-column>
     </el-table>
@@ -65,89 +63,85 @@
           class="my_form_inp"
           label="银行名称: "
           :label-width="formLabelWidth"
-          prop="bank.bank_name"
+          prop="name"
         >
           <el-input
             placeholder="银行名称:"
-            v-model="editForm.bank.bank_name"
+            v-model="editForm.name"
             autocomplete="off"
-            disabled
           ></el-input>
         </el-form-item>
         <el-form-item
           class="my_form_inp"
           label="支行名称: "
           :label-width="formLabelWidth"
-          prop="sub_branch"
+          prop="name"
         >
           <el-input
             placeholder="支行名称:"
-            v-model="editForm.sub_branch"
+            v-model="editForm.name"
             autocomplete="off"
-            disabled
           ></el-input>
         </el-form-item>
         <el-form-item
           class="my_form_inp"
           label="开户行: "
           :label-width="formLabelWidth"
-          prop="account_name"
+          prop="editPassword"
         >
           <el-input
             placeholder="开户行:"
-            v-model="editForm.account_name"
+            v-model="editForm.editPassword"
             autocomplete="off"
-            disabled
+            show-password
           ></el-input>
         </el-form-item>
         <el-form-item
           class="my_form_inp"
           label="银行卡号: "
           :label-width="formLabelWidth"
-          prop="card_number"
+          prop="editPassword"
         >
           <el-input
             placeholder="银行卡号"
-            v-model="editForm.card_number"
+            v-model="editForm.editPassword"
             autocomplete="off"
-            disabled
+            show-password
           ></el-input>
         </el-form-item>
         <el-form-item
           class="my_form_inp"
           label="所在省: "
           :label-width="formLabelWidth"
-          prop="province"
+          prop="mobile"
         >
           <el-input
             placeholder="所在省:"
-            v-model="editForm.province"
+            v-model="editForm.mobile"
             autocomplete="off"
-            disabled
           ></el-input>
         </el-form-item>
         <el-form-item
           class="my_form_inp"
           label="所在城市:"
           :label-width="formLabelWidth"
-          prop="city"
+          prop="mobile"
         >
           <el-input
             placeholder="所在城市:"
-            v-model="editForm.city"
+            v-model="editForm.mobile"
             autocomplete="off"
-            disabled
           ></el-input>
         </el-form-item>
         <el-form-item
           class="my_form_inp"
           label="别名: "
           :label-width="formLabelWidth"
-          prop="alias"
+          prop="email"
         >
           <el-input
             placeholder="别名"
-            v-model="editForm.alias"
+            v-model="editForm.email"
             autocomplete="off"
           ></el-input>
         </el-form-item>
@@ -155,11 +149,11 @@
           class="my_form_inp"
           label="备注: "
           :label-width="formLabelWidth"
-          prop="remark"
+          prop="introduction"
         >
           <el-input
             placeholder="备注:"
-            v-model="editForm.remark"
+            v-model="editForm.introduction"
             autocomplete="off"
           ></el-input>
         </el-form-item>
@@ -178,13 +172,13 @@
     <el-dialog
       title="添加信息"
       class="text-left addClass"
-      width="816px"
+      width="490px"
       :visible.sync="dialogFormVisible"
     >
       
-      <el-form ref="addForm" :model="editor_tableData" :rules="rules.editor_tableData">
+      <el-form ref="addForm" :model="addForm" :rules="rules">
           <el-form-item
-          class="my_form_inp deposit_bank"
+          class="my_form_inp"
           label="银行名称: "
           :label-width="formLabelWidth"
           prop="bank_name"
@@ -213,27 +207,17 @@
           ></el-input>
         </el-form-item>
         <el-form-item
-          class="my_form_inp region_class"
-          label="地址: "
-          :label-width="formLabelWidth"
-          prop="region"
-        >
-        <area-cascader placeholder="请选择开卡地址" v-model="editor_tableData.region" type="text" :data="pcaa"></area-cascader>
-      </el-form-item>
-        <el-form-item
           class="my_form_inp"
           label="开户名: "
           :label-width="formLabelWidth"
           prop="account_name"
         >
-        
           <el-input
             placeholder="开户名:"
             v-model="editor_tableData.account_name"
             autocomplete="off"
           ></el-input>
         </el-form-item>
-        
         <el-form-item
           class="my_form_inp"
           label="银行卡号: "
@@ -246,18 +230,6 @@
             autocomplete="off"
           ></el-input>
         </el-form-item>
-        <el-form-item class="my_form_inp" :label-width="formLabelWidth" label="别名：" prop="alias" :rules="rules.alias">
-            <el-input
-              v-model="editor_tableData.alias"
-              class="email_input"
-            ></el-input>
-          </el-form-item>
-          <el-form-item class="my_form_inp" :label-width="formLabelWidth" label="备注：" prop="remark" :rules="rules.remark">
-            <el-input
-              v-model="editor_tableData.remark"
-              class="email_input"
-            ></el-input>
-          </el-form-item>
         <!-- <el-form-item
           class="my_form_inp"
           label="所在省: "

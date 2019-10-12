@@ -12,16 +12,12 @@
                         <el-input v-model="Form.realname"></el-input>
                     </el-form-item>
                 </el-col>
-                
-            </el-row>
-            <el-row :gutter="20">
                 <el-col :span="6">
                     <el-form-item label="手机号：" prop="mobile">
                         <el-input v-model="Form.mobile"></el-input>
                     </el-form-item>
                 </el-col>
             </el-row>
-
             <el-row :gutter="20">
                 <el-col :span="6">
                     <el-form-item label="生日：" prop="birthday">
@@ -34,9 +30,6 @@
                         </el-date-picker>
                     </el-form-item>
                 </el-col>
-                
-            </el-row>
-            <el-row :gutter="20">
                 <el-col :span="6">
                     <el-form-item label="QQ：" prop="qq">
                         <el-input v-model="Form.qq"></el-input>
@@ -65,13 +58,14 @@
                     </el-form-item>
                 </el-col>
             </el-row>
-            <!-- <el-row :gutter="20">
+            <el-row :gutter="20">
                 <el-col :span="6">
                     <el-form-item label="登录IP：" prop="permit_login_ip">
                         <el-input class="elInput" v-model="Form.permit_login_ip"></el-input>
+                        <!-- <textarea class="DNS_textarea" v-model.trim="ruleForm.domain" name="" id="" cols="30" rows="4" placeholder="请输入防封域名,多个域名请使用换行分割"></textarea> -->
                     </el-form-item>
                 </el-col>
-            </el-row> -->
+            </el-row>
             <el-form-item class="myTableForm">
                 <el-button type="primary" class="submitBtn" @click="submitForm('Form')">立即提交</el-button>
                 <el-button @click="resetForm('Form')">重置</el-button>
