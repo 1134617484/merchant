@@ -495,6 +495,12 @@ export default {
               if (column.label == "操作") return false;
               //console.log([row, column, event]);
               this.scrollLeft = !this.scrollLeft;
+            },
+            tableCellClassName({row, column, rowIndex, columnIndex}) {
+              if(column.label=='实际交易金额'){
+                return 'tableCellClassName';
+              }
+              return ''
             }
   }
 };

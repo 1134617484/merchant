@@ -622,3 +622,8 @@ body > .el-container {
   width: 100%;
  }*/
  .header_search_input .el-input--prefix .el-input__inner{border: 1px solid red;border-radius:20px; }
+
+ /* 实际金额为红色 */
+ .tableCellClassName {
+	color: red
+}

@@ -13,8 +13,8 @@ export default {
   name: "AccessConfig",
   data() {
     return {
-            // 滚动显示隐藏
-            scrollLeft:true,
+      // 滚动显示隐藏
+      scrollLeft: true,
       value3: [new Date(2000, 10, 10, 10, 10), new Date(2000, 10, 11, 10, 10)],
       //查询参数
       pay_order_id: "",
@@ -292,7 +292,7 @@ export default {
       return updated_at;
     },
     getSelectData() {
-       paytypeSelect().then(res => {
+      paytypeSelect().then(res => {
         this.typeOptions = [...res.data.data];
         this.typeOptions.unshift({ id: "a", name: "全部通道" });
       });
@@ -529,11 +529,17 @@ export default {
         }
       });
     },
-            // 切换订单
-            scrollLeftType(row, column, event) {
-              if (column.label == "操作") return false;
-              //console.log([row, column, event]);
-              this.scrollLeft = !this.scrollLeft;
-            }
+    // 切换订单
+    scrollLeftType(row, column, event) {
+      if (column.label == "操作") return false;
+      //console.log([row, column, event]);
+      this.scrollLeft = !this.scrollLeft;
+    },
+    tableCellClassName({ row, column, rowIndex, columnIndex }) {
+      if (column.label == "实际交易金额") {
+        return "tableCellClassName";
+      }
+      return "";
+    }
   }
 };
