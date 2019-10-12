@@ -23,7 +23,7 @@ export default {
         //地址
         address: "",
         //ip
-        permit_login_ip: '',
+        // permit_login_ip: '',
       },
       rules: {
         mobile: [
@@ -38,9 +38,9 @@ export default {
         realname: [
           { required: true, message:'请输入姓名', trigger: 'change' }
         ],
-        permit_login_ip: [
-          { required: true, validator: this.$rules.FormValidate.Form().validateIp, trigger: 'change' }
-        ],
+        // permit_login_ip: [
+        //   { required: true, validator: this.$rules.FormValidate.Form().validateIp, trigger: 'change' }
+        // ],
         birthday: [
           { required: true, message:'请选择生日', trigger: 'change' }
         ],
@@ -78,7 +78,7 @@ export default {
         this.Form.mobile = data.mobile;
         this.Form.qq = data.qq;
         this.Form.address = data.address;
-        this.Form.permit_login_ip = data.permit_login_ip;
+        // this.Form.permit_login_ip = data.permit_login_ip;
       })
     },
     submitForm(formName) {
@@ -98,7 +98,7 @@ export default {
             mobile: this.Form.mobile,
             qq: this.Form.qq,
             address: this.Form.address,
-            permit_login_ip: this.Form.permit_login_ip,
+            // permit_login_ip: this.Form.permit_login_ip,
             }
           _post("merchant/user/profile-submit", params).then(res => {
             if(res.data){

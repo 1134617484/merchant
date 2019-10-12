@@ -52,6 +52,9 @@
   font-size: 18px;
   cursor: pointer;
 }
+.el-aside {
+  overflow: visible;
+}
 .el-aside .user_title {
   height: 180px;
 }
