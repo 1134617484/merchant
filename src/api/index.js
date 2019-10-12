@@ -6,7 +6,6 @@ import store from "../store/store.js";
 
 // const ephemeral= require('./ephemeral.js')
 import {ephemeral_data} from './ephemeral'
-console.log(ephemeral_data)
 export const ephemeral=ephemeral_data;
 
 
@@ -27,11 +26,12 @@ if (process.env.NODE_ENV === "production") {
     axios.defaults.baseURL = "http://api.xinggeyun.com";
   } else {
     //test 测试环境
-    axios.defaults.baseURL = "http://www.xsyvisa.com";
+    axios.defaults.baseURL = "http://api.emide.cn";
   }
 } else {
   //dev 开发环境
-  axios.defaults.baseURL = "http://192.168.2.200";
+  axios.defaults.baseURL = "http://192.168.2.13";
+  // axios.defaults.baseURL = "http://test.laravel.com";
 }
 
 //拦截器
@@ -50,7 +50,7 @@ axios.interceptors.request.use(
     }
     // 携带token
     // 登录请求不携带 /api/token/login
-    if (config.url != "/api/token/login") {
+    if (config.url != "/api/token/login"||config.url != "merchant/user"||config.url!="merchant/token/login") {
       config.headers.Authorization = `Bearer ${window.localStorage.getItem(
         "token"
       )}`;
@@ -84,14 +84,18 @@ axios.interceptors.response.use(
     // 异常处理
     if (err && err.response) {
       let response = err.response.data;
-      console.log("统一错误处理: ", response);
+      //console.log("统一错误处理: ", response);
       response.code == 402 ? tokenHeader({ response, code: "402" }) : "";
-      new Vue().$message({
-        showClose: true,
-        duration: 1000,
-        message: response.message,
-        type: "warning"
-      });
+      store.state.isLodingLogin = false;
+      console.clear();
+      if(response.code !== "402"){
+        return new Vue().$message({
+          showClose: true,
+          duration: 1000,
+          message: response.message,
+          type: "warning"
+        });
+      }
     }
 
     return Promise.reject(err);
@@ -223,6 +227,25 @@ export const editRoleMsg = params => {
 export const switchRoleMsg = params => {
   return axios.get("api/role/select", params);
 };
+// 获取类型下拉列表
+export const account_typeSelect=()=>{
+  return axios.get("merchant/account-type/select");
+}
+// 获取商户银行下拉列表
+export const bankSelect=()=>{
+  return axios.get("merchant/bank/select");
+}
+// 获取通道下拉列表
+export const channelSelect=()=>{
+  return axios.get("merchant/channel/select");
+}
+//获取通道分类
+export const paytypeSelect=()=>{
+  return axios.get("api/paytype/select");
+}
+
+  
+
 
 // 时间处理
 export const switchTime=time=> {
@@ -243,3 +266,56 @@ export const switchTime=time=> {
   let updated_at = y + m + d + h + ":" + mm + ":" + s;
   return updated_at;
 }
+
+
+//递归实现
+//@leafId  查找的属性值 {'name':'','value':value}，
+//@nodes   原始Json数据
+//@path    供递归使用
+
+export function findPathByLeafId(leafId, nodes, path) {
+  //console.log(leafId)
+  //console.log(nodes)
+  nodes=nodes.data;
+  debugger;
+  let name=leafId.name;
+  let value=leafId.value;
+  if(path === undefined) {
+    path = [];
+  }
+  for(var i = 0; i < nodes.length; i++) {
+      // var tmpPath = path.concat();
+      var tmpPath = [];
+      // tmpPath.push(nodes[i][name]);
+      //console.log(nodes[i][name])
+      //console.log(nodes[i])
+      if(value == nodes[i][name]) {
+        //console.log(nodes[i])
+         return nodes[i];
+      }
+      if(nodes[i].children.length>0) {
+       
+        for (let b = 0; b < nodes[i].children.length; b++) {
+          let element;
+          if(nodes[i].children[b].children.length>0){
+            element= nodes[i].children[b].children;
+          }else{
+            element= nodes[i].children;
+          }
+          //console.log(element)
+          var findResult = findPathByLeafId(leafId, element, path);
+        if(findResult) {
+          return findResult;
+        }
+        }
+        
+      }
+  }
+}
+/**
+ * 返回axios请求的域名或ip用于图片路径
+ */
+export const imgurl=()=>{
+  return axios.defaults.baseURL;
+}
+

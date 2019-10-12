@@ -1,43 +1,39 @@
 <div>
     <div class="bor">
         <div class="grid-content bg-purple el_main fl clearfix account-head">
-            <!-- <label class="inp">
-                <label>
-               <el-select v-model="merchant_id" placeholder="请选择商户名称" filterable>
-                    <el-option v-for="(item,index) in typeOptions" :key="index" :label="item.name" :value="item.id">
-                    </el-option>
-                </el-select>
-            </label> -->
             <label class="inp">
                 <div class="block">
-                    <el-date-picker v-model="timeValue" type="daterange" start-placeholder="申请开始日期" end-placeholder="申请结束日期" value-format="yyyy-MM-dd"  ></el-date-picker>
+
+                    <el-date-picker v-model="timeValue" type="daterange" start-placeholder="冻结开始日期" end-placeholder="冻结结束日期" value-format="yyyy-MM-dd"  ></el-date-picker>
                   </div>
             </label>
             <label class="inp">
-                <el-select placeholder="全部通道" v-model="chanelOptions_id">
+                <el-select placeholder="支付通道" v-model="channelOptions_id">
                   <el-option
-                    v-for="(item,index) in chanelOptions"
+                    v-for="(item,index) in channelOptions"
                     :key="index"
-                    :label="item.name"
+                    :label="item.title"
                     :value="item.id"
                   ></el-option>
                 </el-select>
               </label>
             <!-- 按钮 -->
             <label class="btn">
-                <!-- <el-button type="primary" class="myExport_btn" @click="handleExport">导出数据</el-button> -->
                 <el-button type="primary" class="mySearch_btn" @click="handleSearch">查询</el-button>
             </label>
         </div>
         <!-- 资金变动列表 -->
         <el-table :data="tableData" border style="width: 100%;text-align: center">
-            <el-table-column prop="id" label="ID"></el-table-column>
-            <el-table-column prop="order_id" label="订单号"></el-table-column>
-            <el-table-column prop="frozen_money" label="金额" ></el-table-column>
-            <el-table-column prop="status" label=" 状态"></el-table-column>
-            <el-table-column prop="frozen_end_time" label="计划解冻时间"></el-table-column>
-            <el-table-column prop="frozen_run_time" label="实际解冻时间"></el-table-column>
-            <el-table-column prop="frozen_start_time" label="冻结时间"></el-table-column>
+            <el-table-column :show-overflow-tooltip="true" prop="id" label="ID"></el-table-column>
+            <el-table-column :show-overflow-tooltip="true" prop="order.pay_order_id" label="订单号"></el-table-column>
+            <!-- <el-table-column :show-overflow-tooltip="true" prop="frozen_money" label="金额" ></el-table-column> -->
+            <el-table-column prop="original_money" label="原金额" min-width="100px" :show-overflow-tooltip="true"></el-table-column>
+            <el-table-column prop="frozen_money" label="变动金额" min-width="100px" :show-overflow-tooltip="true"></el-table-column>
+            <el-table-column prop="frozened_money" label="变动后金额" min-width="100px" :show-overflow-tooltip="true"></el-table-column>
+            <el-table-column prop="created_at" label="变动时间" min-width="160px" :show-overflow-tooltip="true"></el-table-column>
+            <el-table-column :show-overflow-tooltip="true" prop="status" label=" 状态"></el-table-column>
+            <el-table-column :show-overflow-tooltip="true" prop="channel.title" label=" 支付通道"></el-table-column>
+            <!-- <el-table-column :show-overflow-tooltip="true" prop="frozen_start_time" label="冻结时间"></el-table-column> -->
         </el-table>
         <!-- 分页 -->
         <el-pagination

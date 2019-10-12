@@ -33,10 +33,6 @@ export default {
       dialogFormAppeal:false,
       appealOptions:[
           {
-          value: 'a',
-          label: '全部'
-         },
-          {
           value: '1',
           label: '申诉商户'
          },
@@ -102,7 +98,7 @@ export default {
             tableList.push({
               id:data[i].id,
               appeal_type:data[i].appeal_type==1?'申诉商户':'申诉订单',
-              appeal_merchant:data[i].appeal_merchant,
+              appeal_merchant:data[i].appeal_type==1?data[i].appeal_merchant.username:data[i].appeal_order_id.pay_order_id?data[i].appeal_order_id.pay_order_id:data[i].appeal_order_id,
               appeal_order:data[i].appeal_order,
               appeal_remark: data[i].appeal_remark,
               status: data[i].status==0?'待审核':'审核通过',
@@ -137,10 +133,12 @@ export default {
             appeal_remark: this.Form.appeal_remark,
             }
           _post("merchant/appeal", params).then(res => {
-            this.$message({
-              message: "申诉成功",
-              type: "success"
-            });
+            if(res.data){
+              this.$message({
+                message: "申诉成功",
+                type: "success"
+              });
+            }
             this.dialogFormAppeal=false;
             this.handleSearch();
           }).catch(error => {
@@ -150,7 +148,7 @@ export default {
               });
               })
         }else {
-          console.log("error submit!!");
+          //console.log("error submit!!");
           return false;
         }
       });
@@ -169,6 +167,10 @@ export default {
       };
      this.getTableData(params);
     },
+    el_select(){
+      // //console.log(this.Form.complain_type)
+      this.Form.complain='';
+    }
  
   }
 

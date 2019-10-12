@@ -12,7 +12,7 @@
                         <el-input v-model="Form.realname"></el-input>
                     </el-form-item>
                 </el-col>
-                <el-col :span="12">
+                <el-col :span="12" style="position: relative;left:12%;">
                     <el-button type="primary" class="submitBtn" @click="submitForm('Form')">立即提交</el-button>
                    <el-button @click="resetForm('Form')">重置</el-button>
                 </el-col>
@@ -33,7 +33,7 @@
             :limit="3"
             :on-exceed="handleExceed"
             >
-            <el-button size="small" type="primary">点击上传</el-button>
+            <el-button size="" type="primary">点击上传</el-button>
             <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
           </el-upload>
           </div>
@@ -41,7 +41,7 @@
     </el-col>
       <el-col :span="10">
         <div class="grid-content qrcode_box left-border">
-          <div class="row_head">商户收款二维码</div>
+          <div class="row_head qrcode_title">商户收款二维码</div>
           <div class="qrcodeCont" style="width:61%;">
             <div class="qrcode_head">扫一扫付款</div>
             <div class="pay_box">
@@ -51,10 +51,10 @@
              
           </div>
           <div class="footer">
-              <img src="../../../assets/images/payImg/weixin.png">
-              <img src="../../../assets/images/payImg/zfb.png">
-              <img src="../../../assets/images/payImg/ylian.png">
-              <img src="../../../assets/images/payImg/QQ.png">
+              <img class="weixin" src="../../../assets/images/payImg/weixin.png">
+              <img class="zfb" src="../../../assets/images/payImg/zfb.png">
+              <img class='ylian' src="../../../assets/images/payImg/ylian.png">
+              <img class="qq" src="../../../assets/images/payImg/QQ.png">
           </div>
           <div>
             <el-button type="primary" @click="onSubmit">保存二维码</el-button>

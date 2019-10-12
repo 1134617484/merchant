@@ -87,7 +87,7 @@ export default {
     getTableData(params) {
       
       _get("merchant/user/authorize", params).then(res => {
-        console.log(res)
+        //console.log(res)
         // let paramsData = ephemeral.menu.permission.data;
         // let data = paramsData.data;
         // this.currentPage = paramsData.current_page;
@@ -122,9 +122,10 @@ export default {
     },
     //修改主菜单状态
     handleIsMenu(index, row) {
-      //console.log(index,row);
+      ////console.log(index,row);
       _get("api/permission/switch/" + row.id).then(res => {
         this.handleSearch();
+        if(res.data)return
         this.$message({
           message: "状态修改成功",
           type: "success"
@@ -133,9 +134,10 @@ export default {
     },
     //修改角色列表状态
     handleStatus(index, row) {
-      //console.log(index,row);
+      ////console.log(index,row);
       _get("api/permission/toggle/" + row.id).then(res => {
         this.handleSearch();
+        if(res.data)return
         this.$message({
           message: "状态修改成功",
           type: "success"
@@ -166,6 +168,7 @@ export default {
         .then(() => {
           _delete("api/permission/" + row.id).then(res => {
             this.handleSearch();
+            if(res.data)return
             this.$message({
               message: "删除成功",
               type: "success"
@@ -202,6 +205,7 @@ export default {
             .then(() => {
               _put("api/permission/" + this.editForm.id, params).then(res => {
                 this.handleSearch();
+                if(res.data)return
                 this.$message({
                   message: "编辑成功",
                   type: "success"
@@ -222,20 +226,20 @@ export default {
               this.outerVisible = false;
             });
         } else {
-          console.log('error submit!!');
+          //console.log('error submit!!');
           return false;
         }
       })
     },
     // 选择页容量
     handleSizeChange(val) {
-      // console.log(`每页 ${val} 条`);
+      // //console.log(`每页 ${val} 条`);
       this.pageSize = val;
       this.handleSearch();
 
     },
     handleCurrentChange(val) {
-      // console.log(`当前页: ${val}`);
+      // //console.log(`当前页: ${val}`);
       this.page = val;
       this.handleSearch();
 
@@ -270,6 +274,7 @@ export default {
           };
           _post("api/permission", params).then(res => {
             this.getTableData();
+            if(res.data)return
             this.$message({
               message: "添加成功",
               type: "success"
@@ -283,7 +288,7 @@ export default {
           });
 
         } else {
-          console.log('error submit!!');
+          //console.log('error submit!!');
           return false;
         }
       });

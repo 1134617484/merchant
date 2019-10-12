@@ -1,9 +1,21 @@
   .head{
     text-align: left;
-    color: #666
+    color: #666;
+    font-size: 18px;
   }
   .a_link{
     color: #139EFF;
     margin:60px 0px;
     display: block;
   }
+  .hear_p{
+    height: 40px;
+    line-height: 40px;
+    color: burlywood;
+    margin-top: 30px;
+  }
+  .container .cont-box {
+    border: none;
+    padding: 0;
+}
+

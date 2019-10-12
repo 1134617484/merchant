@@ -47,8 +47,9 @@
 }
 
 .left-border {
-    border-left: 15px solid #e9eef3;
+    border-left: 15px solid #F6F6F6;
     padding-bottom:50px;
+    height: 76vh;
 }
 
 .qrcodeCont {
@@ -81,13 +82,39 @@
 }
 .footer img{
   margin-right:30px;
+  width: 38px;
 }
+
+.footer{
+    padding-left: 34px;
+}
+.footer .zfb{
+    width: 36px;
+}
+.footer .ylian{
+    width: 44px;
+    position: relative;
+    top: -3px;
+
+}
+.footer .qq {
+    width: 30px;
+
+}
+
 .upload-box{
-  border-top:15px solid #e9eef3;
+  border-top:15px solid #F6F6F6;
   width: 98%;
   line-height:100px
+}
+.upload-box .row_head{
+  line-height: 20px;
+  margin-bottom: 50px
 }
 .el-upload__tip{
     line-height: 0px;
     text-align: center;
+}
+.qrcode_title{
+    margin-bottom: 80px;
 }

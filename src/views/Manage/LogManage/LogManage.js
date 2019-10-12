@@ -41,10 +41,10 @@ export default {
   methods: {
     getSelectMenuData() {
       // _get("/merchant/user/log").then(res => {
-        // console.log(res)
+        // //console.log(res)
         let params = { "id": 'a', name: '全部' };
         this.typeOptions =[...ephemeral.menu.admin_log_select.data];
-        console.log(this.typeOptions);
+        //console.log(this.typeOptions);
         this.typeOptions.unshift(params);
       // })
     },
@@ -58,17 +58,16 @@ export default {
     },
     getTableData(params) {
       _get("merchant/user/log",params).then(res => {
-        this.tableData=res.data.data.data;
-        this.tableData.forEach(element => {
-          isNaN(element.created_at)?element.created_at=switchTime(element.created_at):element.created_at;
-          console.log(element.created_at)
+        let data=[...res.data.data.data];
+        data.forEach(element => {
+          isNaN(element.created_at)?element.created_at:element.created_at=switchTime(element.created_at);
         });
-        console.log(this.tableData)
-      //   let paramsData = ephemeral.menu.admin_log.data;
+        this.tableData=data;
+        let paramsData = res.data.data;
       //   let data = paramsData.data;
-      //   this.currentPage = paramsData.current_page;
-      //   this.total = paramsData.total;
-      //   this.pageSize = paramsData.per_page;
+        this.currentPage = paramsData.current_page;
+        this.total = paramsData.total;
+        this.pageSize = paramsData.per_page;
       //   if (data.length > 0) {
       //     let tableList = [];
       //     for (let i = 0; i < data.length; i++) {
@@ -98,13 +97,13 @@ export default {
     },
     // 选择页容量
     handleSizeChange(val) {
-      // console.log(`每页 ${val} 条`);
+      // //console.log(`每页 ${val} 条`);
       this.pageSize=val;
       this.handleSearch();
     },
     handleCurrentChange(val) {
       this.page=val;
-      // console.log(`当前页: ${val}`);
+      // //console.log(`当前页: ${val}`);
       this.handleSearch();
     },
     handleSearch() {

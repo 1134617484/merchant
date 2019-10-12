@@ -1,0 +1,74 @@
+<div class="login-wrap" v-loading="isLoading">
+  <div class="login">
+    <div class="login_div">
+      <div class="login_img"></div>
+      <div class="login_form">
+        <p>用户注册</p>
+        <ul class="login_ul">
+          <el-form
+            :model="numberValidateForm"
+            ref="numberValidateForm"
+            label-width="100px"
+            class="demo-ruleForm"
+          >
+            <li>
+              <span class="account"></span>
+              <el-form-item label="" prop="username" :rules="rules.username">
+                <el-input
+                  type="username"
+                  v-model="numberValidateForm.username"
+                  auto-complete="off"
+                  placeholder="请输入账号"
+                ></el-input>
+              </el-form-item>
+              <!-- <el-input v-model="username" class="element_input" :change="username=username.replace(/[\W]/g,'')" placeholder="请输入账号"></el-input> -->
+            </li>
+            <li>
+              <span class="emil"></span>
+              <el-form-item label="" prop="emil" :rules="rules.emil">
+                <el-input
+                  type="text"
+                  v-model="numberValidateForm.emil"
+                  auto-complete="off"
+                  placeholder="请输入邮箱"
+                ></el-input>
+              </el-form-item>
+              <!-- <el-input v-model="emil" class="element_input" type="emil" :change="emil=emil.replace(/[\u4e00-\u9fa5]/g,'')" placeholder="请输入邮箱"></el-input> -->
+            </li>
+            <li>
+              <span class="password"></span>
+              <el-form-item label="" prop="password" :rules="rules.password">
+                <el-input
+                  type="password"
+                  v-model="numberValidateForm.password"
+                  auto-complete="off"
+                  placeholder="请输入密码"
+                ></el-input>
+              </el-form-item>
+              <!-- <el-input v-model="password" class="element_input" type="password" placeholder="请输入密码"></el-input> -->
+            </li>
+            <li>
+              <span class="password"></span>
+              <el-form-item
+                label=""
+                prop="newpassword"
+                :rules="rules.newpassword"
+              >
+                <el-input
+                  type="password"
+                  v-model="numberValidateForm.newpassword"
+                  auto-complete="off"
+                  placeholder="请再次输入密码"
+                ></el-input>
+              </el-form-item>
+              <!-- <el-input v-model="newpassword" class="element_input" type="password" placeholder="请再次输入密码"></el-input> -->
+            </li>
+          </el-form>
+        </ul>
+        <!-- 记住密码  需填充账号密码验证码 -->
+        <div class="login_submit" @click="register">立即注册</div>
+        <div @click="login" class="login_url">已有账号?去登录</div>
+      </div>
+    </div>
+  </div>
+</div>

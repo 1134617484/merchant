@@ -23,7 +23,7 @@ export default {
         //地址
         address: "",
         //ip
-        permit_login_ip: '',
+        // permit_login_ip: '',
       },
       rules: {
         mobile: [
@@ -38,8 +38,11 @@ export default {
         realname: [
           { required: true, message:'请输入姓名', trigger: 'change' }
         ],
-        permit_login_ip: [
-          { required: true, validator: this.$rules.FormValidate.Form().validateIp, trigger: 'change' }
+        // permit_login_ip: [
+        //   { required: true, validator: this.$rules.FormValidate.Form().validateIp, trigger: 'change' }
+        // ],
+        birthday: [
+          { required: true, message:'请选择生日', trigger: 'change' }
         ],
       }
     };
@@ -70,15 +73,21 @@ export default {
         this.Form.realname = data.realname;
         this.Form.idcard = data.idcard;
         this.sex = data.sex+'';
-        this.Form.birthday = this.switchTime(data.birthday);
+        // //console.log(data.birthday==0)
+        data.birthday==0?this.Form.birthday='':this.Form.birthday = this.switchTime(data.birthday);
         this.Form.mobile = data.mobile;
         this.Form.qq = data.qq;
         this.Form.address = data.address;
-        this.Form.permit_login_ip = data.permit_login_ip;
+        // this.Form.permit_login_ip = data.permit_login_ip;
       })
     },
     submitForm(formName) {
-      // console.log(this.Form.domain)
+      if(this.Form.birthday==''||this.Form.birthday==null||this.Form.birthday==undefined){
+        return this.$message({
+          message: "生日不能为空",
+          type: "warning"
+        });
+      }
       this.$refs[formName].validate(valid => {
         if (valid) {
            let params = {
@@ -89,17 +98,19 @@ export default {
             mobile: this.Form.mobile,
             qq: this.Form.qq,
             address: this.Form.address,
-            permit_login_ip: this.Form.permit_login_ip,
+            // permit_login_ip: this.Form.permit_login_ip,
             }
           _post("merchant/user/profile-submit", params).then(res => {
-            this.$message({
-              message: "提交成功",
-              type: "success"
-            });
+            if(res.data){
+              this.$message({
+                message: "提交成功",
+                type: "success"
+              });
             this.getFormData();
+            }
           })
         }else {
-          console.log("error submit!!");
+          //console.log("error submit!!");
           return false;
         }
       });

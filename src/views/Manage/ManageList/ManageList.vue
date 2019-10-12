@@ -26,4 +26,10 @@ background-color: #fdf6ec;
     width: 70%;
     margin: 0 auto;
 }
+
+</style>
+<style lang="css">
+    .text-left.addClass .el-dialog__body  .area-select.large{width: 100%;height: 40px;}
+    .text-left.addClass .el-dialog__body  .area-select .area-selected-trigger{    line-height: 26px;}
+    .text-left.addClass .deposit_bank .el-form-item__content label{width: 100%;}
 </style>
