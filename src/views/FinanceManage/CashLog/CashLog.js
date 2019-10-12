@@ -60,9 +60,7 @@ export default {
         this.tableData=res.data.data.data;
         this.tableData.forEach(element => {
           element.status==0?element.status='冻结中':element.status='已解冻';
-          element.frozen_end_time=switchTime(element.frozen_end_time);
-          element.frozen_run_time=switchTime(element.frozen_run_time);
-          element.frozen_start_time=switchTime(element.frozen_start_time);
+          element.created_at=switchTime(element.created_at);
         });
         let paramsData = res.data.data;
         this.currentPage = paramsData.current_page;
