@@ -73,7 +73,7 @@ export default {
         this.Form.realname = data.realname;
         this.Form.idcard = data.idcard;
         this.sex = data.sex+'';
-        // console.log(data.birthday==0)
+        // //console.log(data.birthday==0)
         data.birthday==0?this.Form.birthday='':this.Form.birthday = this.switchTime(data.birthday);
         this.Form.mobile = data.mobile;
         this.Form.qq = data.qq;
@@ -110,7 +110,7 @@ export default {
             }
           })
         }else {
-          console.log("error submit!!");
+          //console.log("error submit!!");
           return false;
         }
       });

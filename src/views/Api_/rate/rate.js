@@ -54,17 +54,17 @@ export default {
 
   methods: {
     getMenuData() {
-      // console.log(ephemeral.api_rate)
+      // //console.log(ephemeral.api_rate)
       // let data={...ephemeral.api_rate.data};
       // this.tableData=data;
       // this.tableData.merchantRates=[data.merchantRates];
       _get("merchant/user/rate").then(res => {
-        // console.log(res)
+        // //console.log(res)
         let data={...res.data.data};
-        console.log(data)
+        //console.log(data)
         this.tableData=data;
         this.tableData.merchantRates=[data.merchantRates];
-        console.log(this.tableData)
+        //console.log(this.tableData)
       })
     },
   },

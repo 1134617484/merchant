@@ -384,7 +384,7 @@ export default {
               });
             });
         } else {
-          console.log("error submit!!");
+          //console.log("error submit!!");
           return false;
         }
       });
@@ -436,7 +436,7 @@ export default {
               });
             });
         } else {
-          console.log("error submit!!");
+          //console.log("error submit!!");
           return false;
         }
       });
@@ -500,7 +500,7 @@ export default {
         // 切换订单
         scrollLeftType(row, column, event) {
           if (column.label == "操作") return false;
-          console.log([row, column, event]);
+          //console.log([row, column, event]);
           this.scrollLeft = !this.scrollLeft;
         }
   }

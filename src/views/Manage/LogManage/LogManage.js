@@ -41,10 +41,10 @@ export default {
   methods: {
     getSelectMenuData() {
       // _get("/merchant/user/log").then(res => {
-        // console.log(res)
+        // //console.log(res)
         let params = { "id": 'a', name: '全部' };
         this.typeOptions =[...ephemeral.menu.admin_log_select.data];
-        console.log(this.typeOptions);
+        //console.log(this.typeOptions);
         this.typeOptions.unshift(params);
       // })
     },
@@ -97,13 +97,13 @@ export default {
     },
     // 选择页容量
     handleSizeChange(val) {
-      // console.log(`每页 ${val} 条`);
+      // //console.log(`每页 ${val} 条`);
       this.pageSize=val;
       this.handleSearch();
     },
     handleCurrentChange(val) {
       this.page=val;
-      // console.log(`当前页: ${val}`);
+      // //console.log(`当前页: ${val}`);
       this.handleSearch();
     },
     handleSearch() {

@@ -191,13 +191,13 @@ pcaa: pcaa,
     // 编辑管理员信息
     handleEdit(index, row) {
       this.editForm={...row};
-      console.log(this.editForm)
+      //console.log(this.editForm)
       this.outerVisible = true;
     },
     //修改管理员列表状态
     handleStatus(index, row) {
-      console.log(row)
-      console.log(this.tableData)
+      //console.log(row)
+      //console.log(this.tableData)
       _get("merchant/bankcard/toggle/" + row.id).then(res => {
         this.handleSearch();
         if(res.data)return
@@ -209,7 +209,7 @@ pcaa: pcaa,
     },
     isUpdate(formName) {
       this.$refs[formName].validate(valid => {
-        console.log(this.editForm)
+        //console.log(this.editForm)
         if (valid) {
           let params = {
             // account_name: this.editor_tableData.account_name,
@@ -251,7 +251,7 @@ pcaa: pcaa,
               this.outerVisible = false;
             });
         } else {
-          console.log("error submit!!");
+          //console.log("error submit!!");
           return false;
         }
       });
@@ -280,7 +280,7 @@ pcaa: pcaa,
     },
     // 添加银行卡
     submitForm() {
-      console.log(this.editor_tableData);
+      //console.log(this.editor_tableData);
       let params = {
         account_name: this.editor_tableData.account_name,
         bank_id: this.OpeningBankVal||'',
@@ -292,7 +292,7 @@ pcaa: pcaa,
         remark:this.editor_tableData.remark
       };
       params.bank_id = this.OpeningBankVal;
-      console.log(params);
+      //console.log(params);
       _post("merchant/bankcard", params)
         .then(res => {
           this.getTableData("");
@@ -312,14 +312,14 @@ pcaa: pcaa,
           });
         });
       //   } else {
-      //     console.log("error submit!!");
+      //     //console.log("error submit!!");
       //     return false;
       //   }
       // });
     },
     // 头像上传
     handleRemove(file, fileList) {
-      console.log(file, fileList);
+      //console.log(file, fileList);
     },
     handlePictureCardPreview(file) {
       this.dialogImageUrl = file.url;
@@ -384,9 +384,9 @@ pcaa: pcaa,
     },
     // 删除银行卡
     handleDelete(index, row) {
-      console.log(row);
+      //console.log(row);
       _delete("merchant/bankcard/" + row.bank_id).then(res => {
-        console.log(res);
+        //console.log(res);
         this.getTableData();
       });
     },

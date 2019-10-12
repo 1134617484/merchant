@@ -84,7 +84,7 @@ axios.interceptors.response.use(
     // 异常处理
     if (err && err.response) {
       let response = err.response.data;
-      console.log("统一错误处理: ", response);
+      //console.log("统一错误处理: ", response);
       response.code == 402 ? tokenHeader({ response, code: "402" }) : "";
       store.state.isLodingLogin = false;
       console.clear();
@@ -274,8 +274,8 @@ export const switchTime=time=> {
 //@path    供递归使用
 
 export function findPathByLeafId(leafId, nodes, path) {
-  console.log(leafId)
-  console.log(nodes)
+  //console.log(leafId)
+  //console.log(nodes)
   nodes=nodes.data;
   debugger;
   let name=leafId.name;
@@ -287,10 +287,10 @@ export function findPathByLeafId(leafId, nodes, path) {
       // var tmpPath = path.concat();
       var tmpPath = [];
       // tmpPath.push(nodes[i][name]);
-      console.log(nodes[i][name])
-      console.log(nodes[i])
+      //console.log(nodes[i][name])
+      //console.log(nodes[i])
       if(value == nodes[i][name]) {
-        console.log(nodes[i])
+        //console.log(nodes[i])
          return nodes[i];
       }
       if(nodes[i].children.length>0) {
@@ -302,7 +302,7 @@ export function findPathByLeafId(leafId, nodes, path) {
           }else{
             element= nodes[i].children;
           }
-          console.log(element)
+          //console.log(element)
           var findResult = findPathByLeafId(leafId, element, path);
         if(findResult) {
           return findResult;

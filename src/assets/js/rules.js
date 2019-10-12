@@ -108,8 +108,8 @@ let FormValidate = (function() {
       },
             // 密码再次验证
             validateNewPsdReg(rule, value, callback) {
-              console.log(value)
-              console.log(this)
+              //console.log(value)
+              //console.log(this)
               if (value!== this.numberValidateForm.password) {
                 callback(
                   new Error(
@@ -253,7 +253,7 @@ let FormValidate = (function() {
       // 登录/注册用户名 4-10位非中文
       validateUsername(rule,value,callback){
         if (value !== "") {
-          console.log(usernameReg.test(value))
+          //console.log(usernameReg.test(value))
           if (!usernameReg.test(value)) {
             callback(new Error("用户名请输入4-10位非中文字符"));
           } else {

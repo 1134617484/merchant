@@ -60,7 +60,7 @@ export default {
         this.withdrawInit.balance_disabled=Number(this.withdrawInit.balance_disabled).toFixed(4);
         this.withdrawInit.apply_money=Number(this.withdrawInit.apply_money).toFixed(4);
         this.withdrawInit.unit_min_money=Number(this.withdrawInit.unit_min_money).toFixed(2);
-      // console.log(this.withdrawInit)
+      // //console.log(this.withdrawInit)
       });
     },
     submitForm(formName) {
@@ -87,7 +87,7 @@ export default {
             // this.getFormData();
           });
         } else {
-          console.log("error submit!!");
+          //console.log("error submit!!");
           return false;
         }
       });
@@ -114,7 +114,7 @@ export default {
     },
     // 修改bank后
     change_bank() {
-      console.log(this.ruleForm.bank_id);
+      //console.log(this.ruleForm.bank_id);
       // this.ruleForm.bank_id!==''?ruleForm.bank_id:ruleForm.bank_id=classifyOptions[0]
     }
   }

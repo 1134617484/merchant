@@ -120,7 +120,7 @@
      },
     //  刷新后更新地址栏
     refresh_title(){
-// console.log(this.$route.path)
+// //console.log(this.$route.path)
     // 刷新时重置路由
     let title=ephemeral.menu.menu_type_list[this.$route.path];
     this.oneTitle=title[0];
@@ -128,7 +128,7 @@
     },
     // 图片上传
     handleAvatarSuccess(res, file) {
-      console.log(file)
+      //console.log(file)
       this.imageUrl = URL.createObjectURL(file.raw);
     },
     // 图片上传
@@ -144,12 +144,12 @@
         let fd = new FormData();
         // fd.append('pay_type_id', 11)//随文件上传的其他参数
         fd.append('logo', file);
-        console.log(file)
+        //console.log(file)
        _post("merchant/user/logo", fd).then(res => {
-         console.log(res)
+         //console.log(res)
           let url=res.data;
           this.dialogImageUrl=imgurl()+url;
-          console.log(this.userMsg)
+          //console.log(this.userMsg)
           this.userMsg.logo=url;
           localStorage.setItem('userInfo',JSON.stringify(this.userMsg))
           this.$message({
@@ -174,7 +174,7 @@
    },
    watch:{
     $route(to,from){
-      // console.log(to.path);
+      // //console.log(to.path);
     this.refresh_title()
     }
   },
@@ -207,7 +207,7 @@
    created() {
      // 设置用户信息
      this.userMsg = JSON.parse(window.localStorage.getItem("userInfo") || "{}");
-     console.log(this.userMsg)
+     //console.log(this.userMsg)
      this.dialogImageUrl=imgurl()+this.userMsg.logo||'';
      this.getMenuData();
      this.refresh_title();

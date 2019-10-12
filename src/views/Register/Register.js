@@ -117,7 +117,7 @@ export default {
       this.$router.push("/login");
     },
     inputChange() {
-      console.log(11);
+      //console.log(11);
       this.newpassword = this.newpassword.replace(/[\W]/g, "");
     },
     getRoleMsg() {}

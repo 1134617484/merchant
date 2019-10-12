@@ -75,9 +75,9 @@ export default {
         this.pageSize = paramsData.per_page;
         if (data.length > 0) {
           let tableList = [];
-          console.log(data)
+          //console.log(data)
           for (let i = 0; i < data.length; i++) {
-            console.log(data[i])
+            //console.log(data[i])
             tableList.push({
               id:data[i].id,
               complain_type:data[i].complain_type==1?'投诉商户':'投诉订单',
@@ -130,7 +130,7 @@ export default {
               });
               })
         }else {
-          console.log("error submit!!");
+          //console.log("error submit!!");
           return false;
         }
       });
@@ -151,7 +151,7 @@ export default {
      this.getTableData(params);
     },
     el_select(){
-      // console.log(this.Form.complain_type)
+      // //console.log(this.Form.complain_type)
       this.Form.complain='';
     }
  

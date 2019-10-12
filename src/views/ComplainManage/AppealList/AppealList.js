@@ -148,7 +148,7 @@ export default {
               });
               })
         }else {
-          console.log("error submit!!");
+          //console.log("error submit!!");
           return false;
         }
       });
@@ -168,7 +168,7 @@ export default {
      this.getTableData(params);
     },
     el_select(){
-      // console.log(this.Form.complain_type)
+      // //console.log(this.Form.complain_type)
       this.Form.complain='';
     }
  

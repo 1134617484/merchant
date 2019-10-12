@@ -23,7 +23,7 @@ export default {
     getTableData() {
       getUserMsg().then(res => {
         if (res.data.code == 200) {
-          console.log(res.data.data)
+          //console.log(res.data.data)
           window.localStorage.setItem(
             "userInfo",
             JSON.stringify(res.data.data)
@@ -39,9 +39,9 @@ export default {
       // ).authorized;
     },
     beforeAvatarUploadJust(file) {
-      console.log(file);
+      //console.log(file);
       let fd = this.fileFormData;
-      console.log(fd);
+      //console.log(fd);
       fd.set("just", file);
     },
     beforeAvatarUpload(file) {
@@ -49,12 +49,12 @@ export default {
       let fd = this.fileFormData;
       fd.set("avatar", file);
       // fd.append('pay_type_id', 11)//随文件上传的其他参数
-      console.log(this.fileFormData);
+      //console.log(this.fileFormData);
     },
     handleRemove(file, fileList) {
-      console.log(this.imageUrl);
+      //console.log(this.imageUrl);
       this.imageUrl = "";
-      console.log(file, fileList);
+      //console.log(file, fileList);
     },
     //当上传图片后，调用onchange方法，获取图片本地路径
     onchange_just(file, fileList) {
@@ -85,7 +85,7 @@ export default {
       } catch (error) {}
     },
     handleAvatarSuccess(res, file) {
-      console.log(file);
+      //console.log(file);
       this.imageUrl = URL.createObjectURL(file.raw);
     },
     //提交图片
