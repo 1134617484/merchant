@@ -208,7 +208,7 @@
      // 设置用户信息
      this.userMsg = JSON.parse(window.localStorage.getItem("userInfo") || "{}");
      //console.log(this.userMsg)
-     this.dialogImageUrl=imgurl()+this.userMsg.logo||'';
+     this.dialogImageUrl=this.userMsg.logo?imgurl()+this.userMsg.logo:null;
      this.getMenuData();
      this.refresh_title();
      this.button_right()
