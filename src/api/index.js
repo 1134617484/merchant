@@ -319,3 +319,11 @@ export const imgurl=()=>{
   return axios.defaults.baseURL;
 }
 
+// 登录密码
+export const LoginPasswordReg = /^(?![\d]+$)(?![a-zA-Z]+$)(?![^\da-zA-Z]+$)([^\u4e00-\u9fa5\s]){6,20}$/;
+
+// 支付密码
+export const PayPasswordReg = /^\d{6}\b/;
+//邮箱验证
+export const emailReg = /^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,4}$/;
+

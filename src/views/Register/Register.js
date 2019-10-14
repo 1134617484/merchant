@@ -1,5 +1,6 @@
 import store from "../../store/store.js";
-import { _get, _post, _put, _delete, getRoleMsg } from "../../api/index.js";
+import { _get, _post, _put, _delete , emailReg, LoginPasswordReg, PayPasswordReg } from "../../api/index.js";
+
 export default {
   data() {
     // 再次确认密码
@@ -19,9 +20,6 @@ export default {
         emil: "",
         newpassword: ""
       },
-      username: "",
-      password: "",
-      auth_code: "",
       loading: store.state.isLodingLogin,
 
       rules: {
@@ -49,7 +47,9 @@ export default {
           },
           { required: true, message: "请输入密码", trigger: "change" }
         ],
-        newpassword: [{ required: true, validator:validatePass, trigger: "blur" }]
+        newpassword: [
+          { required: true, validator: validatePass, trigger: "blur" }
+        ]
       }
     };
   },
@@ -59,13 +59,9 @@ export default {
     register() {
       let { username, password, emil, newpassword } = this.numberValidateForm;
       let reg = {
-        // username:new RegExp(/^(?=.*\d)(?=.*[a-zA-Z])[\da-zA-Z~!@#$%^&*]{4,10}$/),
         username: new RegExp(/^[a-zA-Z0-9_-]{4,10}$/),
-        // password:new RegExp(/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/),
-        password: new RegExp(/^[a-zA-Z0-9_-]{6,16}$/),
-        emil: new RegExp(
-          /^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,4}$/
-        )
+        password: LoginPasswordReg,
+        emil: emailReg
       };
       if (!reg.username.test(username)) {
         return this.$message({
@@ -87,30 +83,30 @@ export default {
           message: "两次密码不一致",
           type: "warning"
         });
+      } else {
+        let parse = {
+          username,
+          email: emil,
+          password,
+          password_confirmation: newpassword
+        };
+        this.loading = true;
+        store.state.isLodingLogin = true;
+        _post("/merchant/user", parse).then(res => {
+          store.state.isLodingLogin = false;
+          if (res.code == "200") {
+            return this.$message({
+              message: "注册成功,前往邮箱激活后方可登录",
+              type: "warning"
+            });
+          } else {
+            return this.$message({
+              message: res.message,
+              type: "warning"
+            });
+          }
+        });
       }
-
-      let parse = {
-        username,
-        email: emil,
-        password,
-        password_confirmation: newpassword
-      };
-      this.loading = true;
-      store.state.isLodingLogin = true;
-      _post("/merchant/user", parse).then(res => {
-        store.state.isLodingLogin = false;
-        if (res.code == "200") {
-          return this.$message({
-            message: "注册成功,前往邮箱激活后方可登录",
-            type: "warning"
-          });
-        } else {
-          return this.$message({
-            message: res.message,
-            type: "warning"
-          });
-        }
-      });
     },
     // 登录
     login() {

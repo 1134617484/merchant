@@ -21,7 +21,7 @@ export default {
 
   methods: {
    //打开弹窗
-   open3() {
+   open3(data) {
     this.$prompt('请输入支付密码', '提示', {
       confirmButtonText: '确定',
       cancelButtonText: '取消',
@@ -31,7 +31,7 @@ export default {
     }).then(({ value }) => {
         _post("/merchant/user/apikey", {pay_password:value}).then(res => {
      this.apikey=res.data.apikey;
-    //  this.CopyInquireKey();
+     this.CopyInquireKey(data);
     })
     }).catch(() => {
       this.$message({
@@ -40,13 +40,15 @@ export default {
       });       
     });
   },
-      //复制密钥
+      //复制密钥 
       CopyInquireKey(data) {
         this.Clipboard(".copy-inquire");
       },
       // 统一处理复制
       Clipboard(ele) {
+        console.log(ele)
         var clipboard = new Clipboard(ele);
+        console.log(clipboard)
         clipboard.on("success", e => {
           this.$message.success("复制成功");
           // 释放内存

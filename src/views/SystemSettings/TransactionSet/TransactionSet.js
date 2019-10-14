@@ -89,6 +89,7 @@ export default {
         });
       }
       this.$refs[formName].validate(valid => {
+        console.log(this.Form)
         if (valid) {
            let params = {
             realname: this.Form.realname,

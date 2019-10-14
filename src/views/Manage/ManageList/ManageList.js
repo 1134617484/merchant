@@ -293,23 +293,21 @@ pcaa: pcaa,
       };
       params.bank_id = this.OpeningBankVal;
       //console.log(params);
-      _post("merchant/bankcard", params)
-        .then(res => {
+      _post("merchant/bankcard", params).then(res => {
+          console.log(res)
           this.getTableData("");
-          if(res.data)return
-          this.$message({
+            this.$message({
             message: "添加成功",
             type: "success"
           });
           // 提交成功清空表单
           this.editor_tableData = { ...this.editor };
           this.dialogFormVisible = false;
-        })
-        .catch(err => {
-          this.$message({
-            message: "添加失败",
-            type: "error"
-          });
+        }).catch(err => {
+          // this.$message({
+          //   message: "添加失败",
+          //   type: "error"
+          // });
         });
       //   } else {
       //     //console.log("error submit!!");

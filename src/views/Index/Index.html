@@ -67,9 +67,9 @@
     </el-col>
     <el-col :span="6">
       <div class="grid-content bg-purple">
-        <div class="cont-head">今日收入</div>
+        <div class="cont-head">今日待支付金额</div>
         <div class="ibox-content">
-          {{ InitAll.today_success_amount }}<span class=" unit">元</span>
+          {{ InitAll.today_pending_amount }}<span class=" unit">元</span>
         </div>
       </div>
     </el-col>
@@ -77,9 +77,9 @@
   <el-row :gutter="20" style="margin-top:20px">
     <el-col :span="6">
       <div class="grid-content bg-purple">
-        <div class="cont-head">今日实付金额</div>
+        <div class="cont-head">今日已支付金额</div>
         <div class="ibox-content">
-          {{ InitAll.today_success_count }}<span class=" unit">元</span>
+          {{ InitAll.today_success_amount }}<span class=" unit">元</span>
         </div>
       </div>
     </el-col>
@@ -113,7 +113,7 @@
     <el-col :span="24">
       <div class="grid-content bg-purple">
         <div class="cont-head" style="margin-bottom: 10px">
-          日交易统计
+          交易统计
           <el-select
             v-model="time"
             placeholder="请选择"

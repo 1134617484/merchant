@@ -5,6 +5,7 @@
   height: initial;
   overflow-y: hidden !important;
   height: 99%;
+  background-color: #fff;
 }
 .config_success{
     min-height: 375px;

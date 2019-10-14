@@ -29,14 +29,14 @@ export default {
            let params = {
             realname: this.Form.realname,
             }
-          _post("merchant/user/profile-submit", params).then(res => {
-            if(res.data){
-              this.$message({
-                message: "提交成功",
-                type: "success"
-              });
-            }
-          })
+          // _post("merchant/user/profile-submit", params).then(res => {
+          //   if(res.data){
+          //     this.$message({
+          //       message: "提交成功",
+          //       type: "success"
+          //     });
+          //   }
+          // })
         }else {
           //console.log("error submit!!");
           return false;
@@ -78,15 +78,15 @@ export default {
       let fd = new FormData();
       fd.append("pay_type_id", 12); //随文件上传的其他参数
       fd.append("file", file);
-      _post("api/sysqrcode", fd).then(res => {
-        if(res.data){
-          this.$message({
-            message: "上传成功",
-            type: "success"
-          });
-        }
-        this.getTableData("");
-      });
+      // _post("api/sysqrcode", fd).then(res => {
+      //   if(res.data){
+      //     this.$message({
+      //       message: "上传成功",
+      //       type: "success"
+      //     });
+      //   }
+      //   this.getTableData("");
+      // });
     },
     handleSuccess(response, file, fileList) {
       // //console.log(file);

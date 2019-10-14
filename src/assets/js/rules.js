@@ -8,6 +8,13 @@ let numberReg = /^\d+$|^\d+[.]?\d+$/;
 
 // 密码
 let passwordReg = /^(?![\d]+$)(?![a-zA-Z]+$)(?![^\da-zA-Z]+$)([^\u4e00-\u9fa5\s]){6,20}$/;
+// let passwordReg = /^(?![\d]+$)([^\u4e00-\u9fa5\s]){6,20}$/
+// 登录密码
+let LoginPasswordReg = /^(?![\d]+$)(?![a-zA-Z]+$)(?![^\da-zA-Z]+$)([^\u4e00-\u9fa5\s]){6,20}$/;
+
+// 支付密码
+let PayPasswordReg = /^\d{6}\b/;
+
 
 // 联系人
 let contactsReg = /^[\u0391-\uFFE5A-Za-z]+$/;
