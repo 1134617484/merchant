@@ -52,7 +52,7 @@
                 </el-select>
               </el-form-item>
               <el-form-item v-if="Form.appeal_type==1" class="my_form_inp" label="商户号: " :label-width="formLabelWidth" prop="complain">
-                    <el-input  v-model.trim="Form.appeal" autocomplete="off"></el-input>
+                    <el-input disabled v-model.trim="Form.appeal" autocomplete="off"></el-input>
                 </el-form-item>
                 <el-form-item v-if="Form.appeal_type==2" class="my_form_inp" label="订单号: " :label-width="formLabelWidth" prop="complain">
                     <el-input  v-model.trim="Form.appeal" autocomplete="off"></el-input>

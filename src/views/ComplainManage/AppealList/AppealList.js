@@ -164,7 +164,13 @@ export default {
     },
     el_select(){
       // //console.log(this.Form.complain_type)
-      this.Form.complain='';
+      // this.Form.complain='';
+      if(this.Form.appeal_type==1){
+        this.Form.appeal=JSON.parse(window.localStorage.getItem('userInfo')).id||'';
+      }else{
+        this.Form.appeal=''
+      }
+
     }
  
   }
