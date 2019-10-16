@@ -59,11 +59,11 @@
             <el-table-column min-width="150px" :show-overflow-tooltip="true" prop="pay_gateway" label="来源地址"></el-table-column>
             <el-table-column min-width="100px" :show-overflow-tooltip="true" prop="attach" label="订单描述"></el-table-column>
             <el-table-column prop="pay_status_text" label="状态"></el-table-column>
-            <el-table-column label="操作" width="100px" fixed="right">
+            <el-table-column label="操作" min-width="175px" fixed="right">
                 <template slot-scope="scope">
                     <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">查看</el-button>
-                    <!-- <el-button size="mini" @click="FrozenCharge(scope.$index, scope.row)" v-if="scope.row.lock_status==0">冻结订单</el-button>
-                    <el-button size="mini" @click="handleOrder(scope.$index, scope.row)" v-if="scope.row.callbackStatus==0">补发订单</el-button> -->
+                     <!-- <el-button size="mini" @click="FrozenCharge(scope.$index, scope.row)" v-if="scope.row.lock_status==0">冻结订单</el-button> -->
+                    <el-button size="mini" @click="handleOrder(scope.$index, scope.row)" v-if="scope.row.is_callback==0&&scope.row.pay_status==1">补发订单</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -97,6 +97,15 @@
                      </tr>
                      <tr>
                         <td>订单状态：</td><td>{{editForm.pay_status }}</td>
+                     </tr>
+                     <tr>
+                        <td>商家异步通知地址：</td><td>{{editForm.pay_notify_url?editForm.pay_notify_url:'暂无' }}</td>
+                     </tr>
+                     <tr>
+                        <td>商家页面通知地址：</td><td>{{editForm.pay_callback_url?editForm.pay_callback_url:'暂无' }}</td>
+                     </tr>
+                     <tr>
+                        <td>支付网关：</td><td>{{editForm.pay_gateway?editForm.pay_gateway:'暂无' }}</td>
                      </tr>
                
                  </table>

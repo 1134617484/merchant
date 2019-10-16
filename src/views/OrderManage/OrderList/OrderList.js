@@ -327,7 +327,7 @@ export default {
         });
       });
     },
-    // 编辑通道信息
+    // 查看信息
     handleEdit(index, row) {
       _get("merchant/order/" + row.id).then(res => {
         let data = { ...res.data.data };
@@ -432,12 +432,7 @@ export default {
                 this.dialogFormTransaction = false;
               });
             })
-            .catch(() => {
-              this.$message.closeAll();this.$message({
-                type: "info",
-                message: "已取消设置"
-              });
-            });
+
         } else {
           //console.log("error submit!!");
           return false;
@@ -467,13 +462,14 @@ export default {
         cancelButtonText: "取消",
         type: "warning"
       }).then(() => {
-        _get("api/order/reissue/" + row.pay_order_id)
+        _get("merchant/order/reissue/" + row.pay_order_id)
           .then(res => {
-            this.handleSearch();
-            this.$message.closeAll();this.$message({
-              message: res.code||"补发成功",
-              type: "success"
-            });
+            console.log(res)
+              this.handleSearch();
+              this.$message.closeAll();this.$message({
+                message: res.code||"补发成功",
+                type: "success"
+              });
           })
       });
     },

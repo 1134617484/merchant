@@ -55,7 +55,7 @@ router.beforeEach((to, from, next) => {
 
 //异常处理
 Vue.config.errorHandler = function(err, vm, info) {
-  //console.log(`Error: ${err.toString()}\nInfo: ${info}`);
+  console.log(`Error: ${err.toString()}\nInfo: ${info}`);
 };
 
 
