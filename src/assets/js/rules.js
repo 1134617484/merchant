@@ -10,11 +10,10 @@ let numberReg = /^\d+$|^\d+[.]?\d+$/;
 let passwordReg = /^(?![\d]+$)(?![a-zA-Z]+$)(?![^\da-zA-Z]+$)([^\u4e00-\u9fa5\s]){6,20}$/;
 // let passwordReg = /^(?![\d]+$)([^\u4e00-\u9fa5\s]){6,20}$/
 // 登录密码
-let LoginPasswordReg = /^(?![\d]+$)(?![a-zA-Z]+$)(?![^\da-zA-Z]+$)([^\u4e00-\u9fa5\s]){6,20}$/;
+// let LoginPasswordReg = /^(?![\d]+$)(?![a-zA-Z]+$)(?![^\da-zA-Z]+$)([^\u4e00-\u9fa5\s]){6,20}$/;
 
 // 支付密码
-let PayPasswordReg = /^\d{6}\b/;
-
+let PayPasswordReg = /^\d{6,16}\b/;
 
 // 联系人
 let contactsReg = /^[\u0391-\uFFE5A-Za-z]+$/;
@@ -44,7 +43,7 @@ let accessReg = /^[a-z0-9]+$/i;
 //银行卡验证
 let card_number_reg = /^(\d{16}|\d{19})$/;
 // 登录注册用户名
-let usernameReg=/^[a-zA-Z0-9_-]{4,10}$/;
+let usernameReg = /^[a-zA-Z0-9_-]{4,10}$/;
 let FormValidate = (function() {
   function FormValidate() {}
   // From表单验证规则  可用于公用的校验部分
@@ -104,29 +103,32 @@ let FormValidate = (function() {
           return callback(new Error("请输入密码"));
         }
         if (!passwordReg.test(value)) {
-          callback(
-            new Error(
-              "请输入6-20位字母+数字或符号的密码"
-            )
-          );
+          callback(new Error("请输入6-16位数字+字母组合的密码"));
         } else {
           callback();
         }
       },
-            // 密码再次验证
-            validateNewPsdReg(rule, value, callback) {
-              //console.log(value)
-              //console.log(this)
-              if (value!== this.numberValidateForm.password) {
-                callback(
-                  new Error(
-                    "两次密码不一致"
-                  )
-                );
-              } else {
-                callback();
-              }
-            },
+      // 密码再次验证
+      validateNewPsdReg(rule, value, callback) {
+        //console.log(value)
+        //console.log(this)
+        if (value !== this.numberValidateForm.password) {
+          callback(new Error("两次密码不一致"));
+        } else {
+          callback();
+        }
+      },
+      // 支付密码验证
+      validatePayPsdReg(rule, value, callback) {
+        if (!value) {
+          return callback(new Error("请输入密码"));
+        }
+        if (!PayPasswordReg.test(value)) {
+          callback(new Error("请输入6-16位数字、字母的密码"));
+        } else {
+          callback();
+        }
+      },
 
       // 联系人
       validateContacts(rule, value, callback) {
@@ -236,7 +238,7 @@ let FormValidate = (function() {
       // 开户名验证
       validateAccountName(rule, value, callback) {
         if (value !== "") {
-          if (value.length<2||value.length>10) {
+          if (value.length < 2 || value.length > 10) {
             callback(new Error("开户名称过长或过短"));
           } else {
             callback();
@@ -248,7 +250,7 @@ let FormValidate = (function() {
       // 银行名称验证
       validateBranchkName(rule, value, callback) {
         if (value !== "") {
-          if (value.length<5||value.length>30) {
+          if (value.length < 5 || value.length > 30) {
             callback(new Error("支行名称过长或过短"));
           } else {
             callback();
@@ -258,7 +260,7 @@ let FormValidate = (function() {
         }
       },
       // 登录/注册用户名 4-10位非中文
-      validateUsername(rule,value,callback){
+      validateUsername(rule, value, callback) {
         if (value !== "") {
           //console.log(usernameReg.test(value))
           if (!usernameReg.test(value)) {
@@ -269,8 +271,7 @@ let FormValidate = (function() {
         } else {
           callback(new Error("用户名不能为空"));
         }
-      },
-
+      }
     };
   };
 
@@ -278,4 +279,3 @@ let FormValidate = (function() {
 })();
 
 exports.FormValidate = FormValidate;
-

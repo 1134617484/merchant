@@ -66,7 +66,7 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         // if (this.ruleForm.apply_money < this.withdrawInit.unit_min_money)
-        //   return this.$message.closeAll();this.$message({
+        //   return this.$message.closeAll(),this.$message({
         //     message: "最小提现金额为"+this.withdrawInit.unit_min_money元,
         //     type: "warning"
         //   });
@@ -99,7 +99,7 @@ export default {
     handleBlur() {
       if (this.ruleForm.apply_money == 0) return false;
       if (this.ruleForm.apply_money < this.withdrawInit.unit_min_money)
-        return this.$message.closeAll();this.$message({
+        return this.$message.closeAll(),this.$message({
           message: `最小提现金额为${this.withdrawInit.unit_min_money}元`,
           type: "warning"
         });

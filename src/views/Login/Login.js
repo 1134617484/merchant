@@ -30,7 +30,7 @@ export default {
     login() {
       let { username, password } = this.numberValidateForm;
       if (!username || !password) {
-        return this.$message.closeAll();this.$message({
+        return this.$message.closeAll(),this.$message({
           message: "账户和密码不能为空",
           type: "warning"
         });
@@ -83,8 +83,8 @@ export default {
       }
       // 验证密码长度
       this.password = "";
-      return this.$message.closeAll();this.$message({
-        message: "密码长度为6-16位数字或字母",
+      return this.$message.closeAll(),this.$message({
+        message: "请输入6-16位数字+字母组合的密码",
         type: "warning"
       });
     },

@@ -83,7 +83,7 @@ export default {
     },
     submitForm(formName) {
       if(this.Form.birthday==''||this.Form.birthday==null||this.Form.birthday==undefined){
-        return this.$message.closeAll();this.$message({
+        return this.$message.closeAll(),this.$message({
           message: "生日不能为空",
           type: "warning"
         });

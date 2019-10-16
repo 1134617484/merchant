@@ -93,12 +93,12 @@ export default {
       // 
       let fd=this.fileFormData;
       if(!fd.get('just')){
-        return this.$message.closeAll();this.$message({
+        return this.$message.closeAll(),this.$message({
           message: "请上传身份证头像面照片",
           type: "warning"
         });
       }else if(!fd.get('avatar')){
-        return this.$message.closeAll();this.$message({
+        return this.$message.closeAll(),this.$message({
           message: "请上传身份证国徽面照片",
           type: "warning"
         });

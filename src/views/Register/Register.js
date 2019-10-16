@@ -48,6 +48,11 @@ export default {
           { required: true, message: "请输入密码", trigger: "change" }
         ],
         newpassword: [
+          {
+            required: true,
+            validator: this.$rules.FormValidate.Form().validatePsdReg,
+            trigger: "change"
+          },
           { required: true, validator: validatePass, trigger: "blur" }
         ]
       }
@@ -64,22 +69,22 @@ export default {
         emil: emailReg
       };
       if (!reg.username.test(username)) {
-        return this.$message.closeAll();this.$message({
+        return this.$message.closeAll(),this.$message({
           message: "请输入4-10位用户名",
           type: "warning"
         });
       } else if (!reg.password.test(password)) {
-        return this.$message.closeAll();this.$message({
-          message: "请输入6-16位数字或字母的密码",
+        return this.$message.closeAll(),this.$message({
+          message: "请输入6-16位数字+字母组合的密码",
           type: "warning"
         });
       } else if (!reg.emil.test(emil)) {
-        return this.$message.closeAll();this.$message({
+        return this.$message.closeAll(),this.$message({
           message: "请输入合法的邮箱",
           type: "warning"
         });
       } else if (password !== newpassword) {
-        return this.$message.closeAll();this.$message({
+        return this.$message.closeAll(),this.$message({
           message: "两次密码不一致",
           type: "warning"
         });
@@ -94,17 +99,10 @@ export default {
         store.state.isLodingLogin = true;
         _post("/merchant/user", parse).then(res => {
           store.state.isLodingLogin = false;
-          if (res.code == "200") {
-            return this.$message.closeAll();this.$message({
+            return this.$message.closeAll(),this.$message({
               message: "注册成功,前往邮箱激活后方可登录",
               type: "warning"
             });
-          } else {
-            return this.$message.closeAll();this.$message({
-              message: res.message,
-              type: "warning"
-            });
-          }
         });
       }
     },

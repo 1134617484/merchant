@@ -15,9 +15,12 @@ export default {
       },
       // 规则
       rules: {
-        oldPWD: [{ required: true, message: "请输入原密码", trigger: "blur" }],
-        newPWD: [{ required: true, message: "请输入新密码", trigger: "blur" }],
-        newTowPWD: [{ required: true, message: "请输入重复新密码", trigger: "blur" }]
+        oldPWD: [{ required: true, message: "请输入原密码", trigger: "change" },
+      ],
+        newPWD: [{ required: true, message: "请输入新密码", trigger: "change" },
+        { required: true, validator: this.$rules.FormValidate.Form().validatePayPsdReg, trigger: 'change' }],
+        newTowPWD: [{ required: true, message: "请输入重复新密码", trigger: "change" },
+        { required: true, validator: this.$rules.FormValidate.Form().validatePayPsdReg, trigger: 'change' }]
       }
     };
   },
