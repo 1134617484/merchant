@@ -78,6 +78,14 @@ let tokenHeader = options => {
 //响应拦截器
 axios.interceptors.response.use(
   response => {
+    if(response.config.method!=='get'){
+      new Vue().$message.closeAll(),new Vue().$message({
+        showClose: true,
+        duration: 1000,
+        message: response.data.message,
+        type: "success"
+      });
+    }
     return response;
   },
   err => {

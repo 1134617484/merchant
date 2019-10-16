@@ -95,12 +95,7 @@ export default {
             
             this.dialogFormVerify = false;
             this.handleSearch();
-          }).catch(error => {
-            this.$message.closeAll();this.$message({
-              message: "提交失败",
-              type: "error"
-            });
-          });
+          })
 
         } else {
           //console.log('error submit!!');
@@ -128,12 +123,7 @@ export default {
             
             this.dialogFormTransfer = false;
             this.handleSearch();
-          }).catch(error => {
-            this.$message.closeAll();this.$message({
-              message: "提交失败",
-              type: "error"
-            });
-          });
+          })
 
         } else {
           //console.log('error submit!!');

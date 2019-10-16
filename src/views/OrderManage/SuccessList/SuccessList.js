@@ -409,14 +409,7 @@ export default {
               });
               this.dialogFormCharge = false;
             })
-            .catch(error => {
-              this.$message.closeAll();this.$message({
-                message: "添加失败",
-                type: "error"
-              });
-            });
         } else {
-          //console.log("error submit!!");
           return false;
         }
       });
@@ -442,18 +435,7 @@ export default {
               type: "success"
             });
           })
-          .catch(error => {
-            this.$message.closeAll();this.$message({
-              message: "补发失败",
-              type: "error"
-            });
-          })
-          .catch(() => {
-            this.$message.closeAll();this.$message({
-              type: "info",
-              message: "已取消补发订单"
-            });
-          });
+
       });
     },
     handleSearch() {
@@ -486,18 +468,7 @@ export default {
               type: "success"
             });
           })
-          .catch(error => {
-            this.$message.closeAll();this.$message({
-              message: "冻结失败",
-              type: "error"
-            });
-          })
-          .catch(() => {
-            this.$message.closeAll();this.$message({
-              type: "info",
-              message: "已取消冻结设置"
-            });
-          });
+
       });
     },
     submitTransactionForm(formName) {

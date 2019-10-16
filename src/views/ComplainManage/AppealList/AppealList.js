@@ -141,12 +141,7 @@ export default {
             }
             this.dialogFormAppeal=false;
             this.handleSearch();
-          }).catch(error => {
-              this.$message.closeAll();this.$message({
-                message: "申诉失败",
-                type: "error"
-              });
-              })
+          })
         }else {
           //console.log("error submit!!");
           return false;

@@ -123,12 +123,7 @@ export default {
             this.Form.complain_type='';
             this.Form.complain_remark='';
             this.handleSearch();
-          }).catch(error => {
-              this.$message.closeAll();this.$message({
-                message: "投诉失败",
-                type: "error"
-              });
-              })
+          })
         }else {
           //console.log("error submit!!");
           return false;

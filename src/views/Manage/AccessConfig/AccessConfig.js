@@ -173,11 +173,6 @@ export default {
               message: "删除成功",
               type: "success"
             });
-          }).catch(error => {
-            this.$message.closeAll();this.$message({
-              message: "删除失败",
-              type: "error"
-            });
           })
         }).catch(() => {
           this.$message.closeAll();this.$message({
@@ -210,12 +205,7 @@ export default {
                   message: "编辑成功",
                   type: "success"
                 });
-              }).catch(error => {
-                this.$message.closeAll();this.$message({
-                  message: "编辑失败",
-                  type: "error"
-                });
-              });
+              })
               this.outerVisible = false;
             })
             .catch(() => {
@@ -280,12 +270,7 @@ export default {
               type: "success"
             });
             this.dialogFormVisible = false;
-          }).catch(error => {
-            this.$message.closeAll();this.$message({
-              message: "添加失败",
-              type: "error"
-            });
-          });
+          })
 
         } else {
           //console.log('error submit!!');
