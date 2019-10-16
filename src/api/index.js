@@ -81,7 +81,6 @@ axios.interceptors.response.use(
     if(response.config.method!=='get'){
       new Vue().$message.closeAll(),new Vue().$message({
         showClose: true,
-        duration: 1000,
         message: response.data.message,
         type: "success"
       });
@@ -98,7 +97,6 @@ axios.interceptors.response.use(
       console.clear();
       return new Vue().$message.closeAll(),new Vue().$message({
           showClose: true,
-          duration: 1000,
           message: response.message,
           type: "warning"
         });
