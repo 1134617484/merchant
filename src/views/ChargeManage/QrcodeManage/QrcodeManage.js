@@ -31,7 +31,7 @@ export default {
             }
           // _post("merchant/user/profile-submit", params).then(res => {
           //   if(res.data){
-          //     this.$message({
+          //     this.$message.closeAll();this.$message({
           //       message: "提交成功",
           //       type: "success"
           //     });
@@ -66,7 +66,7 @@ export default {
       fd.append("file", file);
       _post("api/sysqrcode", fd).then(res => {
         if(res.data){
-          this.$message({
+          this.$message.closeAll();this.$message({
             message: "上传成功",
             type: "success"
           });
@@ -80,7 +80,7 @@ export default {
       fd.append("file", file);
       // _post("api/sysqrcode", fd).then(res => {
       //   if(res.data){
-      //     this.$message({
+      //     this.$message.closeAll();this.$message({
       //       message: "上传成功",
       //       type: "success"
       //     });

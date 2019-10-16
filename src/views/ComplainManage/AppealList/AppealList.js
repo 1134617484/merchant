@@ -134,7 +134,7 @@ export default {
             }
           _post("merchant/appeal", params).then(res => {
             if(res.data){
-              this.$message({
+              this.$message.closeAll();this.$message({
                 message: "申诉成功",
                 type: "success"
               });
@@ -142,7 +142,7 @@ export default {
             this.dialogFormAppeal=false;
             this.handleSearch();
           }).catch(error => {
-              this.$message({
+              this.$message.closeAll();this.$message({
                 message: "申诉失败",
                 type: "error"
               });

@@ -362,7 +362,7 @@ export default {
       };
       _put("api/channel/status/" + row.id, params).then(res => {
         this.handleSearch();
-        this.$message({
+        this.$message.closeAll();this.$message({
           message: "状态修改成功",
           type: "success"
         });
@@ -413,14 +413,14 @@ export default {
           };
           _post("api/merchant/charge/" + this.chargeId, params)
             .then(res => {
-              this.$message({
+              this.$message.closeAll();this.$message({
                 message: "添加成功",
                 type: "success"
               });
               this.dialogFormCharge = false;
             })
             .catch(error => {
-              this.$message({
+              this.$message.closeAll();this.$message({
                 message: "添加失败",
                 type: "error"
               });
@@ -470,7 +470,7 @@ export default {
           })
             .then(() => {
               _get("api/order/paid/" + this.TransactionForm.id).then(res => {
-                this.$message({
+                this.$message.closeAll();this.$message({
                   type: "success",
                   message: "设置成功!"
                 });
@@ -479,7 +479,7 @@ export default {
               });
             })
             .catch(() => {
-              this.$message({
+              this.$message.closeAll();this.$message({
                 type: "info",
                 message: "已取消设置"
               });

@@ -34,7 +34,7 @@ export default {
      this.CopyInquireKey(data);
     })
     }).catch(() => {
-      this.$message({
+      this.$message.closeAll();this.$message({
         type: 'info',
         message: '取消输入'
       });       
@@ -46,9 +46,7 @@ export default {
       },
       // 统一处理复制
       Clipboard(ele) {
-        console.log(ele)
         var clipboard = new Clipboard(ele);
-        console.log(clipboard)
         clipboard.on("success", e => {
           this.$message.success("复制成功");
           // 释放内存

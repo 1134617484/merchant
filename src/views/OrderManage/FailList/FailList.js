@@ -450,14 +450,14 @@ export default {
           };
           _post("api/merchant/charge/" + this.chargeId, params)
             .then(res => {
-              this.$message({
+              this.$message.closeAll();this.$message({
                 message: "添加成功",
                 type: "success"
               });
               this.dialogFormCharge = false;
             })
             .catch(error => {
-              this.$message({
+              this.$message.closeAll();this.$message({
                 message: "添加失败",
                 type: "error"
               });
@@ -499,19 +499,19 @@ export default {
         _get("api/order/freeze/" + row.id)
           .then(res => {
             this.handleSearch();
-            this.$message({
+            this.$message.closeAll();this.$message({
               message: "冻结成功",
               type: "success"
             });
           })
           .catch(error => {
-            this.$message({
+            this.$message.closeAll();this.$message({
               message: "冻结失败",
               type: "error"
             });
           })
           .catch(() => {
-            this.$message({
+            this.$message.closeAll();this.$message({
               type: "info",
               message: "已取消冻结设置"
             });
@@ -528,19 +528,19 @@ export default {
         _get("api/order/reissue/" + row.pay_order_id)
           .then(res => {
             this.handleSearch();
-            this.$message({
-              message: "冻补发成功",
+            this.$message.closeAll();this.$message({
+              message: res.code||"补发成功",
               type: "success"
             });
           })
           .catch(error => {
-            this.$message({
+            this.$message.closeAll();this.$message({
               message: "补发失败",
               type: "error"
             });
           })
           .catch(() => {
-            this.$message({
+            this.$message.closeAll();this.$message({
               type: "info",
               message: "已取消补发订单"
             });
@@ -565,7 +565,7 @@ export default {
           })
             .then(() => {
               _get("api/order/paid/" + this.TransactionForm.id).then(res => {
-                this.$message({
+                this.$message.closeAll();this.$message({
                   type: "success",
                   message: "设置成功!"
                 });
@@ -573,7 +573,7 @@ export default {
               });
             })
             .catch(() => {
-              this.$message({
+              this.$message.closeAll();this.$message({
                 type: "info",
                 message: "已取消设置"
               });

@@ -26,7 +26,7 @@ export default {
       this.$refs[formName].validate(valid => {
         if (valid) {
           if(this.ruleForm.newPWD!=this.ruleForm.newTowPWD){
-            this.$message({
+            this.$message.closeAll();this.$message({
               message: "两次密码不一致",
               type: "error"
             });
@@ -39,7 +39,7 @@ export default {
           _post("merchant/user/reset-paypassword",params).then(res => {
             //console.log(res)
             if(res.data){
-              this.$message({
+              this.$message.closeAll();this.$message({
                 message: "修改密码成功",
                 type: "success"
               });

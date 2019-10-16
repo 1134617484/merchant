@@ -201,7 +201,7 @@ pcaa: pcaa,
       _get("merchant/bankcard/toggle/" + row.id).then(res => {
         this.handleSearch();
         if(res.data)return
-        this.$message({
+        this.$message.closeAll();this.$message({
           message: "状态修改成功",
           type: "success"
         });
@@ -236,7 +236,7 @@ pcaa: pcaa,
               _put("merchant/bankcard/" + this.editForm.id, params).then(res => {
                 this.handleSearch();
                 if(res.data)return
-                this.$message({
+                this.$message.closeAll();this.$message({
                   message: "编辑成功",
                   type: "success"
                 });
@@ -244,7 +244,7 @@ pcaa: pcaa,
               this.outerVisible = false;
             })
             .catch(() => {
-              this.$message({
+              this.$message.closeAll();this.$message({
                 type: "info",
                 message: "已取消修改"
               });
@@ -273,7 +273,7 @@ pcaa: pcaa,
     isAddUser() {
       this.dialogFormVisible = false;
       if(res.data)return
-      this.$message({
+      this.$message.closeAll();this.$message({
         message: "添加成功",
         type: "success"
       });
@@ -296,7 +296,7 @@ pcaa: pcaa,
       _post("merchant/bankcard", params).then(res => {
           console.log(res)
           this.getTableData("");
-            this.$message({
+            this.$message.closeAll();this.$message({
             message: "添加成功",
             type: "success"
           });
@@ -304,7 +304,7 @@ pcaa: pcaa,
           this.editor_tableData = { ...this.editor };
           this.dialogFormVisible = false;
         }).catch(err => {
-          // this.$message({
+          // this.$message.closeAll();this.$message({
           //   message: "添加失败",
           //   type: "error"
           // });
@@ -339,14 +339,14 @@ pcaa: pcaa,
             _put("api/admin/repwd/" + this.EditorPasswordData.id, params)
               .then(res => {
                 this.dialogPassword = false;
-                this.$message({
+                this.$message.closeAll();this.$message({
                   message: "修改成功",
                   type: "success"
                 });
                 this.dialogFormVisible = false;
               })
               .catch(err => {
-                // this.$message({
+                // this.$message.closeAll();this.$message({
                 //   message: "修改失败",
                 //   type: "error"
                 // });

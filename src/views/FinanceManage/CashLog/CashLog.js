@@ -87,7 +87,7 @@ export default {
           };
           _post("api/cash-log/review/" + this.VerifyForm.id, params).then(res => {
             if(res.data){
-              this.$message({
+              this.$message.closeAll();this.$message({
                 message: "提交成功",
                 type: "success"
               });
@@ -96,7 +96,7 @@ export default {
             this.dialogFormVerify = false;
             this.handleSearch();
           }).catch(error => {
-            this.$message({
+            this.$message.closeAll();this.$message({
               message: "提交失败",
               type: "error"
             });
@@ -120,7 +120,7 @@ export default {
           };
           _post("api/cash-log/transfer/" + this.TransferForm.id, params).then(res => {
             if(res.data){
-              this.$message({
+              this.$message.closeAll();this.$message({
                 message: "提交成功",
                 type: "success"
               });
@@ -129,7 +129,7 @@ export default {
             this.dialogFormTransfer = false;
             this.handleSearch();
           }).catch(error => {
-            this.$message({
+            this.$message.closeAll();this.$message({
               message: "提交失败",
               type: "error"
             });

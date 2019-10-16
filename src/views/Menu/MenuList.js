@@ -97,7 +97,7 @@
      // 全屏模式
      screenfull() {
        if (!screenfull.enabled) {
-         this.$message({
+         this.$message.closeAll();this.$message({
            message: "您的浏览器无法进入全屏模式",
            type: "warning"
          });
@@ -152,7 +152,7 @@
           //console.log(this.userMsg)
           this.userMsg.logo=url;
           localStorage.setItem('userInfo',JSON.stringify(this.userMsg))
-          this.$message({
+          this.$message.closeAll();this.$message({
            message: "上传成功",
            type: "success"
          });

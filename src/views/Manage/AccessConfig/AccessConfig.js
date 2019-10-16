@@ -126,7 +126,7 @@ export default {
       _get("api/permission/switch/" + row.id).then(res => {
         this.handleSearch();
         if(res.data)return
-        this.$message({
+        this.$message.closeAll();this.$message({
           message: "状态修改成功",
           type: "success"
         });
@@ -138,7 +138,7 @@ export default {
       _get("api/permission/toggle/" + row.id).then(res => {
         this.handleSearch();
         if(res.data)return
-        this.$message({
+        this.$message.closeAll();this.$message({
           message: "状态修改成功",
           type: "success"
         });
@@ -169,18 +169,18 @@ export default {
           _delete("api/permission/" + row.id).then(res => {
             this.handleSearch();
             if(res.data)return
-            this.$message({
+            this.$message.closeAll();this.$message({
               message: "删除成功",
               type: "success"
             });
           }).catch(error => {
-            this.$message({
+            this.$message.closeAll();this.$message({
               message: "删除失败",
               type: "error"
             });
           })
         }).catch(() => {
-          this.$message({
+          this.$message.closeAll();this.$message({
             type: "info",
             message: "已取消删除"
           });
@@ -206,12 +206,12 @@ export default {
               _put("api/permission/" + this.editForm.id, params).then(res => {
                 this.handleSearch();
                 if(res.data)return
-                this.$message({
+                this.$message.closeAll();this.$message({
                   message: "编辑成功",
                   type: "success"
                 });
               }).catch(error => {
-                this.$message({
+                this.$message.closeAll();this.$message({
                   message: "编辑失败",
                   type: "error"
                 });
@@ -219,7 +219,7 @@ export default {
               this.outerVisible = false;
             })
             .catch(() => {
-              this.$message({
+              this.$message.closeAll();this.$message({
                 type: "info",
                 message: "已取消修改"
               });
@@ -275,13 +275,13 @@ export default {
           _post("api/permission", params).then(res => {
             this.getTableData();
             if(res.data)return
-            this.$message({
+            this.$message.closeAll();this.$message({
               message: "添加成功",
               type: "success"
             });
             this.dialogFormVisible = false;
           }).catch(error => {
-            this.$message({
+            this.$message.closeAll();this.$message({
               message: "添加失败",
               type: "error"
             });

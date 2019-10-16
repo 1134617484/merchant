@@ -83,13 +83,12 @@ export default {
     },
     submitForm(formName) {
       if(this.Form.birthday==''||this.Form.birthday==null||this.Form.birthday==undefined){
-        return this.$message({
+        return this.$message.closeAll();this.$message({
           message: "生日不能为空",
           type: "warning"
         });
       }
       this.$refs[formName].validate(valid => {
-        console.log(this.Form)
         if (valid) {
            let params = {
             realname: this.Form.realname,
@@ -103,7 +102,7 @@ export default {
             }
           _post("merchant/user/profile-submit", params).then(res => {
             if(res.data){
-              this.$message({
+              this.$message.closeAll();this.$message({
                 message: "提交成功",
                 type: "success"
               });

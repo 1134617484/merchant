@@ -64,13 +64,13 @@
           
            <label>
                <el-select v-model="orderInquire.pay_type_id" placeholder="支付分类">
-                   <el-option v-for="(item,index) in chanelOptions" :key="index" :label="item.title" :value="item.id">
+                   <el-option v-for="(item,index) in typeOptions" :key="index" :label="item.name" :value="item.id">
                    </el-option>
                </el-select>
            </label>
            <label>
                <el-select v-model="orderInquire.channel_id" placeholder="请选择通道">
-                   <el-option v-for="(item,index) in typeOptions" :key="index" :label="item.name" :value="item.id">
+                   <el-option v-for="(item,index) in chanelOptions" :key="index" :label="item.title" :value="item.id">
                    </el-option>
                </el-select>
            </label>

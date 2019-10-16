@@ -30,7 +30,7 @@ export default {
     login() {
       let { username, password } = this.numberValidateForm;
       if (!username || !password) {
-        return this.$message({
+        return this.$message.closeAll();this.$message({
           message: "账户和密码不能为空",
           type: "warning"
         });
@@ -44,7 +44,7 @@ export default {
           if (res.code != 200) {
             setTimeout(() => {
               store.state.isLodingLogin = false;
-              this.$message({
+              this.$message.closeAll();this.$message({
                 showClose: true,
                 message: res.message,
                 type: "error"
@@ -68,7 +68,7 @@ export default {
                 store.state.isLodingLogin = false;
                 store.state.user_data=res.data.data;
                 this.$router.push("/index");
-                this.$message({
+                this.$message.closeAll();this.$message({
                   showClose: true,
                   message: "登录成功",
                   type: "success"
@@ -83,7 +83,7 @@ export default {
       }
       // 验证密码长度
       this.password = "";
-      return this.$message({
+      return this.$message.closeAll();this.$message({
         message: "密码长度为6-16位数字或字母",
         type: "warning"
       });

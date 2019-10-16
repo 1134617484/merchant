@@ -124,7 +124,7 @@ export default {
             this.Form.complain_remark='';
             this.handleSearch();
           }).catch(error => {
-              this.$message({
+              this.$message.closeAll();this.$message({
                 message: "投诉失败",
                 type: "error"
               });
