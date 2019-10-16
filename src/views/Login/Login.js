@@ -1,11 +1,11 @@
 import store from "../../store/store.js";
-import { userLogin, getUserMsg } from "../../api/index.js";
+import { userLogin, getUserMsg ,LoginPasswordReg} from "../../api/index.js";
 export default {
   data() {
     return {
       numberValidateForm:{
         username: "acoll",
-        password: "123456",
+        password: "qwe123456",
       },
       auth_code:"",
       loading: store.state.isLodingLogin,
@@ -36,7 +36,7 @@ export default {
         });
       }
       // 密码长度
-      if (password.length >= 6 && password.length <= 16) {
+      if (LoginPasswordReg.test(password)) {
         // loading加载
         store.state.isLodingLogin = true;
         userLogin({ username, password }).then(res => {
@@ -82,7 +82,6 @@ export default {
         return;
       }
       // 验证密码长度
-      this.password = "";
       return this.$message.closeAll(),this.$message({
         message: "请输入6-16位数字+字母组合的密码",
         type: "warning"
