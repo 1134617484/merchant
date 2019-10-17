@@ -78,13 +78,16 @@ let tokenHeader = options => {
 //响应拦截器
 axios.interceptors.response.use(
   response => {
-    if(response.config.method!=='get'){
-      new Vue().$message.closeAll(),new Vue().$message({
-        showClose: true,
-        message: response.data.message,
-        type: "success"
-      });
+    if(response.config.method=='get'){
+      return response;
+    }else if(response.config.url.indexOf('/token/login')!==-1){
+      return response;
     }
+    new Vue().$message.closeAll();new Vue().$message({
+      showClose: true,
+      message: response.data.message,
+      type: "success"
+    });
     return response;
   },
   err => {
@@ -94,7 +97,7 @@ axios.interceptors.response.use(
       //console.log("统一错误处理: ", response);
       response.code == 402 ? tokenHeader({ response, code: "402" }) : "";
       store.state.isLodingLogin = false;
-      console.clear();
+      // console.clear();
       new Vue().$message.closeAll();
         new Vue().$message({
         showClose: true,

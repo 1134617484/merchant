@@ -121,7 +121,7 @@
         >
           <el-input
             placeholder="所在省:"
-            v-model="editForm.province"
+            v-model="editForm.editForm"
             autocomplete="off"
             disabled
           ></el-input>
@@ -179,7 +179,7 @@
       title="添加信息"
       class="text-left addClass"
       width="816px"
-      :visible.sync="dialogFormVisible"
+      :visible.sync="dialogFormVisible" 
     >
       
       <el-form ref="addForm" :model="editor_tableData" :rules="rules.editor_tableData">

@@ -11,8 +11,8 @@ export default {
       name: "",
       phone: "",
       email: "",
-pca: pca,
-pcaa: pcaa,
+      pca: pca,//省市
+      pcaa: pcaa,//省市
       // 管理员信息数据
       tableData: [],
       //分页参数
@@ -62,7 +62,7 @@ pcaa: pcaa,
               trigger: "change"
             },
           ],
-          region:[]
+          region:[{required: true, message:'请选择开卡地址', trigger: 'change'}]
         },
 
       },
@@ -127,17 +127,18 @@ pcaa: pcaa,
         city: "", //城市
         default: "", //默认结算
         province: "", //省
-        sub_branch: "" //支行名字
+        sub_branch: "" ,//支行名字,
+        
       },
       editor_tableData: {
-        region:[],
+        region:[],//选择开卡地址
       },
       OpeningBankVal: "", //开户行id
       OpeningBank: "", //开户行选项,
     };
   },
   created() {
-    this.editor_tableData = { ...this.editor,region:[] };
+    this.editor_tableData = { ...this.editor,region:[]};
     this.getTableData("");
     this.getSelectData();
   },
@@ -191,13 +192,10 @@ pcaa: pcaa,
     // 编辑管理员信息
     handleEdit(index, row) {
       this.editForm={...row};
-      //console.log(this.editForm)
       this.outerVisible = true;
     },
     //修改管理员列表状态
     handleStatus(index, row) {
-      //console.log(row)
-      //console.log(this.tableData)
       _get("merchant/bankcard/toggle/" + row.id).then(res => {
         this.handleSearch();
         if(res.data)return
@@ -209,22 +207,10 @@ pcaa: pcaa,
     },
     isUpdate(formName) {
       this.$refs[formName].validate(valid => {
-        //console.log(this.editForm)
         if (valid) {
           let params = {
-            // account_name: this.editor_tableData.account_name,
-            // bank_id: this.OpeningBankVal||'',
-            // card_number: this.editor_tableData.card_number,
-            // sub_branch: this.editor_tableData.sub_branch,
-            // province:this.editor_tableData.region.length>0?this.editor_tableData.region[0]:'',
-            // city:this.editor_tableData.region.length>1?this.editor_tableData.region[1]:'',
             alias:this.editForm.alias,
             remark:this.editForm.remark,
-            // name: this.editForm.name,
-            // email: this.editForm.email,
-            // mobile: this.editForm.mobile,
-            // password: this.editForm.editPassword,
-            // introduction: this.editForm.introduction,
             id: this.editForm.id
           };
           this.$confirm("确定修改吗?", "提示", {
@@ -235,11 +221,12 @@ pcaa: pcaa,
             .then(() => {
               _put("merchant/bankcard/" + this.editForm.id, params).then(res => {
                 this.handleSearch();
-                if(res.data)return
-                this.$message.closeAll();this.$message({
-                  message: "编辑成功",
-                  type: "success"
-                });
+                if(res.data){
+                  this.$message.closeAll();this.$message({
+                    message: "编辑成功",
+                    type: "success"
+                  });
+                }
               });
               this.outerVisible = false;
             })
@@ -251,7 +238,6 @@ pcaa: pcaa,
               this.outerVisible = false;
             });
         } else {
-          //console.log("error submit!!");
           return false;
         }
       });
@@ -280,7 +266,11 @@ pcaa: pcaa,
     },
     // 添加银行卡
     submitForm() {
-      //console.log(this.editor_tableData);
+      console.log(this.editor_tableData);
+      if(this.editor_tableData.region.length<1){return this.$message({
+        message: "请重新选择开卡地址",
+        type: "warning"
+      });}
       let params = {
         account_name: this.editor_tableData.account_name,
         bank_id: this.OpeningBankVal||'',
@@ -301,23 +291,12 @@ pcaa: pcaa,
             type: "success"
           });
           // 提交成功清空表单
-          this.editor_tableData = { ...this.editor };
+          this.editor_tableData = { ...this.editor,region:this.editor_tableData.region };
           this.dialogFormVisible = false;
-        }).catch(err => {
-          // this.$message.closeAll();this.$message({
-          //   message: "添加失败",
-          //   type: "error"
-          // });
-        });
-      //   } else {
-      //     //console.log("error submit!!");
-      //     return false;
-      //   }
-      // });
+        })
     },
     // 头像上传
     handleRemove(file, fileList) {
-      //console.log(file, fileList);
     },
     handlePictureCardPreview(file) {
       this.dialogImageUrl = file.url;
@@ -345,12 +324,6 @@ pcaa: pcaa,
                 });
                 this.dialogFormVisible = false;
               })
-              .catch(err => {
-                // this.$message.closeAll();this.$message({
-                //   message: "修改失败",
-                //   type: "error"
-                // });
-              });
           }
           break;
         default:
